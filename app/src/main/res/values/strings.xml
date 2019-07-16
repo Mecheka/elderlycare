@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Elderlycare</string>
+    <string name="register">ลงทะเบียน</string>
+    <string name="welcome_login">ลงชื่อเข้าใช้</string>
+    <string name="passportId">เลขบัตรประชาชน</string>
+    <string name="orsomoId">รหัสประจำตัว อสม.</string>
+    <string name="healthId">รหัสประจำตัวเจ้าหน้าที่สาธารณะสุข</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="name">ชื่อ</string>
+    <string name="lastName">นามสกุล</string>
+    <string name="datetime">วัน/เดือน/ปี</string>
+    <string name="sex">เพศ</string>
+    <string name="address">ที่อยู่</string>
+    <string name="phone">เบอร์โทรศัพท์</string>
+    <string name="orsomo">อสม.</string>
+    <string name="health">สาธารณะสุข</string>
+    <string name="person">ประชาชนทั่วไป</string>
 </resources>
