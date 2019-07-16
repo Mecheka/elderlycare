@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Elderlycare</string>
+
     <string name="register">ลงทะเบียน</string>
     <string name="welcome_login">ลงชื่อเข้าใช้</string>
+
     <string name="passportId">เลขบัตรประชาชน</string>
     <string name="orsomoId">รหัสประจำตัว อสม.</string>
     <string name="healthId">รหัสประจำตัวเจ้าหน้าที่สาธารณะสุข</string>
@@ -12,7 +14,20 @@
     <string name="sex">เพศ</string>
     <string name="address">ที่อยู่</string>
     <string name="phone">เบอร์โทรศัพท์</string>
+
     <string name="orsomo">อสม.</string>
     <string name="health">สาธารณะสุข</string>
     <string name="person">ประชาชนทั่วไป</string>
+    <string name="menu_elderly">ผู้สูงอายุของฉัน</string>
+    <string name="menu_evaluation">แบบประเมิน</string>
+    <string name="menu_file">ไฟล์เอกสาร</string>
+    <string name="menu_knowlege">ความรู้ อสม.</string>
+    <string name="menu_news">ข่าวสาร</string>
+    <string name="menu_notification">การแจ้งเตือน</string>
+    <string name="menu_chat">สนทนา</string>
+
+    <string-array name="gender">
+        <item>ชาย</item>
+        <item>หญิง</item>
+    </string-array>
 </resources>

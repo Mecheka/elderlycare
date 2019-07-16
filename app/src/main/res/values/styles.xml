@@ -14,4 +14,9 @@
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/robotoregular</item>
     </style>
+
+    <style name="BaseDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowMinWidthMajor">75%</item>
+        <item name="android:windowMinWidthMinor">75%</item>
+    </style>
 </resources>

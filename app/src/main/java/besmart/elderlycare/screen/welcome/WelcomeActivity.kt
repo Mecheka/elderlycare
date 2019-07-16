@@ -1,10 +1,11 @@
-package besmart.elderlycare
+package besmart.elderlycare.screen.welcome
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import besmart.elderlycare.screen.SelectUserTypeActivity
+import besmart.elderlycare.R
+import besmart.elderlycare.screen.selectusertype.SelectUserTypeActivity
 
 class WelcomeActivity : AppCompatActivity() {
 

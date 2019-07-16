@@ -1,9 +1,10 @@
-package besmart.elderlycare
+package besmart.elderlycare.screen.splach
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
+import besmart.elderlycare.R
+import besmart.elderlycare.screen.welcome.WelcomeActivity
 import kotlinx.android.synthetic.main.activity_splach_screen.*
 
 class SplachScreenActivity : AppCompatActivity() {

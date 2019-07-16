@@ -11,18 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.LoginActivity"></activity>
-        <activity android:name=".screen.RegisterActivity" />
-        <activity android:name=".screen.SelectUserTypeActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".SplachScreenActivity">
+        <activity android:name=".screen.elderly.ElderlyActivity"></activity>
+        <activity android:name=".screen.login.LoginActivity" />
+        <activity android:name=".screen.register.RegisterActivity" />
+        <activity android:name=".screen.selectusertype.SelectUserTypeActivity" />
+        <activity android:name=".screen.welcome.WelcomeActivity" />
+        <activity android:name=".screen.splach.SplachScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".screen.main.MainActivity" />
     </application>
 
 </manifest>

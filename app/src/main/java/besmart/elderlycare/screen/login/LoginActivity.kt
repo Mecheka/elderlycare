@@ -1,11 +1,16 @@
-package besmart.elderlycare.screen
+package besmart.elderlycare.screen.login
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityLoginBinding
+import besmart.elderlycare.screen.SelectType
+import besmart.elderlycare.screen.main.MainActivity
 import kotlinx.android.synthetic.main.activity_select_user_type.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -40,6 +45,16 @@ class LoginActivity : AppCompatActivity() {
             SelectType.ORSOMO -> getString(R.string.orsomoId)
             SelectType.HEALTH -> getString(R.string.healthId)
             else -> getString(R.string.passportId)
+        }
+    }
+
+    fun onLoginClick(view: View) {
+        Intent().apply {
+            this.setClass(this@LoginActivity, MainActivity::class.java)
+            this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            this.putExtra(SelectType.SELECTTYPE, selectType)
+            startActivity(this)
+            this@LoginActivity.finish()
         }
     }
 }

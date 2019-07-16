@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textSize" format="dimension"/>
+    <attr name="hintText" format="string" localization="suggested"/>
+
+    <declare-styleable name="EditTextWithSpinner">
+        <attr name="android:text"/>
+        <attr name="textSize"/>
+        <attr name="hintText"/>
+    </declare-styleable>
+</resources>

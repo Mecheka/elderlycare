@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen
+package besmart.elderlycare.screen.selectusertype
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import besmart.elderlycare.screen.SelectType.Companion.HEALTH
 import besmart.elderlycare.screen.SelectType.Companion.ORSOMO
 import besmart.elderlycare.screen.SelectType.Companion.PERSON
 import besmart.elderlycare.screen.SelectType.Companion.SELECTTYPE
+import besmart.elderlycare.screen.login.LoginActivity
+import besmart.elderlycare.screen.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_select_user_type.*
 
 class SelectUserTypeActivity : AppCompatActivity() {
