@@ -39,6 +39,7 @@
             app:layout_rowWeight="1">
 
             <androidx.cardview.widget.CardView
+                android:onClick="onCalendarClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
@@ -74,6 +75,7 @@
             app:layout_rowWeight="1">
 
             <androidx.cardview.widget.CardView
+                android:onClick="onElderlyProfileClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
@@ -109,6 +111,7 @@
             app:layout_rowWeight="1">
 
             <androidx.cardview.widget.CardView
+                android:onClick="onGPSClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"

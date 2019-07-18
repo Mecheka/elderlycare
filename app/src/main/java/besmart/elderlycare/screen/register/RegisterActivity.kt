@@ -11,12 +11,13 @@ import besmart.elderlycare.screen.SelectType.Companion.HEALTH
 import besmart.elderlycare.screen.SelectType.Companion.ORSOMO
 import besmart.elderlycare.screen.SelectType.Companion.PERSON
 import besmart.elderlycare.screen.SelectType.Companion.SELECTTYPE
-import besmart.elderlycare.util.DateInputMask
+import com.layernet.thaidatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_select_user_type.*
+import java.util.*
 
 
 class RegisterActivity : AppCompatActivity(),
-    SpinerAdapter.OnSpinnerItemClick {
+    SpinerAdapter.OnSpinnerItemClick, DatePickerDialog.OnDateSetListener {
 
     private lateinit var binding: ActivityRegisterBinding
 
@@ -35,7 +36,18 @@ class RegisterActivity : AppCompatActivity(),
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        DateInputMask(binding.editDate).listen()
+
+        binding.editDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val dp = DatePickerDialog.newInstance(
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            dp.show(fragmentManager, "DatePicker")
+        }
+
         val genderList = resources.getStringArray(R.array.gender).toList()
         binding.txtGender.setAdapter(
             SpinerAdapter(
@@ -47,6 +59,17 @@ class RegisterActivity : AppCompatActivity(),
         if (selectType == PERSON){
             binding.employeeLayout.visibility = View.GONE
         }
+    }
+
+    override fun onSpinnerItemClick(text: String, view: View) {
+        binding.txtGender.text = text
+        binding.txtGender.dialog?.dismiss()
+    }
+
+    override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val newYear = year+543
+        val date = "$dayOfMonth/$monthOfYear/$newYear"
+        binding.editDate.setText(date)
     }
 
     private fun getTitleByType(): String {
@@ -63,10 +86,5 @@ class RegisterActivity : AppCompatActivity(),
             SelectType.HEALTH -> getString(R.string.healthId)
             else -> getString(R.string.passportId)
         }
-    }
-
-    override fun onSpinnerItemClick(text: String, view: View) {
-        binding.txtGender.text = text
-        binding.txtGender.dialog?.dismiss()
     }
 }

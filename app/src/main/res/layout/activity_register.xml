@@ -125,12 +125,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <androidx.appcompat.widget.AppCompatEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/datetime"
-                            android:inputType="date"
+                            android:inputType="none"
+                            android:clickable="false"
+                            android:editable="false"
+                            android:longClickable="false"
+                            android:cursorVisible="false"
+                            android:textIsSelectable="true"
                             android:selectAllOnFocus="false"
                             android:singleLine="true" />
 

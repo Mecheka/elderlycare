@@ -11,7 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.elderly.ElderlyActivity"></activity>
+        <activity android:name=".screen.profile.ProfileActivity"></activity>
+        <activity android:name=".screen.chat.ChatActivity" />
+        <activity android:name=".screen.notification.NotificationActivity" />
+        <activity android:name=".screen.news.NewsActivity" />
+        <activity android:name=".screen.knowledge.KnowledgeActivity" />
+        <activity android:name=".screen.flie.FlieActivity" />
+        <activity android:name=".screen.gps.GpsActivity" />
+        <activity android:name=".screen.elderlyprofile.ElderlyProfileActivity" />
+        <activity android:name=".screen.calendar.CalendarActivity" />
+        <activity android:name=".screen.elderly.ElderlyActivity" />
         <activity android:name=".screen.login.LoginActivity" />
         <activity android:name=".screen.register.RegisterActivity" />
         <activity android:name=".screen.selectusertype.SelectUserTypeActivity" />
