@@ -154,11 +154,27 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <besmart.elderlycare.witget.EditTextWithSpinner
-                        android:id="@+id/txt_gender"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout7"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:hintText="@string/sex"/>
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/sex"
+                            android:inputType="none"
+                            android:clickable="false"
+                            android:editable="false"
+                            android:longClickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:textIsSelectable="true"
+                            android:selectAllOnFocus="false"
+                            android:singleLine="true" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayout8"

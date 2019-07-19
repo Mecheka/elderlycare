@@ -2,7 +2,7 @@ package besmart.elderlycare.model.register
 
 data class RegisterRequest(
     var typeID: Int,
-    var staffID: String,
+    var staffID: String? = null,
     var cardID: String,
     var password: String,
     var verifyPassword: String,

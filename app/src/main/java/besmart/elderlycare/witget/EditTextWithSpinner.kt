@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
 import besmart.elderlycare.databinding.WidgetEdittextWithSpinnerBinding
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 
 class EditTextWithSpinner @JvmOverloads constructor(
     context: Context, attrs: AttributeSet, defStyleAttr: Int = 0

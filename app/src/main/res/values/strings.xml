@@ -4,6 +4,7 @@
     <string name="register">ลงทะเบียน</string>
     <string name="welcome_login">ลงชื่อเข้าใช้</string>
 
+    <!-- form register -->
     <string name="passportId">เลขบัตรประชาชน</string>
     <string name="orsomoId">รหัสประจำตัว อสม.</string>
     <string name="healthId">รหัสประจำตัวเจ้าหน้าที่สาธารณะสุข</string>
@@ -15,6 +16,7 @@
     <string name="address">ที่อยู่</string>
     <string name="phone">เบอร์โทรศัพท์</string>
 
+    <!-- Staff -->
     <string name="orsomo">อสม.</string>
     <string name="health">สาธารณะสุข</string>
     <string name="person">ประชาชนทั่วไป</string>
@@ -35,4 +37,8 @@
         <item>ชาย</item>
         <item>หญิง</item>
     </string-array>
+
+    <!-- dailog button -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
 </resources>

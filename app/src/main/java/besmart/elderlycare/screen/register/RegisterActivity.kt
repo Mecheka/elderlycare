@@ -3,8 +3,6 @@ package besmart.elderlycare.screen.register
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
@@ -13,16 +11,18 @@ import besmart.elderlycare.screen.SelectType.Companion.HEALTH
 import besmart.elderlycare.screen.SelectType.Companion.ORSOMO
 import besmart.elderlycare.screen.SelectType.Companion.PERSON
 import besmart.elderlycare.screen.SelectType.Companion.SELECTTYPE
-import besmart.elderlycare.screen.login.LoginActivity
+import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.welcome.WelcomeActivity
 import besmart.elderlycare.util.BaseDialog
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 import com.layernet.thaidatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_select_user_type.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-class RegisterActivity : AppCompatActivity(),
-    SpinerAdapter.OnSpinnerItemClick, DatePickerDialog.OnDateSetListener {
+class RegisterActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var binding: ActivityRegisterBinding
     private val viewModel: RegisterViewModel by viewModel()
@@ -58,17 +58,28 @@ class RegisterActivity : AppCompatActivity(),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
+            dp.maxDate = calendar
             dp.show(fragmentManager, "DatePicker")
         }
 
-        val genderList = resources.getStringArray(R.array.gender).toList()
-        binding.txtGender.setAdapter(
-            SpinerAdapter(
-                genderList,
-                binding.txtGender,
-                this
-            )
-        )
+        binding.editGender.setOnClickListener {
+            MaterialDialog(this).show {
+                listItems(R.array.gender) { _, index, text ->
+                    viewModel.genderId.set(index.toString())
+                    binding.editGender.setText(text)
+                }
+                positiveButton(R.string.dialog_ok)
+                negativeButton(R.string.dialog_cancel)
+            }
+        }
+//        val genderList = resources.getStringArray(R.array.gender).toList()
+//        binding.txtGender.setAdapter(
+//            SpinerAdapter(
+//                genderList,
+//                binding.txtGender,
+//                this
+//            )
+//        )
         if (selectType == PERSON) {
             binding.employeeLayout.visibility = View.GONE
         }
@@ -79,25 +90,35 @@ class RegisterActivity : AppCompatActivity(),
             BaseDialog.WarringDialog(this, it)
         })
 
-        viewModel.successLiveData.observe(this, Observer {
+        viewModel.successLiveData.observe(this, Observer { success ->
+            if (success) {
             Intent().apply {
-                this.setClass(this@RegisterActivity, LoginActivity::class.java)
+                this.setClass(this@RegisterActivity, WelcomeActivity::class.java)
                 this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(this)
                 this@RegisterActivity.finish()
             }
+            }
+        })
+
+        viewModel.loadingLiveData.observe(this, Observer { loading ->
+            if (loading) {
+                showLoadingDialog(this)
+            }else{
+                dismissDialog()
+            }
         })
     }
 
-    override fun onSpinnerItemClick(
-        text: String,
-        view: View,
-        position: Int
-    ) {
-        viewModel.genderId.set(position.toString())
-        binding.txtGender.text = text
-        binding.txtGender.dialog?.dismiss()
-    }
+//    override fun onSpinnerItemClick(
+//        text: String,
+//        view: View,
+//        position: Int
+//    ) {
+//        viewModel.genderId.set(position.toString())
+//        binding.txtGender.text = text
+//        binding.txtGender.dialog?.dismiss()
+//    }
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val newYear = year+543

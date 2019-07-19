@@ -63,7 +63,9 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
-
+    // Thai date piker
     implementation 'com.layer-net:thai-datetimepicker:1.0.3'
+    // Material dialog
+    implementation 'com.afollestad.material-dialogs:core:3.1.0'
 
 }
