@@ -10,6 +10,7 @@ import besmart.elderlycare.model.MenuItem
 import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.elderly.ElderlyActivity
 import besmart.elderlycare.screen.splach.SplachScreenActivity
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_select_user_type.toolbar
 
@@ -87,9 +88,11 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
     }
 
     fun onLogoutClick(view: View) {
+        Hawk.deleteAll()
         Intent().apply {
             this.setClass(this@MainActivity, SplachScreenActivity::class.java)
             startActivity(this)
+            finish()
         }
     }
 }

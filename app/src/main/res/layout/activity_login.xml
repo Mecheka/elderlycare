@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
+    <data>
+        <variable
+            name="viewModel"
+            type="besmart.elderlycare.screen.login.LoginViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -53,7 +57,9 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:singleLine="true"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewModel.usernameFiled}"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -64,6 +70,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/password"
+                            android:text="@={viewModel.password}"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,7 +81,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 style="@style/ButtonStyle"
-                android:onClick="onLoginClick"
+                android:onClick="@{()->viewModel.onLoginClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

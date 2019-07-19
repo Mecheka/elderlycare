@@ -21,7 +21,7 @@ class HandingNetworkError {
             }
         }
 
-        private fun getErrorMessage(responseBody: ResponseBody): String {
+        fun getErrorMessage(responseBody: ResponseBody): String {
             return try {
                 val jsonObject = JSONObject(responseBody.string())
                 jsonObject.getString("reason")

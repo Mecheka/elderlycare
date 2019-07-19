@@ -67,5 +67,7 @@ dependencies {
     implementation 'com.layer-net:thai-datetimepicker:1.0.3'
     // Material dialog
     implementation 'com.afollestad.material-dialogs:core:3.1.0'
+    // Hawk
+    implementation "com.orhanobut:hawk:2.0.1"
 
 }

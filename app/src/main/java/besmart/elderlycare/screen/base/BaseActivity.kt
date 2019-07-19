@@ -13,6 +13,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showLoadingDialog(context: Context) {
         dialog = AlertDialog.Builder(context)
+            .setCancelable(false)
             .setView(R.layout.dialog_loading).show()
     }
 

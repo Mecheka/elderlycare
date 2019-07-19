@@ -1,6 +1,8 @@
 package besmart.elderlycare.di
 
+import besmart.elderlycare.repository.LoginRepository
 import besmart.elderlycare.repository.RegisterRepository
+import besmart.elderlycare.screen.login.LoginViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.service.Common
 import besmart.elderlycare.service.NetworkClient
@@ -15,8 +17,10 @@ val networkModule = module {
 
 val viewModelModule = module {
     viewModel { RegisterViewModel(repository = get()) }
+    viewModel { LoginViewModel(repository = get()) }
 }
 
 val repositoryModule = module {
     factory { RegisterRepository(get()) }
+    factory { LoginRepository(get()) }
 }
