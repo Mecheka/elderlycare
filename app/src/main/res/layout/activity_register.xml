@@ -2,6 +2,12 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="besmart.elderlycare.screen.register.RegisterViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,6 +57,7 @@
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatEditText
+                            android:text="@={viewModel.cardId}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/passportId"
@@ -67,6 +74,7 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/orsomoId"
+                            android:text="@={viewModel.staffId}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -81,6 +89,7 @@
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatEditText
+                            android:text="@={viewModel.password}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/password"
@@ -96,6 +105,7 @@
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatEditText
+                            android:text="@={viewModel.firstName}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/name"
@@ -111,6 +121,7 @@
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatEditText
+                            android:text="@={viewModel.lastName}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/lastName"
@@ -132,9 +143,11 @@
                             android:hint="@string/datetime"
                             android:inputType="none"
                             android:clickable="false"
+                            android:text="@={viewModel.birthday}"
                             android:editable="false"
                             android:longClickable="false"
                             android:cursorVisible="false"
+                            android:focusable="false"
                             android:textIsSelectable="true"
                             android:selectAllOnFocus="false"
                             android:singleLine="true" />
@@ -159,6 +172,7 @@
                             android:inputType="text|textImeMultiLine"
                             android:maxLines="3"
                             android:singleLine="true"
+                            android:text="@={viewModel.address}"
                             tools:text="1/14 หมู่4 ตำบล บาราเฮาะ อำเภอ เมื่องปัตตานี้ จังหวัด ปัตตานี้ 94000" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -172,6 +186,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/phone"
                             android:inputType="phone"
+                            android:text="@={viewModel.phone}"
                             android:maxLength="10"
                             android:singleLine="true" />
 
@@ -186,6 +201,7 @@
             style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:text="@string/register"
+            android:onClick="@{()->viewModel.register()}"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"

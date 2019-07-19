@@ -1,0 +1,14 @@
+package besmart.elderlycare.service
+
+import besmart.elderlycare.model.register.RegisterRequest
+import io.reactivex.Single
+import okhttp3.Response
+import okhttp3.ResponseBody
+import retrofit2.http.Body
+import retrofit2.http.POST
+
+interface AuthService {
+
+    @POST("/api/v1.0/register/")
+    fun register(@Body request: RegisterRequest): Single<ResponseBody>
+}

@@ -30,12 +30,12 @@ class SpinerAdapter(
             binding.executePendingBindings()
             binding.textSpinner.setOnClickListener {
                 val position = adapterPosition
-                onSpinnerItemClick.onSpinnerItemClick(gender, viewRoot)
+                onSpinnerItemClick.onSpinnerItemClick(gender, viewRoot,position)
             }
         }
     }
 
     interface OnSpinnerItemClick {
-        fun onSpinnerItemClick(text: String, view: View)
+        fun onSpinnerItemClick(text: String, view: View, position: Int)
     }
 }
