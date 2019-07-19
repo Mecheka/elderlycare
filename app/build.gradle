@@ -69,5 +69,6 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:3.1.0'
     // Hawk
     implementation "com.orhanobut:hawk:2.0.1"
-
+    // Calendar
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
