@@ -41,4 +41,5 @@
     <!-- dailog button -->
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="elderly_profile">ข้อมูลผู้สูงอายุ</string>
 </resources>
