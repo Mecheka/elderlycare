@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-class NetworkClientWithAuth(val mContext: Context) {
+class NetworkClientWithAuth(private val mContext: Context) {
 
     fun create(): Retrofit {
         val gson = GsonBuilder().create()

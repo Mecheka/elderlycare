@@ -44,4 +44,6 @@
     <string name="elderly_profile">ข้อมูลผู้สูงอายุ</string>
     <string name="add_my_elderly">เพิ่มผู้สูงอายุของฉัน</string>
     <string name="menu_gps">GPS</string>
+
+    <string name="space">\u0020</string>
 </resources>

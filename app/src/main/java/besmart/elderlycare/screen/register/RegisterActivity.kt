@@ -87,7 +87,7 @@ class RegisterActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     private fun observeViewModel() {
         viewModel.errorLiveData.observe(this, Observer {
-            BaseDialog.WarringDialog(this, it)
+            BaseDialog.warningDialog(this, it)
         })
 
         viewModel.successLiveData.observe(this, Observer { success ->

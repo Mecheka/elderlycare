@@ -111,7 +111,7 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
             _errorLiveEvent.sendAction("Please enter your card id 13")
             return false
         }
-        if (staffId.get().isNullOrEmpty() && !selectType.equals(SelectType.PERSON)) {
+        if (staffId.get().isNullOrEmpty() && selectType != SelectType.PERSON) {
             _loadingLiveEvent.sendAction(false)
             _errorLiveEvent.sendAction("Please enter your staff id")
             return false

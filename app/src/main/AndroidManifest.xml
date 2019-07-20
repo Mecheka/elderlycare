@@ -23,7 +23,7 @@
         <activity android:name=".screen.knowledge.KnowledgeActivity" />
         <activity android:name=".screen.flie.FlieActivity" />
         <activity android:name=".screen.gps.GpsActivity" />
-        <activity android:name=".screen.elderlyprofile.ElderlyProfileActivity" />
+        <activity android:name=".screen.myelderlyprofile.MyElderlyProfileActivity" />
         <activity android:name=".screen.calendar.CalendarActivity" />
         <activity android:name=".screen.elderly.ElderlyActivity" />
         <activity android:name=".screen.login.LoginActivity" />

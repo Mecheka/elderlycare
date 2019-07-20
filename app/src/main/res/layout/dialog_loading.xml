@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/robotobold"
+        android:fontFamily="@font/robotoregular"
         android:text="Please wait"
         android:textColor="@android:color/black"
         android:textSize="20sp"

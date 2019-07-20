@@ -1,20 +1,22 @@
-package besmart.elderlycare.screen.elderlyprofile
+package besmart.elderlycare.screen.myelderlyprofile
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.repository.ElderlyRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class ElderlyProfileViewModel constructor(private val repository: ElderlyRepository) :BaseViewModel(){
+class MyElderlyProfileViewModel constructor(private val repository: ElderlyRepository) :BaseViewModel(){
 
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent
 
-    private val _successLiveEvent = ActionLiveData<Boolean>()
-    val successLiveData: LiveData<Boolean>
-        get() = _successLiveEvent
+    private val _elderlyLiveData = MutableLiveData<List<ProfileResponce>>()
+    val elderlyLiveData: LiveData<List<ProfileResponce>>
+        get() = _elderlyLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean>
@@ -26,7 +28,7 @@ class ElderlyProfileViewModel constructor(private val repository: ElderlyReposit
             repository.getMyElderly().subscribe({ responce ->
                 _loadingLiveEvent.sendAction(false)
                 if (responce.isSuccessful) {
-
+                    _elderlyLiveData.value = responce.body()
                 } else {
                     responce.errorBody()?.let {
                         _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

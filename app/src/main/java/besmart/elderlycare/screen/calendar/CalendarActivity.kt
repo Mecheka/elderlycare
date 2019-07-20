@@ -1,12 +1,10 @@
 package besmart.elderlycare.screen.calendar
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import besmart.elderlycare.R
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.activity_calendar.*
-import kotlinx.android.synthetic.main.activity_calendar.toolbar
-import kotlinx.android.synthetic.main.activity_select_user_type.*
 
 class CalendarActivity : AppCompatActivity() {
 

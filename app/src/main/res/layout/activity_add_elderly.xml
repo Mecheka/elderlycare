@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/refresh"
     tools:context=".screen.addelderly.AddElderlyActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,16 +24,17 @@
             app:title="เพิ่มผู้สูงอายุ" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/button7"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddElderly"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btnAddElderly"
             style="@style/ButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

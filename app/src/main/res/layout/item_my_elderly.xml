@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="besmart.elderlycare.model.profile.ProfileResponce" />
+    </data>
+
+    <LinearLayout
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="16dp"
+            app:cardUseCompatPadding="false">
+
+            <ImageView
+                android:id="@+id/image_profile"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:adjustViewBounds="true" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_name"
+            style="@style/RoboTextStyle.small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.firstName.concat(@string/space).concat(model.lastName)}"
+            tools:text="Name lastname" />
+
+    </LinearLayout>
+</layout>

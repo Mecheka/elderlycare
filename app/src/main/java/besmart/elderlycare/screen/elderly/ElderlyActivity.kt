@@ -6,7 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import besmart.elderlycare.R
 import besmart.elderlycare.screen.calendar.CalendarActivity
-import besmart.elderlycare.screen.elderlyprofile.ElderlyProfileActivity
+import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileActivity
 import besmart.elderlycare.screen.gps.GpsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -14,7 +14,7 @@ class ElderlyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_elderly)
+        setContentView(R.layout.activity_my_elderly)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
@@ -31,7 +31,7 @@ class ElderlyActivity : AppCompatActivity() {
 
     fun onElderlyProfileClick(view: View) {
         Intent().apply {
-            this.setClass(this@ElderlyActivity, ElderlyProfileActivity::class.java)
+            this.setClass(this@ElderlyActivity, MyElderlyProfileActivity::class.java)
             startActivity(this)
         }
     }

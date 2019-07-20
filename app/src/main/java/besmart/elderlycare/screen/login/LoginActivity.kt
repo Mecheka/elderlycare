@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity() {
 
     private fun observerViewModel() {
         viewModel.errorLiveData.observe(this, Observer {
-            BaseDialog.WarringDialog(this, it)
+            BaseDialog.warningDialog(this, it)
         })
 
         viewModel.loadingLiveData.observe(this, Observer {

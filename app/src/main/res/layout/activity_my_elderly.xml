@@ -22,9 +22,7 @@
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
         app:columnCount="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +39,11 @@
             app:layout_rowWeight="1">
 
             <androidx.cardview.widget.CardView
-                android:onClick="onCalendarClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onCalendarClick"
                 app:cardCornerRadius="16dp"
-                app:contentPadding="16dp">
+                app:contentPadding="8dp">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -60,9 +58,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/RoboTextStyle.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BaseTextStyle.small"
                 android:text="@string/menu_calendar" />
 
         </LinearLayout>
@@ -77,11 +75,11 @@
             app:layout_rowWeight="1">
 
             <androidx.cardview.widget.CardView
-                android:onClick="onElderlyProfileClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onElderlyProfileClick"
                 app:cardCornerRadius="16dp"
-                app:contentPadding="16dp">
+                app:contentPadding="8dp">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -96,9 +94,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/RoboTextStyle.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BaseTextStyle.small"
                 android:text="@string/elderly_profile" />
 
         </LinearLayout>
@@ -113,11 +111,11 @@
             app:layout_rowWeight="1">
 
             <androidx.cardview.widget.CardView
-                android:onClick="onGPSClick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onGPSClick"
                 app:cardCornerRadius="16dp"
-                app:contentPadding="16dp">
+                app:contentPadding="8dp">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
@@ -132,9 +130,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/RoboTextStyle.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BaseTextStyle.small"
                 android:text="@string/menu_gps" />
 
         </LinearLayout>
