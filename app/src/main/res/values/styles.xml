@@ -15,6 +15,15 @@
         <item name="android:fontFamily">@font/robotoregular</item>
     </style>
 
+    <style name="BaseTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/robotoregular</item>
+    </style>
+
+    <style name="BaseTextStyle.small" parent="BaseTextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="BaseDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowMinWidthMajor">75%</item>
         <item name="android:windowMinWidthMinor">75%</item>

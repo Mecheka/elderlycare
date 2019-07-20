@@ -61,8 +61,8 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/robotoregular"
-                android:text="ตารางนัดหมาย" />
+                style="@style/BaseTextStyle.small"
+                android:text="@string/menu_calendar" />
 
         </LinearLayout>
 
@@ -97,7 +97,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/robotoregular"
+                style="@style/BaseTextStyle.small"
                 android:text="@string/elderly_profile" />
 
         </LinearLayout>
@@ -133,8 +133,8 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/robotoregular"
-                android:text="GPS" />
+                style="@style/BaseTextStyle.small"
+                android:text="@string/menu_gps" />
 
         </LinearLayout>
     </androidx.gridlayout.widget.GridLayout>

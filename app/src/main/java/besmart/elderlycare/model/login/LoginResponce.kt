@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginResponce(
     @SerializedName("expiresAt")
-    val expiresAt: String,
+    val expiresAt: String? = null,
     @SerializedName("id")
-    val id: Int,
+    val id: Int? = null,
     @SerializedName("string")
-    val string: String,
+    val string: String? = null,
     @SerializedName("userID")
-    val userID: Int,
+    val userID: Int? = null,
     @SerializedName("userTypeID")
-    val userTypeID: Int
+    val userTypeID: Int? = null
 )

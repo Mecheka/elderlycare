@@ -8,6 +8,8 @@ open class BaseViewModel : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
+
+
     protected fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
     }
