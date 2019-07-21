@@ -3,6 +3,7 @@ package besmart.elderlycare.di
 import besmart.elderlycare.repository.*
 import besmart.elderlycare.screen.addelderly.AddElderlyViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
+import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
 import besmart.elderlycare.screen.login.LoginViewModel
 import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
@@ -32,6 +33,7 @@ val viewModelModule = module {
     viewModel { MyElderlyProfileViewModel(repository = get())}
     viewModel { AddElderlyViewModel(profileRepo = get(), elderlyRepo = get()) }
     viewModel { FileViewModel(repository = get()) }
+    viewModel { KnowlegeViewModel(repository = get()) }
 }
 
 val repositoryModule = module {
