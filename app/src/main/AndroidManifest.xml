@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.editprofile.EditProfileActivity"></activity>
+        <activity android:name=".screen.elderlyinfo.ElderlyInfoActivity"></activity>
+        <activity android:name=".screen.editprofile.EditProfileActivity" />
         <activity android:name=".screen.newsdetail.NewsDetailActivity" />
         <activity android:name=".screen.web.WebViewActivity" />
         <activity android:name=".screen.addelderly.AddElderlyActivity" />
