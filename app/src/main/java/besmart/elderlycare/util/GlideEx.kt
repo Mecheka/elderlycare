@@ -21,13 +21,11 @@ fun ImageView.loadImageResourceCircle(res: Int){
 fun ImageView.loadImageUrl(url:String){
     Glide.with(this)
         .load(url)
-        .centerCrop()
         .into(this)
 }
 
 fun ImageView.loadImageResource(res: Int){
     Glide.with(this)
         .load(res)
-        .centerCrop()
         .into(this)
 }

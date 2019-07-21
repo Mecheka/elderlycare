@@ -21,7 +21,7 @@
         <activity android:name=".screen.notification.NotificationActivity" />
         <activity android:name=".screen.news.NewsActivity" />
         <activity android:name=".screen.knowledge.KnowledgeActivity" />
-        <activity android:name=".screen.flie.FlieActivity" />
+        <activity android:name=".screen.flie.FileActivity" />
         <activity android:name=".screen.gps.GpsActivity" />
         <activity android:name=".screen.myelderlyprofile.MyElderlyProfileActivity" />
         <activity android:name=".screen.calendar.CalendarActivity" />

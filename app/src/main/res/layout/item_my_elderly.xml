@@ -21,14 +21,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/transparent"
+            app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
             app:cardUseCompatPadding="false">
 
             <ImageView
                 android:id="@+id/image_profile"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:scaleType="centerCrop"
                 android:adjustViewBounds="true" />
         </androidx.cardview.widget.CardView>
 

@@ -9,6 +9,7 @@ import besmart.elderlycare.R
 import besmart.elderlycare.model.MenuItem
 import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.elderly.ElderlyActivity
+import besmart.elderlycare.screen.flie.FileActivity
 import besmart.elderlycare.screen.splach.SplachScreenActivity
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
@@ -81,6 +82,10 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
                 }
             }
             R.drawable.baseline_library_books_24px -> {
+                Intent().apply {
+                    this.setClass(this@MainActivity, FileActivity::class.java)
+                    startActivity(this)
+                }
             }
             R.drawable.baseline_extension_24px -> {
             }

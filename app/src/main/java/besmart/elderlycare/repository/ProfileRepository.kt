@@ -1,7 +1,7 @@
 package besmart.elderlycare.repository
 
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.service.CommonWithAuth
+import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

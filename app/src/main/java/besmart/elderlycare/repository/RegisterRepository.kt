@@ -1,7 +1,7 @@
 package besmart.elderlycare.repository
 
 import besmart.elderlycare.model.register.RegisterRequest
-import besmart.elderlycare.service.CommonWithOutAuth
+import besmart.elderlycare.service.common.CommonWithOutAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

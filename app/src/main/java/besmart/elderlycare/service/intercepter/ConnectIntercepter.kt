@@ -1,4 +1,4 @@
-package besmart.elderlycare.service
+package besmart.elderlycare.service.intercepter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,17 +10,11 @@ import com.orhanobut.hawk.Hawk
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ConnectWithAuthIntercepter(private val context: Context) : Interceptor {
+class ConnectIntercepter(private val context: Context) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isOnline()) throw NoInternetException()
-        val token = Hawk.get(Constance.TOKEN, LoginResponce())
-        val original = chain.request()
-        val request = original.newBuilder()
-            .addHeader("Authorization", "Bearer " + token.string)
-            .method(original.method(), original.body())
-            .build()
-        return chain.proceed(request)
+        return chain.proceed(chain.request())
     }
 
     @SuppressLint("ServiceCast")
