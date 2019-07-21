@@ -3,7 +3,9 @@ package besmart.elderlycare.screen.login
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
+import besmart.elderlycare.model.login.LoginResponce
 import besmart.elderlycare.repository.LoginRepository
+import besmart.elderlycare.repository.ProfileRepository
 import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
@@ -12,7 +14,10 @@ import besmart.elderlycare.util.HandingNetworkError
 import com.orhanobut.hawk.Hawk
 import okhttp3.Credentials
 
-class LoginViewModel constructor(private val repository: LoginRepository) : BaseViewModel() {
+class LoginViewModel constructor(
+    private val loginRepo: LoginRepository,
+    private val profileRepo: ProfileRepository
+) : BaseViewModel() {
 
     val usernameFiled = ObservableField<String>()
     val password = ObservableField<String>()
@@ -43,20 +48,42 @@ class LoginViewModel constructor(private val repository: LoginRepository) : Base
         val username = getUserNameByType()
         val authToken = Credentials.basic(username, password.get()!!)
 
-        addDisposable(repository.login(typeId, authToken).subscribe({ responce ->
-            _loadingLiveEvent.sendAction(false)
+        addDisposable(loginRepo.login(typeId, authToken).subscribe({ responce ->
             if (responce.isSuccessful) {
-                _successLiveEvent.sendAction(true)
-                Hawk.put(Constance.TOKEN, responce.body())
+                responce.body()?.let {
+                    Hawk.put(Constance.TOKEN, it)
+                    getProfile(it)
+                }
             } else {
-                Log.e("What error :", "localizedMessage")
                 val errorResponce = responce.errorBody()
                 errorResponce?.let { _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it)) }
             }
         }, { error ->
-            Log.e("What error :", error.localizedMessage)
+            _loadingLiveEvent.sendAction(false)
             _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
         }))
+    }
+
+    private fun getProfile(user: LoginResponce) {
+        addDisposable(
+            profileRepo.getProfileByUserId(user.userID.toString()).subscribe({ responce ->
+                _loadingLiveEvent.sendAction(false)
+                if (responce.isSuccessful) {
+                    _successLiveEvent.sendAction(true)
+                    responce.body()?.let {
+                        Hawk.put(Constance.USER, it)
+                    }
+                } else {
+                    val errorResponce = responce.errorBody()
+                    errorResponce?.let {
+                        _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                    }
+                }
+            }, { error ->
+                _loadingLiveEvent.sendAction(false)
+                _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+            })
+        )
     }
 
     private fun getTypeId(): Int {

@@ -14,4 +14,16 @@ class ProfileRepository constructor(private val service: CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun getProfileByCardId(cardId: String): Single<Response<ProfileResponce>> {
+        return service.getProfileService().getProfileByCardId(cardId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getProfileByUserId(userId:String):Single<Response<ProfileResponce>>{
+        return service.getProfileService().getProfileByUserId(userId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }
