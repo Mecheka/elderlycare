@@ -1,7 +1,7 @@
 package besmart.elderlycare.service.client
 
 import android.content.Context
-import besmart.elderlycare.service.intercepter.ConnectWithAuthIntercepter
+import besmart.elderlycare.service.intercepter.ConnectIntercepter
 import besmart.elderlycare.util.Constance
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
@@ -21,7 +21,7 @@ class NetworkClientDevman(private val mContext: Context) {
         val httpCacheDirectory = File(mContext.cacheDir, "http-cache")
         val cache = Cache(httpCacheDirectory, cacheSize)
         val connectIntercepter =
-            ConnectWithAuthIntercepter(mContext)
+            ConnectIntercepter(mContext)
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
@@ -35,7 +35,7 @@ class NetworkClientDevman(private val mContext: Context) {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(Constance.BASE_URL)
+            .baseUrl(Constance.DEVMAN_URL)
             .client(httpClient.build())
             .build()
     }

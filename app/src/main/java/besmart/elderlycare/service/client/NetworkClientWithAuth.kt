@@ -1,6 +1,7 @@
-package besmart.elderlycare.service
+package besmart.elderlycare.service.client
 
 import android.content.Context
+import besmart.elderlycare.service.intercepter.ConnectWithAuthIntercepter
 import besmart.elderlycare.util.Constance
 import com.google.gson.GsonBuilder
 import okhttp3.Cache
@@ -19,7 +20,8 @@ class NetworkClientWithAuth(private val mContext: Context) {
         val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
         val httpCacheDirectory = File(mContext.cacheDir, "http-cache")
         val cache = Cache(httpCacheDirectory, cacheSize)
-        val connectIntercepter = ConnectWithAuthIntercepter(mContext)
+        val connectIntercepter =
+            ConnectWithAuthIntercepter(mContext)
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
 
