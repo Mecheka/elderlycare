@@ -8,10 +8,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import besmart.elderlycare.R
 import besmart.elderlycare.model.MenuItem
 import besmart.elderlycare.screen.SelectType
+import besmart.elderlycare.screen.calendar.CalendarActivity
+import besmart.elderlycare.screen.chat.ChatActivity
 import besmart.elderlycare.screen.elderly.ElderlyActivity
 import besmart.elderlycare.screen.flie.FileActivity
 import besmart.elderlycare.screen.knowledge.KnowledgeActivity
 import besmart.elderlycare.screen.news.NewsActivity
+import besmart.elderlycare.screen.notification.NotificationActivity
+import besmart.elderlycare.screen.profile.ProfileActivity
 import besmart.elderlycare.screen.splach.SplachScreenActivity
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
@@ -68,8 +72,16 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
     override fun onMenuClick(icon: Int) {
         when (icon) {
             R.drawable.baseline_person_24px -> {
+                Intent().apply {
+                    this.setClass(this@MainActivity, ProfileActivity::class.java)
+                    startActivity(this)
+                }
             }
             R.drawable.baseline_calendar_today_24px -> {
+                Intent().apply {
+                    this.setClass(this@MainActivity, CalendarActivity::class.java)
+                    startActivity(this)
+                }
             }
             R.drawable.baseline_subtitles_24px -> {
                 Intent().apply {
@@ -78,8 +90,16 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
                 }
             }
             R.drawable.baseline_notifications_active_24px -> {
+                Intent().apply {
+                    this.setClass(this@MainActivity, NotificationActivity::class.java)
+                    startActivity(this)
+                }
             }
             R.drawable.baseline_forum_24px -> {
+                Intent().apply {
+                    this.setClass(this@MainActivity, ChatActivity::class.java)
+                    startActivity(this)
+                }
             }
             R.drawable.baseline_supervisor_account_24px -> {
                 Intent().apply {
