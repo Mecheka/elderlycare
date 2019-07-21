@@ -11,6 +11,7 @@ import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.elderly.ElderlyActivity
 import besmart.elderlycare.screen.flie.FileActivity
 import besmart.elderlycare.screen.knowledge.KnowledgeActivity
+import besmart.elderlycare.screen.news.NewsActivity
 import besmart.elderlycare.screen.splach.SplachScreenActivity
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
@@ -71,6 +72,10 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
             R.drawable.baseline_calendar_today_24px -> {
             }
             R.drawable.baseline_subtitles_24px -> {
+                Intent().apply {
+                    this.setClass(this@MainActivity, NewsActivity::class.java)
+                    startActivity(this)
+                }
             }
             R.drawable.baseline_notifications_active_24px -> {
             }

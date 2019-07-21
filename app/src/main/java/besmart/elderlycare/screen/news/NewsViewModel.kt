@@ -1,34 +1,35 @@
-package besmart.elderlycare.screen.flie
+package besmart.elderlycare.screen.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.devman.DevmanResponce
-import besmart.elderlycare.model.file.FileData
+import besmart.elderlycare.model.news.NewsData
 import besmart.elderlycare.repository.DevmanRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class FileViewModel constructor(private val repository: DevmanRepository) : BaseViewModel() {
+class NewsViewModel(private val repository: DevmanRepository) :BaseViewModel(){
+
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent
+
+    private val _newsLiveData = MutableLiveData<DevmanResponce<NewsData>>()
+    val newsLiveData: LiveData<DevmanResponce<NewsData>>
+        get() = _newsLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
-    private val _fileLiveData = MutableLiveData<DevmanResponce<FileData>>()
-    val devmanLiveData: LiveData<DevmanResponce<FileData>>
-        get() = _fileLiveData
-
-    fun getAllFile() {
+    fun getAllNews(){
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getAllFile().subscribe({ responce ->
+            repository.getAllNews().subscribe({ responce ->
                 _loadingLiveEvent.sendAction(false)
                 if (responce.isSuccessful) {
-                    _fileLiveData.value = responce.body()
+                    _newsLiveData.value = responce.body()
                 } else {
                     responce.errorBody()?.let {
                         _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

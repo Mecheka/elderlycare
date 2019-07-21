@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="besmart.elderlycare.model.knowlege.KnowlegeResponce" />
+            type="besmart.elderlycare.model.news.NewsData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
             android:layout_marginEnd="8dp"
             android:maxLines="2"
             android:ellipsize="end"
-            android:text="@{model.topic}"
+            android:text="@{model.newsTopic}"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
@@ -51,7 +51,7 @@
             style="@style/RoboTextStyle.small.gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="@{model.createdAt}"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 

@@ -6,6 +6,7 @@ import besmart.elderlycare.screen.flie.FileViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
 import besmart.elderlycare.screen.login.LoginViewModel
 import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
+import besmart.elderlycare.screen.news.NewsViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.service.client.NetworkClientDevman
 import besmart.elderlycare.service.common.CommonWithAuth
@@ -34,6 +35,7 @@ val viewModelModule = module {
     viewModel { AddElderlyViewModel(profileRepo = get(), elderlyRepo = get()) }
     viewModel { FileViewModel(repository = get()) }
     viewModel { KnowlegeViewModel(repository = get()) }
+    viewModel { NewsViewModel(repository = get()) }
 }
 
 val repositoryModule = module {

@@ -45,7 +45,7 @@ class FileActivity : BaseActivity() {
             }
         })
 
-        viewModel.fileLiveData.observe(this, Observer { file ->
+        viewModel.devmanLiveData.observe(this, Observer { file ->
             file.data?.let {
                 fileAdapter = FileAdapter(it)
                 recyclerView.adapter = fileAdapter

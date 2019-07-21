@@ -1,11 +1,11 @@
-package besmart.elderlycare.model.file
+package besmart.elderlycare.model.devman
 
 
 import com.google.gson.annotations.SerializedName
 
-data class FileResponce(
+data class DevmanResponce<T>(
     @SerializedName("data")
-    val `data`: List<FileData>?,
+    val `data`: List<T>?,
     @SerializedName("current_page")
     val currentPage: Int?,
     @SerializedName("from")
