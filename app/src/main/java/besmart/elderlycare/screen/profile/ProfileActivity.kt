@@ -32,28 +32,6 @@ class ProfileActivity : BaseActivity() {
         observerViewModel()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.profile_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.edit_profile -> {
-                Intent().apply {
-                    this.setClass(this@ProfileActivity, EditProfileActivity::class.java)
-                    this.putExtra(EditProfileActivity.USER, viewModel.profile)
-                    startActivity(this)
-                }
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-        }
-    }
-
     private fun initInstance() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -83,5 +61,27 @@ class ProfileActivity : BaseActivity() {
             }
         })
         viewModel.getProfileByCardId()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.profile_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.edit_profile -> {
+                Intent().apply {
+                    this.setClass(this@ProfileActivity, EditProfileActivity::class.java)
+                    this.putExtra(EditProfileActivity.USER, viewModel.profile)
+                    startActivity(this)
+                }
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 }

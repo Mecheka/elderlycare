@@ -48,4 +48,9 @@
 
     <string name="space">\u0020</string>
     <string name="detail">รายละเอียด</string>
+    <string name="elderdly_history">ประวัติการดูแล</string>
+    <string name="menu_body_mass">ดัชนีมวลกาย</string>
+    <string name="menu_pressure">ความดัน</string>
+    <string name="menu_sugar">ระดับน้ำตาล</string>
+    <string name="menu_vaccine">วัคซีน</string>
 </resources>

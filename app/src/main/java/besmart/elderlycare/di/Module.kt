@@ -3,6 +3,7 @@ package besmart.elderlycare.di
 import besmart.elderlycare.repository.*
 import besmart.elderlycare.screen.addelderly.AddElderlyViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
+import besmart.elderlycare.screen.history.HistoryViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
 import besmart.elderlycare.screen.login.LoginViewModel
 import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
@@ -10,11 +11,11 @@ import besmart.elderlycare.screen.news.NewsViewModel
 import besmart.elderlycare.screen.profile.ProfileViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.service.client.NetworkClientDevman
-import besmart.elderlycare.service.common.CommonWithAuth
-import besmart.elderlycare.service.common.CommonWithOutAuth
 import besmart.elderlycare.service.client.NetworkClientWithAuth
 import besmart.elderlycare.service.client.NetworkClientWithOutAuth
 import besmart.elderlycare.service.common.CommonDevman
+import besmart.elderlycare.service.common.CommonWithAuth
+import besmart.elderlycare.service.common.CommonWithOutAuth
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -38,6 +39,7 @@ val viewModelModule = module {
     viewModel { KnowlegeViewModel(repository = get()) }
     viewModel { NewsViewModel(repository = get()) }
     viewModel { ProfileViewModel(repository = get()) }
+    viewModel { HistoryViewModel(repository = get()) }
 }
 
 val repositoryModule = module {
@@ -46,4 +48,5 @@ val repositoryModule = module {
     single { ElderlyRepository(get()) }
     single { ProfileRepository(get()) }
     single { DevmanRepository(get()) }
+    single { HistoryRepository(get()) }
 }

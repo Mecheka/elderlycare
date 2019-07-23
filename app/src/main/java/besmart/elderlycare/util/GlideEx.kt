@@ -1,13 +1,20 @@
 package besmart.elderlycare.util
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toDrawable
+import besmart.elderlycare.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-fun ImageView.loadImageUrlCircle(url:String){
+fun ImageView.loadImageUrlCircle(
+    url: String,
+    errro: Drawable = R.drawable.baseline_person_24px.toDrawable()
+) {
     Glide.with(this)
         .load(url)
         .apply(RequestOptions.circleCropTransform())
+        .error(errro)
         .into(this)
 }
 

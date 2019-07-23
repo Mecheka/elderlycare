@@ -15,7 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.elderlyinfo.ElderlyInfoActivity"></activity>
+        <activity android:name=".screen.evaluation.EvaluationActivity"></activity>
+        <activity android:name=".screen.vaccine.VaccineActivity" />
+        <activity android:name=".screen.sugar.SugarActivity" />
+        <activity android:name=".screen.pressure.PressureActivity" />
+        <activity android:name=".screen.history.HistoryActivity" />
+        <activity android:name=".screen.bodymass.BodyMassActivity" />
+        <activity android:name=".screen.elderlyinfo.ElderlyInfoActivity" />
         <activity android:name=".screen.editprofile.EditProfileActivity" />
         <activity android:name=".screen.newsdetail.NewsDetailActivity" />
         <activity android:name=".screen.web.WebViewActivity" />

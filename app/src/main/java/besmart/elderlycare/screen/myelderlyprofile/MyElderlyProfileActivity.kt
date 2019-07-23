@@ -7,21 +7,24 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import besmart.elderlycare.R
+import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.addelderly.AddElderlyActivity
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.elderlyinfo.ElderlyInfoActivity
 import besmart.elderlycare.util.BaseDialog
+import besmart.elderlycare.util.SimpleOnItemClick
 import kotlinx.android.synthetic.main.activity_calendar.toolbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MyElderlyProfileActivity : BaseActivity() {
+class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileResponce> {
 
     companion object{
         const val ADD_ELDERLY = 101
     }
 
     private val viewModelMy: MyElderlyProfileViewModel by viewModel()
-    private lateinit var elderlyAdapter: MyElderlyAdapter
+    private lateinit var elderlyProfileAdapter: MyElderlyProfileAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +65,8 @@ class MyElderlyProfileActivity : BaseActivity() {
         })
 
         viewModelMy.elderlyLiveData.observe(this, Observer {
-            elderlyAdapter = MyElderlyAdapter(it)
-            recyclerView.adapter = elderlyAdapter
+            elderlyProfileAdapter = MyElderlyProfileAdapter(it, this)
+            recyclerView.adapter = elderlyProfileAdapter
         })
 
         viewModelMy.getMyElderly()
@@ -73,6 +76,14 @@ class MyElderlyProfileActivity : BaseActivity() {
         Intent().apply {
             this.setClass(this@MyElderlyProfileActivity, AddElderlyActivity::class.java)
             startActivityForResult(this, ADD_ELDERLY)
+        }
+    }
+
+    override fun onItemClick(item: ProfileResponce) {
+        Intent().apply {
+            this.setClass(this@MyElderlyProfileActivity, ElderlyInfoActivity::class.java)
+            this.putExtra(ElderlyInfoActivity.PROFILE, item)
+            startActivity(this)
         }
     }
 }
