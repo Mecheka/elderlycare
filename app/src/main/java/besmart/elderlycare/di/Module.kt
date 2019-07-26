@@ -2,6 +2,7 @@ package besmart.elderlycare.di
 
 import besmart.elderlycare.repository.*
 import besmart.elderlycare.screen.addelderly.AddElderlyViewModel
+import besmart.elderlycare.screen.bodymass.BodyMassViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
@@ -40,6 +41,7 @@ val viewModelModule = module {
     viewModel { NewsViewModel(repository = get()) }
     viewModel { ProfileViewModel(repository = get()) }
     viewModel { HistoryViewModel(repository = get()) }
+    viewModel { BodyMassViewModel(repository = get()) }
 }
 
 val repositoryModule = module {
@@ -49,4 +51,5 @@ val repositoryModule = module {
     single { ProfileRepository(get()) }
     single { DevmanRepository(get()) }
     single { HistoryRepository(get()) }
+    single { BodyMassRepository(get()) }
 }

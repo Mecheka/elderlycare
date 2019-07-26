@@ -54,7 +54,11 @@ class ElderlyInfoActivity : AppCompatActivity() {
             }
         }
         binding.cardBodyMass.setOnClickListener {
-            startActivity(Intent(this, BodyMassActivity::class.java))
+            Intent().apply {
+                this.setClass(this@ElderlyInfoActivity, BodyMassActivity::class.java)
+                this.putExtra(BodyMassActivity.PROFILE, profile)
+                startActivity(this)
+            }
         }
         binding.cardPressure.setOnClickListener {
             startActivity(Intent(this, PressureActivity::class.java))

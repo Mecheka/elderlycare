@@ -10,7 +10,7 @@ import retrofit2.Response
 class HistoryRepository (private val service:CommonWithAuth){
 
     fun getHistoryByCardId(cardID:String):Single<Response<List<HistoryResponce>>>{
-        return service.getHistorySerview().getHistoryByCardId(cardID)
+        return service.getHistoryService().getHistoryByCardId(cardID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

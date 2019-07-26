@@ -10,7 +10,6 @@ import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.util.SimpleOnItemClick
 import besmart.elderlycare.util.getStringByItem
 import besmart.elderlycare.util.loadImageResource
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,22 +43,12 @@ class HistoryAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SimpleDateFormat", "SetTextI18n")
         fun bind(history: HistoryResponce, first: Boolean = false, last: Boolean = false) {
             binding.executePendingBindings()
             setTextByType(history)
             setImageByType(history)
+            setDateTimeText(history)
             binding.layoutRoot.setBackgroundResource(setBackgroundByPosition(first, last))
-            try {
-                val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-                val outputFormat = SimpleDateFormat(" dd MMM yyyy HH:mm", Locale("TH"))
-                val input = inputFormat.parse(history.createAt)
-                val output = outputFormat.format(input)
-                binding.textDate.text = "วันที่ $output น."
-            } catch (e:ParseException){
-
-            }
-
         }
 
         private fun setTextByType(history: HistoryResponce) {
@@ -104,5 +93,13 @@ class HistoryAdapter(
             return R.drawable.shape_bg_item_history_normal
         }
 
+        @SuppressLint("SimpleDateFormat", "SetTextI18n")
+        private fun setDateTimeText(history: HistoryResponce) {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val outputFormat = SimpleDateFormat(" dd MMM yyyy HH:mm", Locale("TH"))
+            val input = inputFormat.parse(history.createAt)
+            val output = outputFormat.format(input)
+            binding.textDate.text = "วันที่ $output น."
+        }
     }
 }
