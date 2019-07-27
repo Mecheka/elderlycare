@@ -103,25 +103,25 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
             data.setValueTextSize(9f)
 
             // set data
-            binding.chart.setData(data)
+            binding.chart.data = data
         }
 
-//        val xAxis = binding.chart.xAxis
-//        xAxis.textSize = 11f
-//        xAxis.textColor = Color.RED
-//        xAxis.position = XAxis.XAxisPosition.TOP
-//        xAxis.setDrawGridLines(false)
-//        xAxis.granularity=1f
-//        xAxis.valueFormatter = object : ValueFormatter(){
-//            override fun getFormattedValue(value: Float): String {
-//                return setDateTimeText(viewModel.history[value.toInt()].date)
-//            }
-//        }
-//
-//        binding.chart.setXAxisRenderer(
-//            CustomXAxisRenderer(binding.chart.viewPortHandler,xAxis,binding.chart.getTransformer(
-//                YAxis.AxisDependency.LEFT))
-//        )
+        val xAxis = binding.chart.xAxis
+        xAxis.textSize = 11f
+        xAxis.textColor = Color.RED
+        xAxis.position = XAxis.XAxisPosition.TOP
+        xAxis.setDrawGridLines(false)
+        xAxis.granularity=1f
+        xAxis.valueFormatter = object : ValueFormatter(){
+            override fun getFormattedValue(value: Float): String {
+                return setDateTimeText(viewModel.history[value.toInt()].date)
+            }
+        }
+
+        binding.chart.setXAxisRenderer(
+            CustomXAxisRenderer(binding.chart.viewPortHandler,xAxis,binding.chart.getTransformer(
+                YAxis.AxisDependency.LEFT))
+        )
     }
 
     private fun initLineChart() {
@@ -147,7 +147,7 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
 
 
         // get the legend (only possible after setting data)
-        val l = binding.chart.getLegend()
+        val l = binding.chart.legend
 
         // modify the legend ...
         l.form = Legend.LegendForm.LINE

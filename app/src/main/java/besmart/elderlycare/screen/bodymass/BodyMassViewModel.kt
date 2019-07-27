@@ -85,7 +85,7 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
         )
     }
 
-    fun mapListToEntry(
+    private fun mapListToEntry(
         index: Int, bodyMassResponce: BodyMassResponce
     ): Entry {
         return Entry(index.toFloat(), bodyMassResponce.bMI?.toFloat()!!)

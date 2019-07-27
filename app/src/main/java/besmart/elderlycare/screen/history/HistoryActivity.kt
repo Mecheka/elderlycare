@@ -1,7 +1,6 @@
 package besmart.elderlycare.screen.history
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +9,6 @@ import besmart.elderlycare.R
 import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
-import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileAdapter
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.SimpleOnItemClick
 import kotlinx.android.synthetic.main.activity_main.*

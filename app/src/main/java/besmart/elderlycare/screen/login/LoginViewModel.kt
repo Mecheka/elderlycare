@@ -1,6 +1,5 @@
 package besmart.elderlycare.screen.login
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import besmart.elderlycare.model.login.LoginResponce

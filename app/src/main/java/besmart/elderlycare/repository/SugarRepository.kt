@@ -1,6 +1,5 @@
 package besmart.elderlycare.repository
 
-import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single

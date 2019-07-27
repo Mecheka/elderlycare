@@ -3,7 +3,6 @@ package besmart.elderlycare.screen.sugar
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.repository.SugarRepository
 import besmart.elderlycare.util.ActionLiveData
@@ -29,7 +28,7 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
         get() = _loadingLiveEvent
 
     private val entryList = mutableListOf<Entry>()
-    var history= listOf<BodyMassResponce>()
+    var history= listOf<SugarResponse>()
     val fbs = ObservableField<String>()
 
 
@@ -66,6 +65,7 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
                             entryList.add(mapListToEntry(index, sugar))
                         }
                         _chartLiveData.value = entryList
+                        history = response.body()!!
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

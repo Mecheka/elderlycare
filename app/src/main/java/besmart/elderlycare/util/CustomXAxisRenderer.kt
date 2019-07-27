@@ -19,16 +19,16 @@ class CustomXAxisRenderer(viewPortHandler: ViewPortHandler?, xAxis: XAxis?, tran
         anchor: MPPointF?,
         angleDegrees: Float
     ) {
-        val line = formattedLabel!!.split("\n");
-        Utils.drawXAxisValue(c, line[0], x, y, mAxisLabelPaint, anchor, angleDegrees);
+        val line = formattedLabel!!.split("\n")
+        Utils.drawXAxisValue(c, line[0], x, y, mAxisLabelPaint, anchor, angleDegrees)
         Utils.drawXAxisValue(
             c,
             line[1],
-            x + mAxisLabelPaint.getTextSize(),
-            y + mAxisLabelPaint.getTextSize(),
+            x + mAxisLabelPaint.textSize,
+            y + mAxisLabelPaint.textSize,
             mAxisLabelPaint,
             anchor,
             angleDegrees
-        );
+        )
     }
 }

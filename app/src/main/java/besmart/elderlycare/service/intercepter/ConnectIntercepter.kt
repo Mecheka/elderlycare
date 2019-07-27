@@ -3,10 +3,7 @@ package besmart.elderlycare.service.intercepter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
-import besmart.elderlycare.model.login.LoginResponce
-import besmart.elderlycare.util.Constance
 import besmart.elderlycare.util.NoInternetException
-import com.orhanobut.hawk.Hawk
 import okhttp3.Interceptor
 import okhttp3.Response
 

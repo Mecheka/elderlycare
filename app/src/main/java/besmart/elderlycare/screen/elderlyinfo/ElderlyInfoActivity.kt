@@ -14,7 +14,6 @@ import besmart.elderlycare.screen.bodymass.BodyMassActivity
 import besmart.elderlycare.screen.editprofile.EditProfileActivity
 import besmart.elderlycare.screen.evaluation.EvaluationActivity
 import besmart.elderlycare.screen.history.HistoryActivity
-import besmart.elderlycare.screen.pressure.PressureActivity
 import besmart.elderlycare.screen.sugar.SugarActivity
 import besmart.elderlycare.screen.vaccine.VaccineActivity
 import besmart.elderlycare.util.Constance

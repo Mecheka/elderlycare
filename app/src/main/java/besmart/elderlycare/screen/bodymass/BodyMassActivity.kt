@@ -107,7 +107,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
             data.setValueTextSize(9f)
 
             // set data
-            binding.chart.setData(data)
+            binding.chart.data = data
         }
 
         val xAxis = binding.chart.xAxis
@@ -151,7 +151,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
 
 
         // get the legend (only possible after setting data)
-        val l = binding.chart.getLegend()
+        val l = binding.chart.legend
 
         // modify the legend ...
         l.form = Legend.LegendForm.LINE
@@ -191,7 +191,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         binding.chart.centerViewToAnimated(
-            e!!.x, e!!.y, binding.chart.data.getDataSetByIndex(h!!.dataSetIndex)
+            e!!.x, e.y, binding.chart.data.getDataSetByIndex(h!!.dataSetIndex)
                 .axisDependency, 500
         )
     }
