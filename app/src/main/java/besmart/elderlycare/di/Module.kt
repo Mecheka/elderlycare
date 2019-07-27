@@ -3,6 +3,7 @@ package besmart.elderlycare.di
 import besmart.elderlycare.repository.*
 import besmart.elderlycare.screen.addelderly.AddElderlyViewModel
 import besmart.elderlycare.screen.bodymass.BodyMassViewModel
+import besmart.elderlycare.screen.evaluation.EvalustionViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
@@ -11,6 +12,7 @@ import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
 import besmart.elderlycare.screen.news.NewsViewModel
 import besmart.elderlycare.screen.profile.ProfileViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
+import besmart.elderlycare.screen.sugar.SugarViewModel
 import besmart.elderlycare.service.client.NetworkClientDevman
 import besmart.elderlycare.service.client.NetworkClientWithAuth
 import besmart.elderlycare.service.client.NetworkClientWithOutAuth
@@ -42,6 +44,8 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(repository = get()) }
     viewModel { HistoryViewModel(repository = get()) }
     viewModel { BodyMassViewModel(repository = get()) }
+    viewModel { EvalustionViewModel(repository = get()) }
+    viewModel { SugarViewModel(repository = get()) }
 }
 
 val repositoryModule = module {
@@ -52,4 +56,6 @@ val repositoryModule = module {
     single { DevmanRepository(get()) }
     single { HistoryRepository(get()) }
     single { BodyMassRepository(get()) }
+    single { EvaluationRepository(get()) }
+    single { SugarRepository(get()) }
 }

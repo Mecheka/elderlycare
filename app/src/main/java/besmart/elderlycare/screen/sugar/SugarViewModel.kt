@@ -1,17 +1,17 @@
-package besmart.elderlycare.screen.bodymass
+package besmart.elderlycare.screen.sugar
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.bodymass.BodyMassResponce
-import besmart.elderlycare.repository.BodyMassRepository
+import besmart.elderlycare.model.sugar.SugarResponse
+import besmart.elderlycare.repository.SugarRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 import com.github.mikephil.charting.data.Entry
 
-class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewModel() {
-
+class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent
@@ -20,32 +20,28 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
     val chartLiveData: LiveData<List<Entry>>
         get() = _chartLiveData
 
-    private val _historyLiveData = MutableLiveData<List<BodyMassResponce>>()
-    val historyLiveData: LiveData<List<BodyMassResponce>>
+    private val _historyLiveData = MutableLiveData<List<SugarResponse>>()
+    val historyLiveData: LiveData<List<SugarResponse>>
         get() = _historyLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
-    val heavy = ObservableField<String>()
-    val height = ObservableField<String>()
-    val bmi = ObservableField<String>()
     private val entryList = mutableListOf<Entry>()
     var history= listOf<BodyMassResponce>()
+    val fbs = ObservableField<String>()
 
 
-    fun getBodymassLastIndex(cardID: String?) {
+    fun getSugarLastIndex(cardID: String?) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getBodyMassLastIndex(cardID!!).subscribe(
+            repository.getSugarLastIndex(cardID!!).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {
                         val lastIndex = response.body()?.get(0)
-                        heavy.set(lastIndex?.weight.toString())
-                        height.set(lastIndex?.height.toString())
-                        bmi.set(lastIndex?.bMI.toString())
+                        fbs.set(lastIndex?.fbs.toString())
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
@@ -59,19 +55,17 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
         )
     }
 
-    fun getBodymassHistory(cardID: String?, year: String = "2019", month: String = "7") {
+    fun getSugarHistory(cardID: String?, year: String = "2019", month: String = "7") {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getBodyMassHistory(cardID!!, year, month).subscribe(
+            repository.getSugarHistory(cardID!!, year, month).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {
-
-                        response.body()?.forEachIndexed { index, bodyMassResponce ->
-                            entryList.add(mapListToEntry(index, bodyMassResponce))
+                        response.body()?.forEachIndexed { index, sugar ->
+                            entryList.add(mapListToEntry(index, sugar))
                         }
-                        _chartLiveData.value = entryList.toList()
-                        history = response.body()!!
+                        _chartLiveData.value = entryList
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
@@ -85,9 +79,9 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
         )
     }
 
-    fun mapListToEntry(
-        index: Int, bodyMassResponce: BodyMassResponce
+    private fun mapListToEntry(
+        index: Int, sugar: SugarResponse
     ): Entry {
-        return Entry(index.toFloat(), bodyMassResponce.bMI?.toFloat()!!)
+        return Entry(index.toFloat(), sugar.fbs!!.toFloat())
     }
 }

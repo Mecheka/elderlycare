@@ -1,9 +1,6 @@
 package besmart.elderlycare.service.common
 
-import besmart.elderlycare.service.BodyMassService
-import besmart.elderlycare.service.ElderlyService
-import besmart.elderlycare.service.HistoryService
-import besmart.elderlycare.service.ProfileService
+import besmart.elderlycare.service.*
 import besmart.elderlycare.service.client.NetworkClientWithAuth
 
 class CommonWithAuth constructor(private val networkClient: NetworkClientWithAuth) {
@@ -19,4 +16,9 @@ class CommonWithAuth constructor(private val networkClient: NetworkClientWithAut
 
     fun getBodyMassService(): BodyMassService =
         networkClient.create().create(BodyMassService::class.java)
+
+    fun getEvaluationService(): EvaluationService =
+        networkClient.create().create(EvaluationService::class.java)
+
+    fun getSugarService(): SugarService = networkClient.create().create(SugarService::class.java)
 }

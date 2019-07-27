@@ -1,5 +1,6 @@
 package besmart.elderlycare.screen.bodymass
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -10,7 +11,7 @@ import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
-import com.github.mikephil.charting.components.AxisBase
+import besmart.elderlycare.util.CustomXAxisRenderer
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -21,10 +22,10 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
-import com.github.mikephil.charting.utils.ViewPortHandler
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
@@ -45,8 +46,9 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         profile = intent.getParcelableExtra(PROFILE)
         binding.viewModel = viewModel
         initInstance()
-        initLineChart()
         observerViewModel()
+        initLineChart()
+
     }
 
     private fun initInstance() {
@@ -111,15 +113,19 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         val xAxis = binding.chart.xAxis
 //        xAxis.setTypeface(tfLight)
         xAxis.textSize = 11f
-        xAxis.textColor = Color.BLACK
+        xAxis.textColor = Color.RED
         xAxis.position = XAxis.XAxisPosition.TOP
         xAxis.setDrawGridLines(false)
-        xAxis.setDrawAxisLine(false)
+        xAxis.granularity=1f
         xAxis.valueFormatter = object : ValueFormatter(){
             override fun getFormattedValue(value: Float): String {
-                return viewModel.history[value.toInt()].bMI.toString()
+                return setDateTimeText(viewModel.history[value.toInt()].date)
             }
+
+
         }
+
+        binding.chart.setXAxisRenderer(CustomXAxisRenderer(binding.chart.viewPortHandler,xAxis,binding.chart.getTransformer(YAxis.AxisDependency.LEFT)))
     }
 
     private fun initLineChart() {
@@ -142,6 +148,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         binding.chart.setBackgroundColor(Color.WHITE)
 
         binding.chart.animateX(1500)
+
 
         // get the legend (only possible after setting data)
         val l = binding.chart.getLegend()
@@ -167,6 +174,15 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         val rightAxis = binding.chart.axisRight
         rightAxis.setDrawLabels(false)
         rightAxis.isEnabled = false
+    }
+
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
+    private fun setDateTimeText(createAt: String?):String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val monthFormat = SimpleDateFormat(" dd MMM", Locale("TH"))
+        val timeFormat = SimpleDateFormat("HH:mm", Locale("TH"))
+        val input = inputFormat.parse(createAt)
+        return monthFormat.format(input)+"\n"+timeFormat.format(input)
     }
 
     override fun onNothingSelected() {

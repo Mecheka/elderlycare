@@ -1,25 +1,24 @@
 package besmart.elderlycare.repository
 
 import besmart.elderlycare.model.bodymass.BodyMassResponce
+import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class BodyMassRepository(private val service: CommonWithAuth) {
+class SugarRepository(private val service:CommonWithAuth) {
 
-    fun getBodyMassLastIndex(cardId: String): Single<Response<List<BodyMassResponce>>> {
-        return service.getBodyMassService().getBodyMassLastIndex(cardId)
+    fun getSugarLastIndex(cardId: String): Single<Response<List<SugarResponse>>> {
+        return service.getSugarService().getSugarLastIndex(cardId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getBodyMassHistory(cardId: String, year: String, month: String): Single<Response<List<BodyMassResponce>>> {
-        return service.getBodyMassService().getBodyMassHistory(cardId, year, month)
+    fun getSugarHistory(cardId: String, year: String, month: String): Single<Response<List<SugarResponse>>> {
+        return service.getSugarService().getSugarHistory(cardId, year, month)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
-
-
 }

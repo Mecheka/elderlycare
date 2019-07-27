@@ -61,10 +61,18 @@ class ElderlyInfoActivity : AppCompatActivity() {
             }
         }
         binding.cardPressure.setOnClickListener {
-            startActivity(Intent(this, PressureActivity::class.java))
+            Intent().apply {
+                this.setClass(this@ElderlyInfoActivity, EvaluationActivity::class.java)
+                this.putExtra(BodyMassActivity.PROFILE, profile)
+                startActivity(this)
+            }
         }
         binding.cardBlood.setOnClickListener {
-            startActivity(Intent(this, SugarActivity::class.java))
+            Intent().apply {
+                this.setClass(this@ElderlyInfoActivity, SugarActivity::class.java)
+                this.putExtra(SugarActivity.PROFILE, profile)
+                startActivity(this)
+            }
         }
         binding.cardVaccine.setOnClickListener {
             startActivity(Intent(this, VaccineActivity::class.java))
