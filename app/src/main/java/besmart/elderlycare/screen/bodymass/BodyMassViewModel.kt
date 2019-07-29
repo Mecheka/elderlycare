@@ -16,12 +16,12 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent
 
-    private val _chartLiveData = MutableLiveData<List<Entry>>()
-    val chartLiveData: LiveData<List<Entry>>
+    private val _chartLiveData = MutableLiveData<List<BodyMassResponce>>()
+    val chartLiveData: LiveData<List<BodyMassResponce>>
         get() = _chartLiveData
 
-    private val _historyLiveData = MutableLiveData<List<BodyMassResponce>>()
-    val historyLiveData: LiveData<List<BodyMassResponce>>
+    private val _historyLiveData = MutableLiveData<BodyMassResponce>()
+    val historyLiveData: LiveData<BodyMassResponce>
         get() = _historyLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
@@ -31,8 +31,9 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
     val heavy = ObservableField<String>()
     val height = ObservableField<String>()
     val bmi = ObservableField<String>()
+    val weigthResult = ObservableField<String>()
     private val entryList = mutableListOf<Entry>()
-    var history= listOf<BodyMassResponce>()
+    var history = mutableListOf<BodyMassResponce>()
 
 
     fun getBodymassLastIndex(cardID: String?) {
@@ -46,6 +47,8 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
                         heavy.set(lastIndex?.weight.toString())
                         height.set(lastIndex?.height.toString())
                         bmi.set(lastIndex?.bMI.toString())
+                        weigthResult.set(lastIndex?.getWeigthResultByBMI())
+                        _historyLiveData.value = lastIndex
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
@@ -66,12 +69,13 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
                 { response ->
                     _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {
-
-                        response.body()?.forEachIndexed { index, bodyMassResponce ->
-                            entryList.add(mapListToEntry(index, bodyMassResponce))
+                        history.clear()
+                        if (response.body()?.isNotEmpty()!!) {
+                            history.addAll(response.body()!!)
+                            _chartLiveData.value = history
+                        } else {
+                            _chartLiveData.value = history
                         }
-                        _chartLiveData.value = entryList.toList()
-                        history = response.body()!!
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

@@ -54,5 +54,7 @@
     <string name="space">\u0020</string>
     <string name="detail">รายละเอียด</string>
     <string name="elderdly_history">ประวัติการดูแล</string>
+    <string name="add_body_mass">เพิ่มข้อมูลดัชนีมวลกาย</string>
+    <string name="body_mass_history">ประวัติการบันทึกข้อมูล</string>
 
 </resources>

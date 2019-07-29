@@ -34,6 +34,11 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
 
+    <style name="RoboTextBoldStyle" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/robotobold</item>
+    </style>
+
+
     <style name="BaseDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowMinWidthMajor">75%</item>
         <item name="android:windowMinWidthMinor">75%</item>

@@ -1,10 +1,12 @@
 package besmart.elderlycare.repository
 
+import besmart.elderlycare.model.bodymass.BodyMassRequest
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 class BodyMassRepository(private val service: CommonWithAuth) {
@@ -21,5 +23,9 @@ class BodyMassRepository(private val service: CommonWithAuth) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-
+    fun addBodyMass(body: BodyMassRequest): Single<Response<ResponseBody>> {
+        return service.getBodyMassService().addBodyMass(body)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

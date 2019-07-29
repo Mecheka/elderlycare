@@ -1,24 +1,30 @@
 package besmart.elderlycare.screen.bodymass
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityBodyMassBinding
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.screen.addbodymass.AddBodyMassActivity
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryActivity
 import besmart.elderlycare.util.BaseDialog
-import besmart.elderlycare.util.CustomXAxisRenderer
+import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
@@ -28,7 +34,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
+class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
+    DatePickerDialog.OnDateSetListener {
 
     companion object {
         const val PROFILE = "profile"
@@ -38,7 +45,8 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
     private lateinit var binding: ActivityBodyMassBinding
     private lateinit var profile: ProfileResponce
     private lateinit var lineDataSet: LineDataSet
-    private lateinit var listHistory:List<BodyMassResponce>
+    private val calendar = Calendar.getInstance(Locale("TH"))
+    private val ADD_BODY_MASS_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +56,20 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         initInstance()
         observerViewModel()
         initLineChart()
+    }
 
+    @SuppressLint("SimpleDateFormat")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            val date = data?.getStringExtra("date")
+            val resultCalendar = Calendar.getInstance()
+            val inputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm")
+            resultCalendar.time = inputFormat.parse(date)
+            val year = resultCalendar.get(Calendar.YEAR)
+            val month = resultCalendar.get(Calendar.MONTH) + 1
+            viewModel.getBodymassHistory(profile.cardID, year.toString(), month.toString())
+        }
     }
 
     private fun initInstance() {
@@ -56,6 +77,30 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
             finish()
+        }
+        val thCalendar = Calendar.getInstance()
+        thCalendar.set(Calendar.YEAR, thCalendar.get(Calendar.YEAR) + 543)
+        val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
+        val output = fm.format(thCalendar.time)
+        binding.editDate.setText(output)
+        binding.editDate.setOnClickListener {
+            val dp = MonthYearPickerDialog()
+            dp.setListener(this)
+            dp.show(supportFragmentManager, "MonthDialog")
+        }
+        binding.btnAddBodyMass.setOnClickListener {
+            Intent().apply {
+                this.setClass(this@BodyMassActivity, AddBodyMassActivity::class.java)
+                this.putExtra(AddBodyMassActivity.PROFILE, profile)
+                startActivityForResult(this, ADD_BODY_MASS_CODE)
+            }
+        }
+        binding.btnHistoryBodyMass.setOnClickListener {
+            Intent().apply {
+                this.setClass(this@BodyMassActivity, BodyMassHistoryActivity::class.java)
+                this.putExtra(BodyMassHistoryActivity.PROFILE, profile)
+                startActivity(this)
+            }
         }
     }
 
@@ -73,23 +118,35 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         })
 
         viewModel.chartLiveData.observe(this, Observer {
-            setData(it)
+            binding.chart.clear()
+            if (it.isNotEmpty()) {
+                setData(it)
+            } else {
+                binding.chart.clear()
+            }
         })
 
         viewModel.historyLiveData.observe(this, Observer {
-            listHistory = it
+            binding.textResult.setTextColor(getResultColorByBMI(it.bMI!!))
         })
 
         viewModel.getBodymassLastIndex(profile.cardID)
-        viewModel.getBodymassHistory(profile.cardID)
+
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        viewModel.getBodymassHistory(profile.cardID, year.toString(), month.toString())
     }
 
-    private fun setData(list: List<Entry>?) {
+    private fun setData(list: List<BodyMassResponce>) {
+        val entryList = mutableListOf<Entry>()
+        list.forEachIndexed { index, bodyMassResponce ->
+            entryList.add(mapListToEntry(index, bodyMassResponce))
+        }
         if (binding.chart.data != null && binding.chart.data.dataSetCount > 0) {
             lineDataSet = binding.chart.data.getDataSetByIndex(0) as LineDataSet
-            lineDataSet.values = list
+            lineDataSet.values = entryList
         } else {
-            lineDataSet = LineDataSet(list, "BMI")
+            lineDataSet = LineDataSet(entryList, "BMI")
 
             lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
             lineDataSet.color = ColorTemplate.getHoloBlue()
@@ -109,23 +166,19 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
             // set data
             binding.chart.data = data
         }
+        binding.chart.invalidate()
+        binding.chart.notifyDataSetChanged()
 
         val xAxis = binding.chart.xAxis
-//        xAxis.setTypeface(tfLight)
+
         xAxis.textSize = 11f
         xAxis.textColor = Color.RED
         xAxis.position = XAxis.XAxisPosition.TOP
         xAxis.setDrawGridLines(false)
         xAxis.granularity=1f
-        xAxis.valueFormatter = object : ValueFormatter(){
-            override fun getFormattedValue(value: Float): String {
-                return setDateTimeText(viewModel.history[value.toInt()].date)
-            }
-
-
+        if (list.isNotEmpty()) {
+            xAxis.valueFormatter = IndexAxisValueFormatter(getAreaCount(list))
         }
-
-        binding.chart.setXAxisRenderer(CustomXAxisRenderer(binding.chart.viewPortHandler,xAxis,binding.chart.getTransformer(YAxis.AxisDependency.LEFT)))
     }
 
     private fun initLineChart() {
@@ -176,13 +229,35 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
         rightAxis.isEnabled = false
     }
 
+    private fun getResultColorByBMI(bMI: Double): Int {
+        return when {
+            bMI >= 40 -> Color.parseColor("#DE0101")
+            bMI >= 30 -> Color.parseColor("#FF4E00")
+            bMI >= 25 -> Color.parseColor("#FF9900")
+            bMI >= 18.5 -> Color.parseColor("#00C857")
+            else -> Color.parseColor("#00B1C8")
+        }
+    }
+
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun setDateTimeText(createAt: String?):String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         val monthFormat = SimpleDateFormat(" dd MMM", Locale("TH"))
         val timeFormat = SimpleDateFormat("HH:mm", Locale("TH"))
         val input = inputFormat.parse(createAt)
-        return monthFormat.format(input)+"\n"+timeFormat.format(input)
+        return monthFormat.format(input) + " " + timeFormat.format(input)
+    }
+
+    private fun mapListToEntry(
+        index: Int, bodyMassResponce: BodyMassResponce
+    ): Entry {
+        return Entry(index.toFloat(), bodyMassResponce.bMI?.toFloat()!!)
+    }
+
+    private fun getAreaCount(list: List<BodyMassResponce>): MutableList<String> {
+        var label = mutableListOf<String>()
+        label = list.map { setDateTimeText(it.createAt) }.toMutableList()
+        return label
     }
 
     override fun onNothingSelected() {
@@ -194,5 +269,15 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener {
             e!!.x, e.y, binding.chart.data.getDataSetByIndex(h!!.dataSetIndex)
                 .axisDependency, 500
         )
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val thCalendar = Calendar.getInstance()
+        thCalendar.set(Calendar.YEAR, year)
+        thCalendar.set(Calendar.MONTH, month - 1)
+        val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
+        val output = fm.format(thCalendar.time)
+        binding.editDate.setText(output)
+        viewModel.getBodymassHistory(profile.cardID, (year - 543).toString(), month.toString())
     }
 }

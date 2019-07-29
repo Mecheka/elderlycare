@@ -21,4 +21,6 @@ class CommonWithAuth constructor(private val networkClient: NetworkClientWithAut
         networkClient.create().create(EvaluationService::class.java)
 
     fun getSugarService(): SugarService = networkClient.create().create(SugarService::class.java)
+
+    fun getVaeccineService(): VeaccineService = networkClient.create().create(VeaccineService::class.java)
 }
