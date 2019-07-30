@@ -203,10 +203,10 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/text_result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ความกัน"
+                        android:text="@={viewModel.result}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -214,14 +214,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button7"
+                android:id="@+id/btn_add_evaluation"
                 style="@style/ButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="เพิ่มข้อมูลดความดันโลหิต"
+                android:text="@string/add_evaluation"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -253,8 +253,8 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/editText"
-                            style="@style/ButtonStyle"
+                            android:id="@+id/edit_date"
+                            style="@style/RoboTextStyle.small.gray"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -263,12 +263,12 @@
                             android:cursorVisible="false"
                             android:editable="false"
                             android:ems="10"
+                            android:gravity="center"
                             android:focusable="false"
                             android:inputType="none"
                             android:longClickable="false"
                             android:selectAllOnFocus="false"
                             android:singleLine="true"
-                            android:text="Name"
                             android:textIsSelectable="true" />
                     </RelativeLayout>
 

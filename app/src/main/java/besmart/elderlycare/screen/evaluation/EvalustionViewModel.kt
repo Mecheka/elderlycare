@@ -19,8 +19,8 @@ class EvalustionViewModel(private val repository: EvaluationRepository) : BaseVi
     val chartLiveData: LiveData<List<BloodPressuresResponse>>
         get() = _chartLiveData
 
-    private val _historyLiveData = MutableLiveData<List<BloodPressuresResponse>>()
-    val historyLiveData: LiveData<List<BloodPressuresResponse>>
+    private val _historyLiveData = MutableLiveData<BloodPressuresResponse>()
+    val historyLiveData: LiveData<BloodPressuresResponse>
         get() = _historyLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
@@ -29,6 +29,7 @@ class EvalustionViewModel(private val repository: EvaluationRepository) : BaseVi
 
     val sys = ObservableField<String>()
     val dia = ObservableField<String>()
+    val result = ObservableField<String>()
     var history = listOf<BloodPressuresResponse>()
 
     fun getBloodPressureLastIndex(cardID: String) {
@@ -41,6 +42,8 @@ class EvalustionViewModel(private val repository: EvaluationRepository) : BaseVi
                         val lastIndex = response.body()?.get(0)
                         sys.set(lastIndex?.sys?.toString())
                         dia.set(lastIndex?.dia?.toString())
+                        result.set(lastIndex?.getResult())
+                        _historyLiveData.value = lastIndex
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
@@ -54,7 +57,7 @@ class EvalustionViewModel(private val repository: EvaluationRepository) : BaseVi
         )
     }
 
-    fun getBloodPressureHistory(cardID: String, year: String = "2019", month: String = "7") {
+    fun getBloodPressureHistory(cardID: String, year: String, month: String) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
             repository.getEvaluationHistory(cardID, year, month).subscribe(

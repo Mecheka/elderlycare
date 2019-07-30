@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.bodymasshistory.BodyMassHistoryActivity"></activity>
+        <activity android:name=".screen.addevaluation.AddEvaluationActivity"></activity>
+        <activity android:name=".screen.bodymasshistory.BodyMassHistoryActivity" />
         <activity android:name=".screen.addbodymass.AddBodyMassActivity" />
         <activity android:name=".screen.evaluation.EvaluationActivity" />
         <activity android:name=".screen.vaccine.VaccineActivity" />

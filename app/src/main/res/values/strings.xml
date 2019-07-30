@@ -56,5 +56,7 @@
     <string name="elderdly_history">ประวัติการดูแล</string>
     <string name="add_body_mass">เพิ่มข้อมูลดัชนีมวลกาย</string>
     <string name="body_mass_history">ประวัติการบันทึกข้อมูล</string>
+    <string name="add_evaluation">เพิ่มข้อมูลดความดันโลหิต</string>
+    <string name="save">บันทึก</string>
 
 </resources>

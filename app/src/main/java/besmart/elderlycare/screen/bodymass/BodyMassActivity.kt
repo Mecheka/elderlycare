@@ -121,8 +121,6 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
             binding.chart.clear()
             if (it.isNotEmpty()) {
                 setData(it)
-            } else {
-                binding.chart.clear()
             }
         })
 

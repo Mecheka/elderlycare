@@ -3,6 +3,7 @@ package besmart.elderlycare.di
 import besmart.elderlycare.repository.*
 import besmart.elderlycare.screen.addbodymass.AddBodyMassViewModel
 import besmart.elderlycare.screen.addelderly.AddElderlyViewModel
+import besmart.elderlycare.screen.addevaluation.AddEvaluationViewModel
 import besmart.elderlycare.screen.bodymass.BodyMassViewModel
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryViewModel
 import besmart.elderlycare.screen.evaluation.EvalustionViewModel
@@ -49,6 +50,7 @@ val viewModelModule = module {
     viewModel { BodyMassHistoryViewModel(repository = get()) }
     viewModel { AddBodyMassViewModel(repository = get()) }
     viewModel { EvalustionViewModel(repository = get()) }
+    viewModel { AddEvaluationViewModel(repository = get()) }
     viewModel { SugarViewModel(repository = get()) }
     viewModel { VeaccineViewModel(repository = get()) }
 

@@ -1,23 +1,28 @@
 package besmart.elderlycare.screen.evaluation
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityEvaluationBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.screen.addevaluation.AddEvaluationActivity
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
+import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
@@ -26,7 +31,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
+class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
+    DatePickerDialog.OnDateSetListener {
 
     companion object {
         const val PROFILE = "profile"
@@ -35,6 +41,7 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
     private lateinit var binding: ActivityEvaluationBinding
     private lateinit var profile: ProfileResponce
     private val viewModel: EvalustionViewModel by viewModel()
+    private val ADD_EVALUATION = 202
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +53,32 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
         initLineChart()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     private fun initInstance() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
             finish()
+        }
+        val thCalendar = Calendar.getInstance()
+        thCalendar.set(Calendar.YEAR, thCalendar.get(Calendar.YEAR) + 543)
+        val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
+        val output = fm.format(thCalendar.time)
+        binding.editDate.setText(output)
+        binding.editDate.setOnClickListener {
+            val dp = MonthYearPickerDialog()
+            dp.setListener(this)
+            dp.show(supportFragmentManager, "MonthDialog")
+        }
+        binding.btnAddEvaluation.setOnClickListener {
+            Intent().apply {
+                this.setClass(this@EvaluationActivity, AddEvaluationActivity::class.java)
+                this.putExtra(AddEvaluationActivity.PROFILE, profile)
+                startActivityForResult(this, ADD_EVALUATION)
+            }
         }
     }
 
@@ -68,14 +96,21 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
         })
 
         viewModel.chartLiveData.observe(this, Observer {
-            setData(it)
+            binding.chart.clear()
+            if (it.isNotEmpty()) {
+                setData(it)
+            }
         })
 
         viewModel.historyLiveData.observe(this, Observer {
+            binding.textResult.setTextColor(it.getResultColor())
         })
 
         viewModel.getBloodPressureLastIndex(profile.cardID!!)
-        viewModel.getBloodPressureHistory(profile.cardID!!)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        viewModel.getBloodPressureHistory(profile.cardID!!, year.toString(), month.toString())
     }
 
     private fun initLineChart() {
@@ -184,10 +219,8 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
         xAxis.position = XAxis.XAxisPosition.TOP
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return setDateTimeText(viewModel.history[value.toInt()].date)
-            }
+        if (list.isNotEmpty()) {
+            xAxis.valueFormatter = IndexAxisValueFormatter(getAreaCount(list))
         }
     }
 
@@ -201,6 +234,11 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
         return monthFormat.format(input) + "\n" + timeFormat.format(input)
     }
 
+    private fun getAreaCount(list: List<BloodPressuresResponse>): MutableList<String> {
+        val label = list.map { setDateTimeText(it.createAt) }.toMutableList()
+        return label
+    }
+
     override fun onNothingSelected() {
 
     }
@@ -209,6 +247,20 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener {
         binding.chart.centerViewToAnimated(
             e!!.x, e.y, binding.chart.data.getDataSetByIndex(h!!.dataSetIndex)
                 .axisDependency, 500
+        )
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val thCalendar = Calendar.getInstance()
+        thCalendar.set(Calendar.YEAR, year)
+        thCalendar.set(Calendar.MONTH, month - 1)
+        val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
+        val output = fm.format(thCalendar.time)
+        binding.editDate.setText(output)
+        viewModel.getBloodPressureHistory(
+            profile.cardID!!,
+            (year - 543).toString(),
+            month.toString()
         )
     }
 }
