@@ -190,8 +190,8 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/editText"
-                            style="@style/ButtonStyle"
+                            android:id="@+id/editDate"
+                            style="@style/RoboTextStyle.small.gray"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -205,7 +205,7 @@
                             android:longClickable="false"
                             android:selectAllOnFocus="false"
                             android:singleLine="true"
-                            android:text="Name"
+                            android:gravity="center"
                             android:textIsSelectable="true" />
                     </RelativeLayout>
 

@@ -1,23 +1,26 @@
 package besmart.elderlycare.screen.sugar
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivitySugarBinding
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
-import besmart.elderlycare.util.CustomXAxisRenderer
+import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
@@ -26,7 +29,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
+class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
+    DatePickerDialog.OnDateSetListener {
 
     companion object {
         const val PROFILE = "profile"
@@ -53,6 +57,16 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        val thCalendar = Calendar.getInstance()
+        thCalendar.set(Calendar.YEAR, thCalendar.get(Calendar.YEAR) + 543)
+        val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
+        val output = fm.format(thCalendar.time)
+        binding.editDate.setText(output)
+        binding.editDate.setOnClickListener {
+            val dp = MonthYearPickerDialog()
+            dp.setListener(this)
+            dp.show(supportFragmentManager, "MonthDialog")
+        }
     }
 
     private fun observerViewModel() {
@@ -69,7 +83,10 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
         })
 
         viewModel.chartLiveData.observe(this, Observer {
-            setData(it)
+            binding.chart.clear()
+            if (it.isNotEmpty()) {
+                setData(it)
+            }
         })
 
         viewModel.historyLiveData.observe(this, Observer {
@@ -77,15 +94,22 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
         })
 
         viewModel.getSugarLastIndex(profile.cardID)
-        viewModel.getSugarHistory(profile.cardID)
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        viewModel.getSugarHistory(profile.cardID, year.toString(), month.toString())
     }
 
-    private fun setData(list: List<Entry>?) {
+    private fun setData(list: List<SugarResponse>) {
+        val entryList = mutableListOf<Entry>()
+        list.forEachIndexed { index, bodyMassResponce ->
+            entryList.add(mapListToEntry(index, bodyMassResponce))
+        }
         if (binding.chart.data != null && binding.chart.data.dataSetCount > 0) {
             lineDataSet = binding.chart.data.getDataSetByIndex(0) as LineDataSet
-            lineDataSet.values = list
+            lineDataSet.values = entryList
         } else {
-            lineDataSet = LineDataSet(list, "ระดับน้ำตาล")
+            lineDataSet = LineDataSet(entryList, "ระดับน้ำตาล")
 
             lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
             lineDataSet.color = ColorTemplate.getHoloBlue()
@@ -105,6 +129,7 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
             // set data
             binding.chart.data = data
         }
+        binding.chart.invalidate()
 
         val xAxis = binding.chart.xAxis
         xAxis.textSize = 11f
@@ -112,16 +137,9 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
         xAxis.position = XAxis.XAxisPosition.TOP
         xAxis.setDrawGridLines(false)
         xAxis.granularity=1f
-        xAxis.valueFormatter = object : ValueFormatter(){
-            override fun getFormattedValue(value: Float): String {
-                return setDateTimeText(viewModel.history[value.toInt()].date)
-            }
+        if (list.isNotEmpty()) {
+            xAxis.valueFormatter = IndexAxisValueFormatter(getAreaCount(list))
         }
-
-        binding.chart.setXAxisRenderer(
-            CustomXAxisRenderer(binding.chart.viewPortHandler,xAxis,binding.chart.getTransformer(
-                YAxis.AxisDependency.LEFT))
-        )
     }
 
     private fun initLineChart() {
@@ -181,6 +199,18 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
         return monthFormat.format(input)+"\n"+timeFormat.format(input)
     }
 
+    private fun mapListToEntry(
+        index: Int, sugar: SugarResponse
+    ): Entry {
+        return Entry(index.toFloat(), sugar.fbs!!.toFloat())
+    }
+
+    private fun getAreaCount(list: List<SugarResponse>): MutableList<String> {
+        var label = mutableListOf<String>()
+        label = list.map { setDateTimeText(it.createAt) }.toMutableList()
+        return label
+    }
+
     override fun onNothingSelected() {
 
     }
@@ -190,5 +220,14 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener {
             e!!.x, e.y, binding.chart.data.getDataSetByIndex(h!!.dataSetIndex)
                 .axisDependency, 500
         )
+    }
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val thCalendar = Calendar.getInstance()
+        thCalendar.set(Calendar.YEAR, year)
+        thCalendar.set(Calendar.MONTH, month - 1)
+        val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
+        val output = fm.format(thCalendar.time)
+        binding.editDate.setText(output)
     }
 }

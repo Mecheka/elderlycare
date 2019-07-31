@@ -165,7 +165,6 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
             binding.chart.data = data
         }
         binding.chart.invalidate()
-        binding.chart.notifyDataSetChanged()
 
         val xAxis = binding.chart.xAxis
 

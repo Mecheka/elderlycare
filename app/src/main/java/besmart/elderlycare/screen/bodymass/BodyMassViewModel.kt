@@ -37,7 +37,6 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
 
 
     fun getBodymassLastIndex(cardID: String?) {
-        _loadingLiveEvent.sendAction(true)
         addDisposable(
             repository.getBodyMassLastIndex(cardID!!).subscribe(
                 { response ->

@@ -8,15 +8,14 @@ import besmart.elderlycare.repository.SugarRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
-import com.github.mikephil.charting.data.Entry
 
 class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent
 
-    private val _chartLiveData = MutableLiveData<List<Entry>>()
-    val chartLiveData: LiveData<List<Entry>>
+    private val _chartLiveData = MutableLiveData<List<SugarResponse>>()
+    val chartLiveData: LiveData<List<SugarResponse>>
         get() = _chartLiveData
 
     private val _historyLiveData = MutableLiveData<List<SugarResponse>>()
@@ -27,7 +26,6 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
-    private val entryList = mutableListOf<Entry>()
     var history= listOf<SugarResponse>()
     val fbs = ObservableField<String>()
 
@@ -54,17 +52,15 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
         )
     }
 
-    fun getSugarHistory(cardID: String?, year: String = "2019", month: String = "7") {
+    fun getSugarHistory(cardID: String?, year: String, month: String) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
             repository.getSugarHistory(cardID!!, year, month).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {
-                        response.body()?.forEachIndexed { index, sugar ->
-                            entryList.add(mapListToEntry(index, sugar))
-                        }
-                        _chartLiveData.value = entryList
+
+                        _chartLiveData.value = response.body()
                         history = response.body()!!
                     } else {
                         response.errorBody()?.let {
@@ -77,11 +73,5 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
                 }
             )
         )
-    }
-
-    private fun mapListToEntry(
-        index: Int, sugar: SugarResponse
-    ): Entry {
-        return Entry(index.toFloat(), sugar.fbs!!.toFloat())
     }
 }
