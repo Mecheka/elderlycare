@@ -1,5 +1,3 @@
 package besmart.elderlycare.service
 
-interface VeaccineService {
-
-}
+interface VeaccineService

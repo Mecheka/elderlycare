@@ -53,8 +53,8 @@ class ProfileActivity : BaseActivity() {
             }
         })
 
-        viewModel.profileLiveData.observe(this, Observer {
-            it.imagePath?.let {
+        viewModel.profileLiveData.observe(this, Observer {profile->
+            profile.imagePath?.let {
                 binding.imageProfile.loadImageUrlCircle(Constance.BASE_URL + "/" + it)
             } ?: run {
                 binding.imageProfile.loadImageResourceCircle(R.drawable.baseline_person_24px)

@@ -59,5 +59,15 @@
     <string name="add_evaluation">เพิ่มข้อมูลดความดันโลหิต</string>
     <string name="save">บันทึก</string>
     <string name="history_evaluation">ประวัติการบันทึกข้อมูล</string>
+    <string name="suget_history">ประวัติการบันทึกข้อมูล</string>
+    <string name="text_detail_add_body_mass">ระบุรายละเอียดน้ำหนัก/ส่วนสูงที่วัดได้</string>
+    <string name="day">วันที่</string>
+    <string name="time">เวลา</string>
+    <string name="weight">น้ำหนัก</string>
+    <string name="kg">กก.</string>
+    <string name="height">ส่วนสูง</string>
+    <string name="cm">ซม.</string>
+    <string name="defult_weight">น้ำหนักน้อยกว่ามาตรฐาน</string>
+    <string name="kg_cm">หน่วย: กก./ม.^2</string>
 
 </resources>

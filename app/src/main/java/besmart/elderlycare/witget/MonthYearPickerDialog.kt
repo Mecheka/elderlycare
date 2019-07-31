@@ -1,19 +1,15 @@
 package besmart.elderlycare.witget
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.NumberPicker
-
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-
-import java.util.Calendar
-
 import besmart.elderlycare.R
+import java.util.*
 
 class MonthYearPickerDialog : DialogFragment() {
     private var listener: DatePickerDialog.OnDateSetListener? = null
@@ -22,6 +18,7 @@ class MonthYearPickerDialog : DialogFragment() {
         this.listener = listener
     }
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity!!)
         // Get the layout inflater
@@ -58,6 +55,6 @@ class MonthYearPickerDialog : DialogFragment() {
 
     companion object {
 
-        private val MAX_YEAR = 2576
+        private const val MAX_YEAR = 2576
     }
 }

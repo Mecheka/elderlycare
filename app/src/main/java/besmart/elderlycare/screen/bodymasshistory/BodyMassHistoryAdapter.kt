@@ -3,7 +3,6 @@ package besmart.elderlycare.screen.bodymasshistory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemBodyMassHistoryBinding
 import besmart.elderlycare.model.bodymass.BodyMassResponce

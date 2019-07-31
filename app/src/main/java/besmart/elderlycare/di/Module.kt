@@ -54,7 +54,7 @@ val viewModelModule = module {
     viewModel { AddEvaluationViewModel(repository = get()) }
     viewModel { EvaluationHistoryViewModel(repository = get()) }
     viewModel { SugarViewModel(repository = get()) }
-    viewModel { VeaccineViewModel(repository = get()) }
+    viewModel { VeaccineViewModel() }
 
 }
 
@@ -68,5 +68,5 @@ val repositoryModule = module {
     single { BodyMassRepository(get()) }
     single { EvaluationRepository(get()) }
     single { SugarRepository(get()) }
-    single { VeaccineRepository(get()) }
+    single { VeaccineRepository() }
 }

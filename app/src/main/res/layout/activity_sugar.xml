@@ -241,7 +241,7 @@
                 android:layout_marginEnd="8dp"
                 android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
                 android:drawableTint="@android:color/white"
-                android:text="ประวัติการบันทึกข้อมูล"
+                android:text="@string/suget_history"
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

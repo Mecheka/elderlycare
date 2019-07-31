@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="ระบุรายละเอียดน้ำหนัก/ส่วนสูงที่วัดได้"
+        android:text="@string/text_detail_add_body_mass"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -59,7 +59,7 @@
                     android:cursorVisible="false"
                     android:editable="false"
                     android:focusable="false"
-                    android:hint="วันที่"
+                    android:hint="@string/day"
                     android:inputType="none"
                     android:longClickable="false"
                     android:selectAllOnFocus="false"
@@ -80,7 +80,7 @@
                     android:cursorVisible="false"
                     android:editable="false"
                     android:focusable="false"
-                    android:hint="เวลา"
+                    android:hint="@string/time"
                     android:inputType="none"
                     android:longClickable="false"
                     android:selectAllOnFocus="false"
@@ -101,7 +101,7 @@
                         android:id="@+id/editWeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="น้ำหนัก"
+                        android:hint="@string/weight"
                         android:inputType="number"
                         android:maxLength="3"
                         android:singleLine="true" />
@@ -114,7 +114,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
-                    android:text="กก." />
+                    android:text="@string/kg" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -129,7 +129,7 @@
                         android:id="@+id/editHeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="ส่วนสูง"
+                        android:hint="@string/height"
                         android:inputType="number"
                         android:maxLength="3"
                         android:singleLine="true" />
@@ -142,7 +142,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="8dp"
-                    android:text="ซม." />
+                    android:text="@string/cm" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -153,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="น้ำหนักน้อยกว่ามาตรฐาน"
+        android:text="@string/defult_weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +192,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="หน่วย: กก./ม.^2"
+        android:text="@string/kg_cm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

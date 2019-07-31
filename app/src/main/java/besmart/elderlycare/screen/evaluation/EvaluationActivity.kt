@@ -55,6 +55,7 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
         initLineChart()
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -254,8 +255,7 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
     }
 
     private fun getAreaCount(list: List<BloodPressuresResponse>): MutableList<String> {
-        val label = list.map { setDateTimeText(it.createAt) }.toMutableList()
-        return label
+        return list.map { setDateTimeText(it.createAt) }.toMutableList()
     }
 
     override fun onNothingSelected() {
