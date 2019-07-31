@@ -6,9 +6,10 @@ import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 fun String.convertDate(): String {
+    val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    calendar.time = inputFormat.parse(this)
     val outputFormat = SimpleDateFormat(" dd MMM yyyy HH:mm", Locale("TH"))
-    val input = inputFormat.parse(this)
-    val output = outputFormat.format(input)
+    val output = outputFormat.format(calendar.time)
     return "วันที่ $output น."
 }

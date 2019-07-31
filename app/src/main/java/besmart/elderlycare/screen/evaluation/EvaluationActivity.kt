@@ -13,8 +13,8 @@ import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityEvaluationBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.screen.evaluationadd.AddEvaluationActivity
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.evaluationadd.AddEvaluationActivity
 import besmart.elderlycare.screen.evaluationhistory.EvaluationHistoryActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.witget.MonthYearPickerDialog
@@ -44,6 +44,8 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
     private lateinit var profile: ProfileResponce
     private val viewModel: EvalustionViewModel by viewModel()
     private val ADD_EVALUATION = 202
+    private var currentYear: String = ""
+    private var currentMonth: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,13 +61,7 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val date = data?.getStringExtra("date")
-            val resultCalendar = Calendar.getInstance()
-            val inputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm")
-            resultCalendar.time = inputFormat.parse(date)
-            val year = resultCalendar.get(Calendar.YEAR)
-            val month = resultCalendar.get(Calendar.MONTH) + 1
-            viewModel.getBloodPressureHistory(profile.cardID!!, year.toString(), month.toString())
+            viewModel.getBloodPressureHistory(profile.cardID!!, currentYear, currentMonth)
         }
     }
 
@@ -130,6 +126,8 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
+        currentYear = year.toString()
+        currentMonth = month.toString()
         viewModel.getBloodPressureHistory(profile.cardID!!, year.toString(), month.toString())
     }
 
@@ -248,14 +246,15 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun setDateTimeText(createAt: String?): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        calendar.time = inputFormat.parse(createAt)
         val monthFormat = SimpleDateFormat(" dd MMM", Locale("TH"))
         val timeFormat = SimpleDateFormat("HH:mm", Locale("TH"))
-        val input = inputFormat.parse(createAt)
-        return monthFormat.format(input) + "\n" + timeFormat.format(input)
+        return monthFormat.format(calendar.time) + "\n" + timeFormat.format(calendar.time)
     }
 
     private fun getAreaCount(list: List<BloodPressuresResponse>): MutableList<String> {
-        return list.map { setDateTimeText(it.createAt) }.toMutableList()
+        return list.map { setDateTimeText(it.date) }.toMutableList()
     }
 
     override fun onNothingSelected() {
@@ -275,6 +274,8 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
         thCalendar.set(Calendar.MONTH, month - 1)
         val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
         val output = fm.format(thCalendar.time)
+        currentMonth = month.toString()
+        currentYear = year.toString()
         binding.editDate.setText(output)
         viewModel.getBloodPressureHistory(
             profile.cardID!!,

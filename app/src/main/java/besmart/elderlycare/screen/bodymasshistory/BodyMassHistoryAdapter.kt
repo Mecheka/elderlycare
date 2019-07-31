@@ -31,7 +31,7 @@ class BodyMassHistoryAdapter(private val list: List<BodyMassResponce>) :
             binding.bmiLayout.setBackgroundColor(getResultColorByBMI(bodyMassResponce.bMI!!))
             binding.textBmiResult.text = bodyMassResponce.bMI.toString()
             binding.textTitle.text = bodyMassResponce.getWeigthResultByBMI()
-            binding.textDate.text = bodyMassResponce.createAt?.convertDate()
+            binding.textDate.text = bodyMassResponce.date?.convertDate()
         }
 
         private fun getResultColorByBMI(bMI: Double): Int {

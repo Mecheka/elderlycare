@@ -18,8 +18,8 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
     val chartLiveData: LiveData<List<SugarResponse>>
         get() = _chartLiveData
 
-    private val _historyLiveData = MutableLiveData<List<SugarResponse>>()
-    val historyLiveData: LiveData<List<SugarResponse>>
+    private val _historyLiveData = MutableLiveData<SugarResponse>()
+    val historyLiveData: LiveData<SugarResponse>
         get() = _historyLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
@@ -39,6 +39,7 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
                     if (response.isSuccessful) {
                         val lastIndex = response.body()?.get(0)
                         fbs.set(lastIndex?.fbs.toString())
+                        _historyLiveData.value = lastIndex
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

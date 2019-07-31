@@ -35,15 +35,16 @@ class AddEvaluationViewModel(private val repository: EvaluationRepository) : Bas
     fun onAddEvaluation(profile: ProfileResponce) {
         _loadingLiveEvent.sendAction(true)
         if (validateData()) {
+            val dateInput = "${date.get()} ${time.get()}"
             val calendar = Calendar.getInstance()
-            val inputDateFormat = SimpleDateFormat("dd MMM yyyy", Locale("TH"))
-            val outputDateFormat = SimpleDateFormat("dd-MM-yyyy")
-            calendar.time = inputDateFormat.parse(date.get()!!)
+            val inputDateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale("TH"))
+            val outputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            calendar.time = inputDateFormat.parse(dateInput)
             calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 543)
             val dateBody = outputDateFormat.format(calendar.time)
             val body = BloodPressuresRequest(
                 profile.cardID!!,
-                "$dateBody ${time.get()}",
+                dateBody,
                 dia.get()!!.toFloat(),
                 sys.get()!!.toFloat()
             )

@@ -1,7 +1,9 @@
 package besmart.elderlycare.screen.sugar
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.DatePicker
@@ -12,6 +14,7 @@ import besmart.elderlycare.databinding.ActivitySugarBinding
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.sugaradd.SugarAddActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
@@ -40,6 +43,9 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
     private val viewModel: SugarViewModel by viewModel()
     private lateinit var profile: ProfileResponce
     private lateinit var lineDataSet: LineDataSet
+    private val ADD_SUGAR = 303
+    private var currentMonth: String = ""
+    private var currentYear: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +55,13 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
         initInstance()
         observerViewModel()
         initLineChart()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            viewModel.getSugarHistory(profile.cardID, currentYear, currentMonth)
+        }
     }
 
     private fun initInstance() {
@@ -66,6 +79,13 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
             val dp = MonthYearPickerDialog()
             dp.setListener(this)
             dp.show(supportFragmentManager, "MonthDialog")
+        }
+        binding.btnAddSugar.setOnClickListener {
+            Intent().apply {
+                this.setClass(this@SugarActivity, SugarAddActivity::class.java)
+                this.putExtra(SugarAddActivity.PROFILE, profile)
+                startActivityForResult(this, ADD_SUGAR)
+            }
         }
     }
 
@@ -90,13 +110,17 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
         })
 
         viewModel.historyLiveData.observe(this, Observer {
-            //            listHistory = it
+            binding.textFbsResult.setTextColor(it.getColor())
+            binding.textResult.text = it.getResult()
+            binding.textResult.setTextColor(it.getColor())
         })
 
         viewModel.getSugarLastIndex(profile.cardID)
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
+        currentMonth = month.toString()
+        currentYear = year.toString()
         viewModel.getSugarHistory(profile.cardID, year.toString(), month.toString())
     }
 
@@ -192,11 +216,12 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun setDateTimeText(createAt: String?):String {
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        calendar.time = inputFormat.parse(createAt)
         val monthFormat = SimpleDateFormat(" dd MMM", Locale("TH"))
         val timeFormat = SimpleDateFormat("HH:mm", Locale("TH"))
-        val input = inputFormat.parse(createAt)
-        return monthFormat.format(input)+"\n"+timeFormat.format(input)
+        return monthFormat.format(calendar.time) + "\n" + timeFormat.format(calendar.time)
     }
 
     private fun mapListToEntry(
@@ -206,9 +231,7 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
     }
 
     private fun getAreaCount(list: List<SugarResponse>): MutableList<String> {
-        var label = mutableListOf<String>()
-        label = list.map { setDateTimeText(it.createAt) }.toMutableList()
-        return label
+        return list.map { setDateTimeText(it.date) }.toMutableList()
     }
 
     override fun onNothingSelected() {
@@ -228,6 +251,9 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
         thCalendar.set(Calendar.MONTH, month - 1)
         val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
         val output = fm.format(thCalendar.time)
+        currentYear = year.toString()
+        currentMonth = month.toString()
         binding.editDate.setText(output)
+        viewModel.getSugarHistory(profile.cardID, currentYear, currentMonth)
     }
 }

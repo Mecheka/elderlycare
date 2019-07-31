@@ -47,6 +47,8 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
     private lateinit var lineDataSet: LineDataSet
     private val calendar = Calendar.getInstance(Locale("TH"))
     private val ADD_BODY_MASS_CODE = 101
+    private var currentYear: String = ""
+    private var currentMonth: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,13 +64,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            val date = data?.getStringExtra("date")
-            val resultCalendar = Calendar.getInstance()
-            val inputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm")
-            resultCalendar.time = inputFormat.parse(date)
-            val year = resultCalendar.get(Calendar.YEAR)
-            val month = resultCalendar.get(Calendar.MONTH) + 1
-            viewModel.getBodymassHistory(profile.cardID, year.toString(), month.toString())
+            viewModel.getBodymassHistory(profile.cardID, currentYear, currentMonth)
         }
     }
 
@@ -132,6 +128,8 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
 
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
+        currentYear = year.toString()
+        currentMonth = month.toString()
         viewModel.getBodymassHistory(profile.cardID, year.toString(), month.toString())
     }
 
@@ -238,11 +236,12 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun setDateTimeText(createAt: String?):String {
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        calendar.time = inputFormat.parse(createAt)
         val monthFormat = SimpleDateFormat(" dd MMM", Locale("TH"))
         val timeFormat = SimpleDateFormat("HH:mm", Locale("TH"))
-        val input = inputFormat.parse(createAt)
-        return monthFormat.format(input) + " " + timeFormat.format(input)
+        return monthFormat.format(calendar.time) + " " + timeFormat.format(calendar.time)
     }
 
     private fun mapListToEntry(
@@ -253,7 +252,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
 
     private fun getAreaCount(list: List<BodyMassResponce>): MutableList<String> {
         var label = mutableListOf<String>()
-        label = list.map { setDateTimeText(it.createAt) }.toMutableList()
+        label = list.map { setDateTimeText(it.date) }.toMutableList()
         return label
     }
 
@@ -274,6 +273,8 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
         thCalendar.set(Calendar.MONTH, month - 1)
         val fm = SimpleDateFormat("MMM yyyy", Locale("TH"))
         val output = fm.format(thCalendar.time)
+        currentMonth = month.toString()
+        currentYear = year.toString()
         binding.editDate.setText(output)
         viewModel.getBodymassHistory(profile.cardID, (year - 543).toString(), month.toString())
     }
