@@ -1,7 +1,6 @@
-package besmart.elderlycare.screen.addevaluation
+package besmart.elderlycare.screen.evaluationadd
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import besmart.elderlycare.model.blood.BloodPressuresRequest
@@ -9,6 +8,7 @@ import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.repository.EvaluationRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
+import besmart.elderlycare.util.HandingNetworkError
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,7 +47,25 @@ class AddEvaluationViewModel(private val repository: EvaluationRepository) : Bas
                 dia.get()!!.toFloat(),
                 sys.get()!!.toFloat()
             )
-            Log.e("Body reqyest :", body.toString())
+            addDisposable(
+                repository.addEvaluation(body).subscribe(
+                    { response ->
+                        _loadingLiveEvent.sendAction(false)
+                        if (response.isSuccessful) {
+                            _successLiveEvent.sendAction("$dateBody ${time.get()}")
+                        } else {
+                            val errorResponse = response.errorBody()
+                            _errorLiveEvent.sendAction(
+                                HandingNetworkError.getErrorMessage(
+                                    errorResponse!!
+                                )
+                            )
+                        }
+                    }, { error ->
+                        _loadingLiveEvent.sendAction(false)
+                        _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                    })
+            )
         }
     }
 

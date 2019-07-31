@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="besmart.elderlycare.screen.addevaluation.AddEvaluationViewModel" />
+            type="besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screen.addevaluation.AddEvaluationActivity">
+        tools:context=".screen.evaluationadd.AddEvaluationActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -277,7 +277,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/dialog_cancel"
+                    style="@style/RoboTextStyle.small.gray"
+                    android:text="DIA"
                     app:layout_constraintEnd_toEndOf="@+id/dia_layout"
                     app:layout_constraintStart_toStartOf="@+id/dia_layout"
                     app:layout_constraintTop_toBottomOf="@+id/dia_layout" />

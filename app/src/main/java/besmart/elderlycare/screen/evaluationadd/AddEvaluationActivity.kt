@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.addevaluation
+package besmart.elderlycare.screen.evaluationadd
 
 import android.app.Activity
 import android.content.Intent

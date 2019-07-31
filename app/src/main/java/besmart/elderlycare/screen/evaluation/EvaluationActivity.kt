@@ -1,6 +1,7 @@
 package besmart.elderlycare.screen.evaluation
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
@@ -12,8 +13,9 @@ import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityEvaluationBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.screen.addevaluation.AddEvaluationActivity
+import besmart.elderlycare.screen.evaluationadd.AddEvaluationActivity
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.evaluationhistory.EvaluationHistoryActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
@@ -55,6 +57,15 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            val date = data?.getStringExtra("date")
+            val resultCalendar = Calendar.getInstance()
+            val inputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm")
+            resultCalendar.time = inputFormat.parse(date)
+            val year = resultCalendar.get(Calendar.YEAR)
+            val month = resultCalendar.get(Calendar.MONTH) + 1
+            viewModel.getBloodPressureHistory(profile.cardID!!, year.toString(), month.toString())
+        }
     }
 
     private fun initInstance() {
@@ -78,6 +89,14 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
                 this.setClass(this@EvaluationActivity, AddEvaluationActivity::class.java)
                 this.putExtra(AddEvaluationActivity.PROFILE, profile)
                 startActivityForResult(this, ADD_EVALUATION)
+            }
+        }
+
+        binding.btnEvaluetionHistory.setOnClickListener {
+            Intent().apply {
+                this.setClass(this@EvaluationActivity, EvaluationHistoryActivity::class.java)
+                this.putExtra(EvaluationHistoryActivity.PROFILE, profile)
+                startActivity(this)
             }
         }
     }

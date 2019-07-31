@@ -296,6 +296,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_evaluetion_history"
                 style="@style/ButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -304,7 +305,7 @@
                 android:layout_marginEnd="8dp"
                 android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
                 android:drawableTint="@android:color/white"
-                android:text="ประวัติการบันทึกข้อมูล"
+                android:text="@string/history_evaluation"
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -33,11 +33,9 @@ class EvalustionViewModel(private val repository: EvaluationRepository) : BaseVi
     var history = listOf<BloodPressuresResponse>()
 
     fun getBloodPressureLastIndex(cardID: String) {
-        _loadingLiveEvent.sendAction(true)
         addDisposable(
             repository.getEvaluationLastIntex(cardID).subscribe(
                 { response ->
-                    _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {
                         val lastIndex = response.body()?.get(0)
                         sys.set(lastIndex?.sys?.toString())

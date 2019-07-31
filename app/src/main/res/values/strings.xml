@@ -58,5 +58,6 @@
     <string name="body_mass_history">ประวัติการบันทึกข้อมูล</string>
     <string name="add_evaluation">เพิ่มข้อมูลดความดันโลหิต</string>
     <string name="save">บันทึก</string>
+    <string name="history_evaluation">ประวัติการบันทึกข้อมูล</string>
 
 </resources>
