@@ -48,6 +48,7 @@ class LoginViewModel constructor(
         val authToken = Credentials.basic(username, password.get()!!)
 
         addDisposable(loginRepo.login(typeId, authToken).subscribe({ responce ->
+            _loadingLiveEvent.sendAction(false)
             if (responce.isSuccessful) {
                 responce.body()?.let {
                     Hawk.put(Constance.TOKEN, it)
