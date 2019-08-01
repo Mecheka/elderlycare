@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.addbodymass
+package besmart.elderlycare.screen.bodymassadd
 
 import androidx.lifecycle.LiveData
 import besmart.elderlycare.model.bodymass.BodyMassRequest

@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.addelderly
+package besmart.elderlycare.screen.elderlyadd
 
 import android.app.Activity
 import android.os.Bundle
@@ -12,7 +12,6 @@ import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.activity_add_elderly.*
 import kotlinx.android.synthetic.main.activity_calendar.toolbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import org.koin.android.viewmodel.ext.android.viewModel
 

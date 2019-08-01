@@ -1,8 +1,8 @@
 package besmart.elderlycare.di
 
 import besmart.elderlycare.repository.*
-import besmart.elderlycare.screen.addbodymass.AddBodyMassViewModel
-import besmart.elderlycare.screen.addelderly.AddElderlyViewModel
+import besmart.elderlycare.screen.bodymassadd.AddBodyMassViewModel
+import besmart.elderlycare.screen.elderlyadd.AddElderlyViewModel
 import besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel
 import besmart.elderlycare.screen.bodymass.BodyMassViewModel
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryViewModel

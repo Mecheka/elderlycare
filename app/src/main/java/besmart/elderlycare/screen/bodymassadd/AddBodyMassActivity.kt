@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.addbodymass
+package besmart.elderlycare.screen.bodymassadd
 
 import android.annotation.SuppressLint
 import android.app.Activity

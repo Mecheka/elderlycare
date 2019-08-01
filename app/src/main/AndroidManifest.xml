@@ -21,7 +21,7 @@
         <activity android:name=".screen.evaluationhistory.EvaluationHistoryActivity" />
         <activity android:name=".screen.evaluationadd.AddEvaluationActivity" />
         <activity android:name=".screen.bodymasshistory.BodyMassHistoryActivity" />
-        <activity android:name=".screen.addbodymass.AddBodyMassActivity" />
+        <activity android:name=".screen.bodymassadd.AddBodyMassActivity" />
         <activity android:name=".screen.evaluation.EvaluationActivity" />
         <activity android:name=".screen.vaccine.VaccineActivity" />
         <activity android:name=".screen.sugar.SugarActivity" />
@@ -32,7 +32,7 @@
         <activity android:name=".screen.editprofile.EditProfileActivity" />
         <activity android:name=".screen.newsdetail.NewsDetailActivity" />
         <activity android:name=".screen.web.WebViewActivity" />
-        <activity android:name=".screen.addelderly.AddElderlyActivity" />
+        <activity android:name=".screen.elderlyadd.AddElderlyActivity" />
         <activity android:name=".screen.profile.ProfileActivity" />
         <activity android:name=".screen.chat.ChatActivity" />
         <activity android:name=".screen.notification.NotificationActivity" />

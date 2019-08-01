@@ -13,7 +13,7 @@ import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityBodyMassBinding
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.screen.addbodymass.AddBodyMassActivity
+import besmart.elderlycare.screen.bodymassadd.AddBodyMassActivity
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryActivity
 import besmart.elderlycare.util.BaseDialog

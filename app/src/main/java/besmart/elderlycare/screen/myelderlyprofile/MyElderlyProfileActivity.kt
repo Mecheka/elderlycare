@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import besmart.elderlycare.R
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.screen.addelderly.AddElderlyActivity
+import besmart.elderlycare.screen.elderlyadd.AddElderlyActivity
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.screen.elderlyinfo.ElderlyInfoActivity
 import besmart.elderlycare.util.BaseDialog

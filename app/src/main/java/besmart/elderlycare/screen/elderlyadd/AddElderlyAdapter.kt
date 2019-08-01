@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.addelderly
+package besmart.elderlycare.screen.elderlyadd
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.addelderly
+package besmart.elderlycare.screen.elderlyadd
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

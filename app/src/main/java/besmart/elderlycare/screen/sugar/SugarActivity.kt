@@ -254,6 +254,6 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
         currentYear = year.toString()
         currentMonth = month.toString()
         binding.editDate.setText(output)
-        viewModel.getSugarHistory(profile.cardID, currentYear, currentMonth)
+        viewModel.getSugarHistory(profile.cardID, (year - 543).toString(), month.toString())
     }
 }
