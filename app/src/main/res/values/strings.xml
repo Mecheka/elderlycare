@@ -69,6 +69,6 @@
     <string name="cm">ซม.</string>
     <string name="defult_weight">น้ำหนักน้อยกว่ามาตรฐาน</string>
     <string name="kg_cm">หน่วย: กก./ม.^2</string>
-    <string name="add_sugar_blood">เพิ่มข้อมูลดความดันโลหิต</string>
+    <string name="add_sugar_blood">เพิ่มข้อมูลระดับน้ำตาลในเลือด</string>
 
 </resources>

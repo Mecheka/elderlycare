@@ -24,4 +24,7 @@ interface EvaluationService {
 
     @POST("/api/v1.0/bloodPressures")
     fun addBloodPressures(@Body body: BloodPressuresRequest): Single<Response<ResponseBody>>
+
+    @GET("/api/v1.0/bloodPressures/{data}")
+    fun getHistoryByDataID(@Path("data") dataID:String):Single<Response<BloodPressuresResponse>>
 }

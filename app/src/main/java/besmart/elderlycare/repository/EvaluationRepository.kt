@@ -32,4 +32,10 @@ class EvaluationRepository(private val service: CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun getHistoryByDataID(dataID: String): Single<Response<BloodPressuresResponse>> {
+        return service.getEvaluationService().getHistoryByDataID(dataID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

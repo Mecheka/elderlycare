@@ -1,5 +1,6 @@
 package besmart.elderlycare.screen.history
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -9,6 +10,7 @@ import besmart.elderlycare.R
 import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.historydetail.HistoryDetailActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.SimpleOnItemClick
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,6 +67,10 @@ class HistoryActivity : BaseActivity(), SimpleOnItemClick<HistoryResponce> {
     }
 
     override fun onItemClick(item: HistoryResponce) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Intent().apply {
+            this.setClass(this@HistoryActivity, HistoryDetailActivity::class.java)
+            this.putExtra(HistoryDetailActivity.HISTORY, item)
+            startActivity(this)
+        }
     }
 }

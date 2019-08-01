@@ -15,6 +15,7 @@ import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.screen.sugaradd.SugarAddActivity
+import besmart.elderlycare.screen.sugarhistory.SugarHistoryActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
@@ -84,6 +85,13 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
             Intent().apply {
                 this.setClass(this@SugarActivity, SugarAddActivity::class.java)
                 this.putExtra(SugarAddActivity.PROFILE, profile)
+                startActivityForResult(this, ADD_SUGAR)
+            }
+        }
+        binding.btnHistorySugar.setOnClickListener {
+            Intent().apply {
+                this.setClass(this@SugarActivity, SugarHistoryActivity::class.java)
+                this.putExtra(SugarHistoryActivity.PROFILE, profile)
                 startActivityForResult(this, ADD_SUGAR)
             }
         }

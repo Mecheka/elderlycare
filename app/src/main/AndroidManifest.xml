@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.sugarhistory.SugarHistoryActivity"></activity>
+        <activity android:name=".screen.historydetail.HistoryDetailActivity"></activity>
+        <activity android:name=".screen.sugarhistory.SugarHistoryActivity" />
         <activity android:name=".screen.sugaradd.SugarAddActivity" />
         <activity android:name=".screen.evaluationhistory.EvaluationHistoryActivity" />
         <activity android:name=".screen.evaluationadd.AddEvaluationActivity" />

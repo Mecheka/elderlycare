@@ -1,15 +1,16 @@
 package besmart.elderlycare.di
 
 import besmart.elderlycare.repository.*
-import besmart.elderlycare.screen.bodymassadd.AddBodyMassViewModel
-import besmart.elderlycare.screen.elderlyadd.AddElderlyViewModel
-import besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel
 import besmart.elderlycare.screen.bodymass.BodyMassViewModel
+import besmart.elderlycare.screen.bodymassadd.AddBodyMassViewModel
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryViewModel
+import besmart.elderlycare.screen.elderlyadd.AddElderlyViewModel
 import besmart.elderlycare.screen.evaluation.EvalustionViewModel
+import besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel
 import besmart.elderlycare.screen.evaluationhistory.EvaluationHistoryViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
+import besmart.elderlycare.screen.historydetail.HistoryDetailViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
 import besmart.elderlycare.screen.login.LoginViewModel
 import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
@@ -17,6 +18,8 @@ import besmart.elderlycare.screen.news.NewsViewModel
 import besmart.elderlycare.screen.profile.ProfileViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.screen.sugar.SugarViewModel
+import besmart.elderlycare.screen.sugaradd.SugarAddViewModel
+import besmart.elderlycare.screen.sugarhistory.SugarHistoryViewModel
 import besmart.elderlycare.screen.vaccine.VeaccineViewModel
 import besmart.elderlycare.service.client.NetworkClientDevman
 import besmart.elderlycare.service.client.NetworkClientWithAuth
@@ -47,6 +50,7 @@ val viewModelModule = module {
     viewModel { NewsViewModel(repository = get()) }
     viewModel { ProfileViewModel(repository = get()) }
     viewModel { HistoryViewModel(repository = get()) }
+    viewModel { HistoryDetailViewModel(get(), get(), get()) }
     viewModel { BodyMassViewModel(repository = get()) }
     viewModel { BodyMassHistoryViewModel(repository = get()) }
     viewModel { AddBodyMassViewModel(repository = get()) }
@@ -54,6 +58,8 @@ val viewModelModule = module {
     viewModel { AddEvaluationViewModel(repository = get()) }
     viewModel { EvaluationHistoryViewModel(repository = get()) }
     viewModel { SugarViewModel(repository = get()) }
+    viewModel { SugarAddViewModel(repository = get()) }
+    viewModel { SugarHistoryViewModel(repository = get()) }
     viewModel { VeaccineViewModel() }
 
 }

@@ -33,4 +33,14 @@ data class SugarResponse(
             else -> Color.parseColor("#00C857")
         }
     }
+
+    companion object {
+        fun getResult(fbs: Int): String {
+            return when {
+                fbs >= 200 -> "เบาหวาน"
+                fbs in 140..200 -> "เสี่ยงเป็นโรคเบาหวาน"
+                else -> "ปกติ"
+            }
+        }
+    }
 }
