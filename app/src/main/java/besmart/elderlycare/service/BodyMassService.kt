@@ -26,5 +26,5 @@ interface BodyMassService {
     fun addBodyMass(@Body body: BodyMassRequest): Single<Response<ResponseBody>>
 
     @GET("/api/v1.0/bodyMassIndexs/{date}")
-    fun getHistoryByDate(@Path("date") date: String): Single<Response<BodyMassResponce>>
+    fun getHistoryByDate(@Path("date") date: String): Single<Response<List<BodyMassResponce>>>
 }

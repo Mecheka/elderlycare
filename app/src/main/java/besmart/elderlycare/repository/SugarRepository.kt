@@ -28,4 +28,10 @@ class SugarRepository(private val service:CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun getHistoryByDataID(dataID:String):Single<Response<List<SugarResponse>>>{
+        return service.getSugarService().getHistoryByDataID(dataID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

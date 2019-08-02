@@ -1,8 +1,10 @@
 package besmart.elderlycare.screen.historydetail
 
 import androidx.lifecycle.LiveData
+import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.history.HistoryResponce
+import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.repository.BodyMassRepository
 import besmart.elderlycare.repository.EvaluationRepository
 import besmart.elderlycare.repository.SugarRepository
@@ -24,9 +26,17 @@ class HistoryDetailViewModel(
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
-    private val _bodymassLiveEvent = ActionLiveData<BodyMassResponce>()
-    val bodymassLiveEvent: LiveData<BodyMassResponce>
+    private val _bodymassLiveEvent = ActionLiveData<List<BodyMassResponce>>()
+    val bodymassLiveEvent: LiveData<List<BodyMassResponce>>
         get() = _bodymassLiveEvent
+
+    private val _evaluationLiveEvent = ActionLiveData<List<BloodPressuresResponse>>()
+    val evaluationLiveEvent: LiveData<List<BloodPressuresResponse>>
+        get() = _evaluationLiveEvent
+
+    private val _sugarLiveEvent = ActionLiveData<List<SugarResponse>>()
+    val sugarLiveEvent: LiveData<List<SugarResponse>>
+        get() = _sugarLiveEvent
 
     fun getHistoryDetail(history: HistoryResponce) {
         _loadingLiveEvent.sendAction(true)
@@ -58,7 +68,7 @@ class HistoryDetailViewModel(
                         { response ->
                             _loadingLiveEvent.sendAction(false)
                             if (response.isSuccessful) {
-
+                                _evaluationLiveEvent.value = response.body()
                             } else {
                                 val errorResponse = response.errorBody()
                                 _errorLiveEvent.sendAction(
@@ -75,11 +85,11 @@ class HistoryDetailViewModel(
             }
             else -> {
                 addDisposable(
-                    repoBody.getHistoryByDate(history.dataID.toString()).subscribe(
+                    repoBlood.getHistoryByDataID(history.dataID.toString()).subscribe(
                         { response ->
                             _loadingLiveEvent.sendAction(false)
                             if (response.isSuccessful) {
-
+                                _sugarLiveEvent.value = response.body()
                             } else {
                                 val errorResponse = response.errorBody()
                                 _errorLiveEvent.sendAction(

@@ -49,6 +49,9 @@ class HistoryAdapter(
             setImageByType(history)
             setDateTimeText(history)
             binding.layoutRoot.setBackgroundResource(setBackgroundByPosition(first, last))
+            binding.layoutRoot.setOnClickListener {
+                listener.onItemClick(history)
+            }
         }
 
         private fun setTextByType(history: HistoryResponce) {

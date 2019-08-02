@@ -29,7 +29,7 @@ class BodyMassRepository(private val service: CommonWithAuth) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getHistoryByDate(date: String): Single<Response<BodyMassResponce>> {
+    fun getHistoryByDate(date: String): Single<Response<List<BodyMassResponce>>> {
         return service.getBodyMassService().getHistoryByDate(date)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

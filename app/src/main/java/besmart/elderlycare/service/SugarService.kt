@@ -24,4 +24,7 @@ interface SugarService {
 
     @POST("/api/v1.0/bloodSugars")
     fun addSugarBlood(@Body body: SugarReqeust): Single<Response<ResponseBody>>
+
+    @GET("/api/v1.0/bloodSugars/{dataID}")
+    fun getHistoryByDataID(@Path("dataID") dataID: String): Single<Response<List<SugarResponse>>>
 }
