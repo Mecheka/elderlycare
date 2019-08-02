@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "756600469524",
+    "firebase_url": "https://elderlycare-ad9e1.firebaseio.com",
+    "project_id": "elderlycare-ad9e1",
+    "storage_bucket": "elderlycare-ad9e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756600469524:android:f71e956a39343014",
+        "android_client_info": {
+          "package_name": "besmart.elderlycare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756600469524-q193akn09i83co146vfsm1o5m6g8moga.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFuZrDsalgMsS47FydXdFgxnZylhPfz9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756600469524-q193akn09i83co146vfsm1o5m6g8moga.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "756600469524-rgirq44e0f73a3m55q32ijqc3ra7ccb3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "besmart.elderlycare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
