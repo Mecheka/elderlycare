@@ -15,6 +15,7 @@ import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
 import besmart.elderlycare.screen.login.LoginViewModel
 import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
 import besmart.elderlycare.screen.news.NewsViewModel
+import besmart.elderlycare.screen.notification.NotificationViewModel
 import besmart.elderlycare.screen.profile.ProfileViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.screen.sugar.SugarViewModel
@@ -61,6 +62,7 @@ val viewModelModule = module {
     viewModel { SugarAddViewModel(repository = get()) }
     viewModel { SugarHistoryViewModel(repository = get()) }
     viewModel { VeaccineViewModel() }
+    viewModel { NotificationViewModel(get()) }
 
 }
 
@@ -75,4 +77,5 @@ val repositoryModule = module {
     single { EvaluationRepository(get()) }
     single { SugarRepository(get()) }
     single { VeaccineRepository() }
+    single { AlertRepository(get()) }
 }
