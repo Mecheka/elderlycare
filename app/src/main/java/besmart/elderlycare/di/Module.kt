@@ -10,6 +10,7 @@ import besmart.elderlycare.screen.evaluation.EvalustionViewModel
 import besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel
 import besmart.elderlycare.screen.evaluationhistory.EvaluationHistoryViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
+import besmart.elderlycare.screen.gps.GPSListUserViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
 import besmart.elderlycare.screen.historydetail.HistoryDetailViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
@@ -65,6 +66,7 @@ val viewModelModule = module {
     viewModel { SugarHistoryViewModel(repository = get()) }
     viewModel { VeaccineViewModel() }
     viewModel { NotificationViewModel(get()) }
+    viewModel { GPSListUserViewModel(get()) }
 
 }
 
@@ -80,4 +82,5 @@ val repositoryModule = module {
     single { SugarRepository(get()) }
     single { VeaccineRepository() }
     single { AlertRepository(get()) }
+    single { GPSRepository(get()) }
 }

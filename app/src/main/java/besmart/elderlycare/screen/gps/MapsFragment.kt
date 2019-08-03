@@ -21,7 +21,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        return inflater.inflate(R.layout.fragment_gps_maps, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

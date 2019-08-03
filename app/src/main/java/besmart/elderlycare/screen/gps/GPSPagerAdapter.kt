@@ -8,13 +8,13 @@ class GPSPagerAdapter(fm: FragmentManager, behavior: Int = BEHAVIOR_RESUME_ONLY_
     FragmentStatePagerAdapter(fm, behavior) {
     override fun getItem(position: Int): Fragment = when (position) {
         0 -> MapsFragment()
-        else -> ListUserFragment()
+        else -> GPSListUserFragment()
     }
 
     override fun getCount(): Int = 2
 
     override fun getPageTitle(position: Int): CharSequence? = when (position) {
-        0 -> "Tab 1"
-        else -> "Tab 2"
+        0 -> "แผนที่"
+        else -> "รายชื่อ"
     }
 }

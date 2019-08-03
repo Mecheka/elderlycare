@@ -17,6 +17,7 @@ import besmart.elderlycare.screen.history.HistoryActivity
 import besmart.elderlycare.screen.sugar.SugarActivity
 import besmart.elderlycare.screen.vaccine.VaccineActivity
 import besmart.elderlycare.util.Constance
+import besmart.elderlycare.util.loadImageResourceCircle
 import besmart.elderlycare.util.loadImageUrlCircle
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -43,7 +44,11 @@ class ElderlyInfoActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        binding.imageProfile.loadImageUrlCircle(Constance.BASE_URL + "/" + profile.imagePath)
+        profile.imagePath?.let {
+            binding.imageProfile.loadImageUrlCircle(Constance.BASE_URL + "/" + it)
+        }?:run{
+            binding.imageProfile.loadImageResourceCircle(R.drawable.baseline_person_24px)
+        }
 
         binding.cardHistory.setOnClickListener {
             Intent().apply {
