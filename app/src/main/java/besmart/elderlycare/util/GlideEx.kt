@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.core.graphics.drawable.toDrawable
 import besmart.elderlycare.R
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 fun ImageView.loadImageUrlCircle(
@@ -15,6 +16,8 @@ fun ImageView.loadImageUrlCircle(
         .load(url)
         .apply(RequestOptions.circleCropTransform())
         .error(errro)
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .skipMemoryCache(true)
         .into(this)
 }
 
@@ -22,17 +25,23 @@ fun ImageView.loadImageResourceCircle(res: Int){
     Glide.with(this)
         .load(res)
         .apply(RequestOptions.circleCropTransform())
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .skipMemoryCache(true)
         .into(this)
 }
 
 fun ImageView.loadImageUrl(url:String){
     Glide.with(this)
         .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .skipMemoryCache(true)
         .into(this)
 }
 
 fun ImageView.loadImageResource(res: Int){
     Glide.with(this)
         .load(res)
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .skipMemoryCache(true)
         .into(this)
 }

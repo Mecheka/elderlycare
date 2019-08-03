@@ -1,17 +1,20 @@
 package besmart.elderlycare.screen.profile
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.repository.ProfileRepository
-import besmart.elderlycare.util.ActionLiveData
-import besmart.elderlycare.util.BaseViewModel
-import besmart.elderlycare.util.Constance
-import besmart.elderlycare.util.HandingNetworkError
+import besmart.elderlycare.util.*
 import com.orhanobut.hawk.Hawk
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
-class ProfileViewModel(private val repository: ProfileRepository) : BaseViewModel() {
+class ProfileViewModel(private val repository: ProfileRepository) : BaseViewModel(),
+    CreateImage.OnCallBackListener {
 
     val name = ObservableField<String>()
     val cardId = ObservableField<String>()
@@ -70,4 +73,38 @@ class ProfileViewModel(private val repository: ProfileRepository) : BaseViewMode
             else -> "หญิง"
         }
     }
+
+    private fun uploadImage(result: File) {
+        _loadingLiveEvent.sendAction(true)
+        val builder = MultipartBody.Builder()
+        builder.setType(MultipartBody.FORM)
+        val requestImage = RequestBody.create(MediaType.parse("image/*"), result)
+        builder.addFormDataPart("image", result.name, requestImage)
+        addDisposable(
+            repository.uploadImageProfile(
+                builder.build(),
+                user.id.toString()
+            ).subscribe(
+                { response ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (response.isSuccessful){
+                        Log.e("upload image :", "image")
+                    }else{
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                },
+                { errpr ->
+                    _loadingLiveEvent.sendAction(false)
+                })
+        )
+    }
+
+    override fun onCreateImageSuccess(result: File, width: String, height: String) {
+        uploadImage(result)
+    }
+
 }
+
+//[size=240 text={"longitude":0,"lastName":"edit","address":"test","id":6,"create…]

@@ -6,6 +6,7 @@ import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Response
 
@@ -31,6 +32,12 @@ class ProfileRepository constructor(private val service: CommonWithAuth) {
 
     fun editProfile(cardId: String, body: EditProfileRequest): Single<Response<ResponseBody>> {
         return service.getProfileService().editProfile(cardId, body)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun uploadImageProfile(body: RequestBody, profileID: String): Single<Response<ResponseBody>> {
+        return service.getProfileService().uploadImageProfile(profileID, body)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
