@@ -1,5 +1,6 @@
 package besmart.elderlycare.screen.profile
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -22,6 +23,7 @@ class ProfileActivity : BaseActivity() {
 
     private val viewModel: ProfileViewModel by viewModel()
     private lateinit var binding: ActivityProfileBinding
+    private val EDIT_PROFILE_CODE = 301
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,13 @@ class ProfileActivity : BaseActivity() {
         binding.lifecycleOwner = this
         initInstance()
         observerViewModel()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            viewModel.getProfileByCardId()
+        }
     }
 
     private fun initInstance() {
@@ -75,7 +84,7 @@ class ProfileActivity : BaseActivity() {
                 Intent().apply {
                     this.setClass(this@ProfileActivity, EditProfileActivity::class.java)
                     this.putExtra(EditProfileActivity.USER, viewModel.profile)
-                    startActivity(this)
+                    startActivityForResult(this, EDIT_PROFILE_CODE)
                 }
                 true
             }

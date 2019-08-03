@@ -72,14 +72,6 @@ class RegisterActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
                 negativeButton(R.string.dialog_cancel)
             }
         }
-//        val genderList = resources.getStringArray(R.array.gender).toList()
-//        binding.txtGender.setAdapter(
-//            SpinerAdapter(
-//                genderList,
-//                binding.txtGender,
-//                this
-//            )
-//        )
         if (selectType == PERSON) {
             binding.employeeLayout.visibility = View.GONE
         }
@@ -109,16 +101,6 @@ class RegisterActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
             }
         })
     }
-
-//    override fun onSpinnerItemClick(
-//        text: String,
-//        view: View,
-//        position: Int
-//    ) {
-//        viewModel.genderId.set(position.toString())
-//        binding.txtGender.text = text
-//        binding.txtGender.dialog?.dismiss()
-//    }
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val newYear = year+543

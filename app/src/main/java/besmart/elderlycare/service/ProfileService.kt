@@ -1,9 +1,13 @@
 package besmart.elderlycare.service
 
+import besmart.elderlycare.model.editprofile.EditProfileRequest
 import besmart.elderlycare.model.profile.ProfileResponce
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface ProfileService {
@@ -16,4 +20,10 @@ interface ProfileService {
 
     @GET("/api/v1.0/users/{userId}/profiles")
     fun getProfileByUserId(@Path("userId") userId: String): Single<Response<ProfileResponce>>
+
+    @PATCH("/api/v1.0/profiles/{cardID}")
+    fun editProfile(
+        @Path("cardID") cardId: String,
+        @Body body: EditProfileRequest
+    ): Single<Response<ResponseBody>>
 }
