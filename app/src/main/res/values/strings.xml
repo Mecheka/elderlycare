@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Elderlycare</string>
+    <string name="app_name">ดูแล</string>
 
     <string name="register">ลงทะเบียน</string>
     <string name="welcome_login">ลงชื่อเข้าใช้</string>

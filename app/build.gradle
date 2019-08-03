@@ -95,4 +95,6 @@ dependencies {
     // Map
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    // Photo view
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

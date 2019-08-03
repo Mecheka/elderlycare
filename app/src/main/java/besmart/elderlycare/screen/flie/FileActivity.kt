@@ -1,16 +1,20 @@
 package besmart.elderlycare.screen.flie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
+import besmart.elderlycare.model.file.FileData
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.filedetail.FileDetailActivity
 import besmart.elderlycare.util.BaseDialog
+import besmart.elderlycare.util.SimpleOnItemClick
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class FileActivity : BaseActivity() {
+class FileActivity : BaseActivity(), SimpleOnItemClick<FileData> {
 
     private val viewModel: FileViewModel by viewModel()
     private lateinit var fileAdapter: FileAdapter
@@ -47,10 +51,18 @@ class FileActivity : BaseActivity() {
 
         viewModel.devmanLiveData.observe(this, Observer { file ->
             file.data?.let {
-                fileAdapter = FileAdapter(it)
+                fileAdapter = FileAdapter(it, this)
                 recyclerView.adapter = fileAdapter
             }
         })
         viewModel.getAllFile()
+    }
+
+    override fun onItemClick(item: FileData) {
+        Intent().apply {
+            this.setClass(this@FileActivity, FileDetailActivity::class.java)
+            this.putExtra(FileDetailActivity.FILE_DATA, item)
+            startActivity(this)
+        }
     }
 }

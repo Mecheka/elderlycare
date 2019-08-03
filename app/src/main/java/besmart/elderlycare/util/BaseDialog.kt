@@ -8,7 +8,7 @@ class BaseDialog {
         fun warningDialog(context: Context, message: String) {
 
             MaterialDialog(context).show {
-                title(text = "Warring")
+                title(text = "Warning")
                 message(text = message)
                 positiveButton(text = "OK")
             }
