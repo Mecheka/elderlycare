@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.evaluationadd
+package besmart.elderlycare.screen.bloodadd
 
 import android.app.Activity
 import android.content.Intent
@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
-import besmart.elderlycare.databinding.ActivityAddEvaluationBinding
+import besmart.elderlycare.databinding.ActivityAddBloodPressureBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
@@ -22,21 +22,21 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddEvaluationActivity : BaseActivity(), DatePickerDialog.OnDateSetListener,
+class AddBloodPressureActivity : BaseActivity(), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
 
     companion object {
         const val PROFILE = "profile"
     }
 
-    private lateinit var binding: ActivityAddEvaluationBinding
-    private val viewModel: AddEvaluationViewModel by viewModel()
+    private lateinit var binding: ActivityAddBloodPressureBinding
+    private val viewModel: AddBloodPressureViewModel by viewModel()
     private lateinit var profile: ProfileResponce
     private lateinit var dateLocale: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_evaluation)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_blood_pressure)
         binding.viewModel = viewModel
         profile = intent.getParcelableExtra(PROFILE)
         initInstance()

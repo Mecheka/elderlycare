@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.evaluationhistory
+package besmart.elderlycare.screen.bloodhistory
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -11,7 +11,7 @@ import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class EvaluationHistoryActivity : BaseActivity() {
+class BloodPressureHistoryActivity : BaseActivity() {
 
     companion object {
         const val PROFILE = "profile"
@@ -20,11 +20,11 @@ class EvaluationHistoryActivity : BaseActivity() {
     private val profile: ProfileResponce by lazy {
         intent.getParcelableExtra(PROFILE) as ProfileResponce
     }
-    private val viewModel: EvaluationHistoryViewModel by viewModel()
+    private val viewModel: BloodPressureHistoryViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_evaluation_history)
+        setContentView(R.layout.activity_blood_pressure_history)
         initInstance()
         observerViewModel()
     }
@@ -54,12 +54,12 @@ class EvaluationHistoryActivity : BaseActivity() {
             recyclerView.apply {
                 this.layoutManager =
                     LinearLayoutManager(
-                        this@EvaluationHistoryActivity,
+                        this@BloodPressureHistoryActivity,
                         RecyclerView.VERTICAL,
                         false
                     )
                 this.hasFixedSize()
-                this.adapter = EvaluetionHistoryAdapter(it)
+                this.adapter = BloodPressureHistoryAdapter(it)
             }
         })
 

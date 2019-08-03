@@ -1,20 +1,20 @@
-package besmart.elderlycare.screen.evaluationhistory
+package besmart.elderlycare.screen.bloodhistory
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import besmart.elderlycare.databinding.ItemEvaluationHistoryBinding
+import besmart.elderlycare.databinding.ItemBloodPressureHistoryBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.util.convertDate
 
-class EvaluetionHistoryAdapter(private val list: List<BloodPressuresResponse>) :
-    RecyclerView.Adapter<EvaluetionHistoryAdapter.EvaluationHistoryHolder>() {
+class BloodPressureHistoryAdapter(private val list: List<BloodPressuresResponse>) :
+    RecyclerView.Adapter<BloodPressureHistoryAdapter.EvaluationHistoryHolder>() {
 
-    private lateinit var binding: ItemEvaluationHistoryBinding
+    private lateinit var binding: ItemBloodPressureHistoryBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EvaluationHistoryHolder {
         binding =
-            ItemEvaluationHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemBloodPressureHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return EvaluationHistoryHolder(binding)
     }
 
@@ -24,7 +24,7 @@ class EvaluetionHistoryAdapter(private val list: List<BloodPressuresResponse>) :
         holder.bind(list[position])
     }
 
-    class EvaluationHistoryHolder(private val binding: ItemEvaluationHistoryBinding) :
+    class EvaluationHistoryHolder(private val binding: ItemBloodPressureHistoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(bloodPressuresResponse: BloodPressuresResponse) {
             binding.bmiLayout.setBackgroundColor(bloodPressuresResponse.getResultColor())

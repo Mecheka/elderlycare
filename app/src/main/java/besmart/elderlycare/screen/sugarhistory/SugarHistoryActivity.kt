@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
-import besmart.elderlycare.screen.evaluationhistory.EvaluetionHistoryAdapter
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel

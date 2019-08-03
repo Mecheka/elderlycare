@@ -8,9 +8,9 @@ import besmart.elderlycare.screen.chat.ChatListUserViewModel
 import besmart.elderlycare.screen.chat.ChatViewModel
 import besmart.elderlycare.screen.editprofile.EditProfileViewModel
 import besmart.elderlycare.screen.elderlyadd.AddElderlyViewModel
-import besmart.elderlycare.screen.evaluation.EvalustionViewModel
-import besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel
-import besmart.elderlycare.screen.evaluationhistory.EvaluationHistoryViewModel
+import besmart.elderlycare.screen.blood.BloodPressureViewModel
+import besmart.elderlycare.screen.bloodadd.AddBloodPressureViewModel
+import besmart.elderlycare.screen.bloodhistory.BloodPressureHistoryViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
 import besmart.elderlycare.screen.gps.GPSListUserViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
@@ -59,9 +59,9 @@ val viewModelModule = module {
     viewModel { BodyMassViewModel(repository = get()) }
     viewModel { BodyMassHistoryViewModel(repository = get()) }
     viewModel { AddBodyMassViewModel(repository = get()) }
-    viewModel { EvalustionViewModel(repository = get()) }
-    viewModel { AddEvaluationViewModel(repository = get()) }
-    viewModel { EvaluationHistoryViewModel(repository = get()) }
+    viewModel { BloodPressureViewModel(repository = get()) }
+    viewModel { AddBloodPressureViewModel(repository = get()) }
+    viewModel { BloodPressureHistoryViewModel(repository = get()) }
     viewModel { SugarViewModel(repository = get()) }
     viewModel { SugarAddViewModel(repository = get()) }
     viewModel { SugarHistoryViewModel(repository = get()) }

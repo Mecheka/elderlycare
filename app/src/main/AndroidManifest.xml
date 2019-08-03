@@ -26,8 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.filedetail.FileDetailActivity"></activity>
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m">
+        <activity android:name=".screen.filedetail.FileDetailActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -36,11 +37,11 @@
         <activity android:name=".screen.historydetail.HistoryDetailActivity" />
         <activity android:name=".screen.sugarhistory.SugarHistoryActivity" />
         <activity android:name=".screen.sugaradd.SugarAddActivity" />
-        <activity android:name=".screen.evaluationhistory.EvaluationHistoryActivity" />
-        <activity android:name=".screen.evaluationadd.AddEvaluationActivity" />
+        <activity android:name=".screen.bloodhistory.BloodPressureHistoryActivity" />
+        <activity android:name=".screen.bloodadd.AddBloodPressureActivity" />
         <activity android:name=".screen.bodymasshistory.BodyMassHistoryActivity" />
         <activity android:name=".screen.bodymassadd.AddBodyMassActivity" />
-        <activity android:name=".screen.evaluation.EvaluationActivity" />
+        <activity android:name=".screen.blood.BloodPressureActivity" />
         <activity android:name=".screen.vaccine.VaccineActivity" />
         <activity android:name=".screen.sugar.SugarActivity" />
         <activity android:name=".screen.pressure.PressureActivity" />
@@ -73,6 +74,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.main.MainActivity" />
+        <!--<service-->
+        <!--android:name=".java.MyFirebaseMessagingService"-->
+        <!--android:exported="false">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+        <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--<meta-data-->
+        <!--android:name="com.google.firebase.messaging.default_notification_icon"-->
+        <!--android:resource="@drawable/" />-->
+        <!--&lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming-->
+        <!--notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;-->
+        <!--<meta-data-->
+        <!--android:name="com.google.firebase.messaging.default_notification_color"-->
+        <!--android:resource="@color/colorAccent" />\-->
     </application>
 
 </manifest>

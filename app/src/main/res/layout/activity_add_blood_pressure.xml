@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="besmart.elderlycare.screen.evaluationadd.AddEvaluationViewModel" />
+            type="besmart.elderlycare.screen.bloodadd.AddBloodPressureViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screen.evaluationadd.AddEvaluationActivity">
+        tools:context=".screen.bloodadd.AddBloodPressureActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

@@ -90,6 +90,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0-beta02'
     // Firebase
     implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
     // Dexter
     implementation 'com.karumi:dexter:5.0.0'
     // Map

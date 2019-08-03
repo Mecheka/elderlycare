@@ -9,7 +9,7 @@ import besmart.elderlycare.R
 import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryAdapter
-import besmart.elderlycare.screen.evaluationhistory.EvaluetionHistoryAdapter
+import besmart.elderlycare.screen.bloodhistory.BloodPressureHistoryAdapter
 import besmart.elderlycare.screen.sugarhistory.SugarHistoryAdapter
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -61,7 +61,7 @@ class HistoryDetailActivity : BaseActivity() {
             recyclerView.adapter = BodyMassHistoryAdapter(it)
         })
         viewModel.evaluationLiveEvent.observe(this, Observer {
-            recyclerView.adapter = EvaluetionHistoryAdapter(it)
+            recyclerView.adapter = BloodPressureHistoryAdapter(it)
         })
         viewModel.sugarLiveEvent.observe(this, Observer {
             recyclerView.adapter = SugarHistoryAdapter(it)

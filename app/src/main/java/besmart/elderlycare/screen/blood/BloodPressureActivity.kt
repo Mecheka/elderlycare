@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.evaluation
+package besmart.elderlycare.screen.blood
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -10,12 +10,12 @@ import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
-import besmart.elderlycare.databinding.ActivityEvaluationBinding
+import besmart.elderlycare.databinding.ActivityBloodPressureBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
-import besmart.elderlycare.screen.evaluationadd.AddEvaluationActivity
-import besmart.elderlycare.screen.evaluationhistory.EvaluationHistoryActivity
+import besmart.elderlycare.screen.bloodadd.AddBloodPressureActivity
+import besmart.elderlycare.screen.bloodhistory.BloodPressureHistoryActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.witget.MonthYearPickerDialog
 import com.github.mikephil.charting.components.Legend
@@ -33,23 +33,23 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
+class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
     DatePickerDialog.OnDateSetListener {
 
     companion object {
         const val PROFILE = "profile"
     }
 
-    private lateinit var binding: ActivityEvaluationBinding
+    private lateinit var binding: ActivityBloodPressureBinding
     private lateinit var profile: ProfileResponce
-    private val viewModel: EvalustionViewModel by viewModel()
+    private val viewModel: BloodPressureViewModel by viewModel()
     private val ADD_EVALUATION = 202
     private var currentYear: String = ""
     private var currentMonth: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_evaluation)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_blood_pressure)
         binding.viewModel = viewModel
         profile = intent.getParcelableExtra(PROFILE)
         initInstance()
@@ -83,16 +83,16 @@ class EvaluationActivity : BaseActivity(), OnChartValueSelectedListener,
         }
         binding.btnAddEvaluation.setOnClickListener {
             Intent().apply {
-                this.setClass(this@EvaluationActivity, AddEvaluationActivity::class.java)
-                this.putExtra(AddEvaluationActivity.PROFILE, profile)
+                this.setClass(this@BloodPressureActivity, AddBloodPressureActivity::class.java)
+                this.putExtra(AddBloodPressureActivity.PROFILE, profile)
                 startActivityForResult(this, ADD_EVALUATION)
             }
         }
 
         binding.btnEvaluetionHistory.setOnClickListener {
             Intent().apply {
-                this.setClass(this@EvaluationActivity, EvaluationHistoryActivity::class.java)
-                this.putExtra(EvaluationHistoryActivity.PROFILE, profile)
+                this.setClass(this@BloodPressureActivity, BloodPressureHistoryActivity::class.java)
+                this.putExtra(BloodPressureHistoryActivity.PROFILE, profile)
                 startActivity(this)
             }
         }

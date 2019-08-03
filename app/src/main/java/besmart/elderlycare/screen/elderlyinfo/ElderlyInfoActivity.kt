@@ -12,7 +12,7 @@ import besmart.elderlycare.databinding.ActivityElderlyInfoBinding
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.bodymass.BodyMassActivity
 import besmart.elderlycare.screen.editprofile.EditProfileActivity
-import besmart.elderlycare.screen.evaluation.EvaluationActivity
+import besmart.elderlycare.screen.blood.BloodPressureActivity
 import besmart.elderlycare.screen.history.HistoryActivity
 import besmart.elderlycare.screen.sugar.SugarActivity
 import besmart.elderlycare.screen.vaccine.VaccineActivity
@@ -66,7 +66,7 @@ class ElderlyInfoActivity : AppCompatActivity() {
         }
         binding.cardPressure.setOnClickListener {
             Intent().apply {
-                this.setClass(this@ElderlyInfoActivity, EvaluationActivity::class.java)
+                this.setClass(this@ElderlyInfoActivity, BloodPressureActivity::class.java)
                 this.putExtra(BodyMassActivity.PROFILE, profile)
                 startActivity(this)
             }

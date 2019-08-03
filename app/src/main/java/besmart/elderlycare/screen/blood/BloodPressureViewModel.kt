@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.evaluation
+package besmart.elderlycare.screen.blood
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class EvalustionViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
+class BloodPressureViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
 
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>

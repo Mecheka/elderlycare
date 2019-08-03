@@ -1,4 +1,4 @@
-package besmart.elderlycare.screen.evaluationadd
+package besmart.elderlycare.screen.bloodadd
 
 import android.annotation.SuppressLint
 import androidx.databinding.ObservableField
@@ -12,7 +12,7 @@ import besmart.elderlycare.util.HandingNetworkError
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddEvaluationViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
+class AddBloodPressureViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
 
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
