@@ -1,40 +1,41 @@
-package besmart.elderlycare.screen.bloodhistory
+package besmart.elderlycare.screen.evaluation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import besmart.elderlycare.model.blood.BloodPressuresResponse
-import besmart.elderlycare.repository.BloodPresureRepository
+import besmart.elderlycare.model.evaluation.EvaluationResponse
+import besmart.elderlycare.repository.EvaluationRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class BloodPressureHistoryViewModel(private val repository: BloodPresureRepository) : BaseViewModel() {
+class EvaluationViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
+
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent
 
-    private val _evaluationLiveData = MutableLiveData<List<BloodPressuresResponse>>()
-    val evaluationLiveData: LiveData<List<BloodPressuresResponse>>
+    private val _evaluationLiveData = MutableLiveData<List<EvaluationResponse>>()
+    val evaluationLiveData: LiveData<List<EvaluationResponse>>
         get() = _evaluationLiveData
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
-    fun getEvaluationHistory(cardID: String) {
+    fun getEvaluation() {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getBloodPresureLastIntex(cardID).subscribe(
+            repository.getEvaluation().subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful){
                         _evaluationLiveData.value = response.body()
-                    } else {
-                        val errorResponse = response.errorBody()
-                        _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(errorResponse!!))
+                    }else{
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
                     }
                 }, { error ->
-                    _loadingLiveEvent.sendAction(false)
                     _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
                 })
         )

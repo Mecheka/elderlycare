@@ -5,14 +5,14 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import besmart.elderlycare.model.blood.BloodPressuresRequest
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.repository.EvaluationRepository
+import besmart.elderlycare.repository.BloodPresureRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddBloodPressureViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
+class AddBloodPressureViewModel(private val repository: BloodPresureRepository) : BaseViewModel() {
 
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -49,7 +49,7 @@ class AddBloodPressureViewModel(private val repository: EvaluationRepository) : 
                 sys.get()!!.toFloat()
             )
             addDisposable(
-                repository.addEvaluation(body).subscribe(
+                repository.addBloodPresure(body).subscribe(
                     { response ->
                         _loadingLiveEvent.sendAction(false)
                         if (response.isSuccessful) {

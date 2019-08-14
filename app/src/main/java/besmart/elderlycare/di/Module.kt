@@ -1,6 +1,9 @@
 package besmart.elderlycare.di
 
 import besmart.elderlycare.repository.*
+import besmart.elderlycare.screen.blood.BloodPressureViewModel
+import besmart.elderlycare.screen.bloodadd.AddBloodPressureViewModel
+import besmart.elderlycare.screen.bloodhistory.BloodPressureHistoryViewModel
 import besmart.elderlycare.screen.bodymass.BodyMassViewModel
 import besmart.elderlycare.screen.bodymassadd.AddBodyMassViewModel
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryViewModel
@@ -8,9 +11,7 @@ import besmart.elderlycare.screen.chat.ChatListUserViewModel
 import besmart.elderlycare.screen.chat.ChatViewModel
 import besmart.elderlycare.screen.editprofile.EditProfileViewModel
 import besmart.elderlycare.screen.elderlyadd.AddElderlyViewModel
-import besmart.elderlycare.screen.blood.BloodPressureViewModel
-import besmart.elderlycare.screen.bloodadd.AddBloodPressureViewModel
-import besmart.elderlycare.screen.bloodhistory.BloodPressureHistoryViewModel
+import besmart.elderlycare.screen.evaluation.EvaluationViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
 import besmart.elderlycare.screen.gps.GPSListUserViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
@@ -21,6 +22,7 @@ import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileViewModel
 import besmart.elderlycare.screen.news.NewsViewModel
 import besmart.elderlycare.screen.notification.NotificationViewModel
 import besmart.elderlycare.screen.profile.ProfileViewModel
+import besmart.elderlycare.screen.question.QuestionViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.screen.sugar.SugarViewModel
 import besmart.elderlycare.screen.sugaradd.SugarAddViewModel
@@ -69,6 +71,8 @@ val viewModelModule = module {
     viewModel { GPSListUserViewModel(get()) }
     viewModel { ChatListUserViewModel(get()) }
     viewModel { ChatViewModel(get()) }
+    viewModel { EvaluationViewModel(get()) }
+    viewModel { QuestionViewModel(get()) }
 }
 
 val repositoryModule = module {
@@ -79,9 +83,10 @@ val repositoryModule = module {
     single { DevmanRepository(get()) }
     single { HistoryRepository(get()) }
     single { BodyMassRepository(get()) }
-    single { EvaluationRepository(get()) }
+    single { BloodPresureRepository(get()) }
     single { SugarRepository(get()) }
     single { VeaccineRepository() }
     single { AlertRepository(get()) }
     single { GPSRepository(get()) }
+    single { EvaluationRepository(get()) }
 }

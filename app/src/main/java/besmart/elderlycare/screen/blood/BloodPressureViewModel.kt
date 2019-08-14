@@ -4,12 +4,12 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.blood.BloodPressuresResponse
-import besmart.elderlycare.repository.EvaluationRepository
+import besmart.elderlycare.repository.BloodPresureRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class BloodPressureViewModel(private val repository: EvaluationRepository) : BaseViewModel() {
+class BloodPressureViewModel(private val repository: BloodPresureRepository) : BaseViewModel() {
 
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -34,13 +34,13 @@ class BloodPressureViewModel(private val repository: EvaluationRepository) : Bas
 
     fun getBloodPressureLastIndex(cardID: String) {
         addDisposable(
-            repository.getEvaluationLastIntex(cardID).subscribe(
+            repository.getBloodPresureLastIntex(cardID).subscribe(
                 { response ->
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                         val lastIndex = response.body()?.get(0)
-                        sys.set(lastIndex?.sys?.toString())
-                        dia.set(lastIndex?.dia?.toString())
-                        result.set(lastIndex?.getResult())
+                        sys.set(lastIndex?.sys?.toString() ?: "0.0")
+                        dia.set(lastIndex?.dia?.toString() ?: "0.0")
+                        result.set(lastIndex?.getResult() ?: "ความดันปกติ")
                         _historyLiveData.value = lastIndex
                     } else {
                         response.errorBody()?.let {
@@ -58,7 +58,7 @@ class BloodPressureViewModel(private val repository: EvaluationRepository) : Bas
     fun getBloodPressureHistory(cardID: String, year: String, month: String) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getEvaluationHistory(cardID, year, month).subscribe(
+            repository.getBloodPresureHistory(cardID, year, month).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {

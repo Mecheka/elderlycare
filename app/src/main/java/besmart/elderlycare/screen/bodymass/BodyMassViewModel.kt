@@ -41,12 +41,12 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
             repository.getBodyMassLastIndex(cardID!!).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                         val lastIndex = response.body()?.get(0)
-                        heavy.set(lastIndex?.weight.toString())
-                        height.set(lastIndex?.height.toString())
-                        bmi.set(lastIndex?.bMI.toString())
-                        weigthResult.set(lastIndex?.getWeigthResultByBMI())
+                        heavy.set(lastIndex?.weight?.toString() ?: "0.0")
+                        height.set(lastIndex?.height?.toString() ?: "0.0")
+                        bmi.set(lastIndex?.bMI?.toString() ?: "0.0")
+                        weigthResult.set(lastIndex?.getWeigthResultByBMI() ?: "น้ำหนักปกติ")
                         _historyLiveData.value = lastIndex
                     } else {
                         response.errorBody()?.let {

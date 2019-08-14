@@ -104,7 +104,7 @@ class RegisterActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     override fun onDateSet(view: DatePickerDialog?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val newYear = year+543
-        val date = "$dayOfMonth/$monthOfYear/$newYear"
+        val date = "$dayOfMonth/${monthOfYear + 1}/$newYear"
         viewModel.birthday.set(date)
     }
 

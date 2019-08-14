@@ -17,12 +17,14 @@ class CommonWithAuth constructor(private val networkClient: NetworkClientWithAut
     fun getBodyMassService(): BodyMassService =
         networkClient.create().create(BodyMassService::class.java)
 
-    fun getEvaluationService(): EvaluationService =
-        networkClient.create().create(EvaluationService::class.java)
+    fun getBloodPresureService(): BloodPresureService =
+        networkClient.create().create(BloodPresureService::class.java)
 
     fun getSugarService(): SugarService = networkClient.create().create(SugarService::class.java)
 
     fun getAlertService(): AlertService = networkClient.create().create(AlertService::class.java)
 
     fun getGPSService(): GPSService = networkClient.create().create(GPSService::class.java)
+
+    fun getEvaluationService(): EvaluationService = networkClient.create().create(EvaluationService::class.java)
 }

@@ -1,27 +1,30 @@
-package besmart.elderlycare.screen.evaluation
+package besmart.elderlycare.screen.question
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
 import besmart.elderlycare.model.evaluation.EvaluationResponse
 import besmart.elderlycare.screen.base.BaseActivity
-import besmart.elderlycare.screen.question.QuestionActivity
 import besmart.elderlycare.util.BaseDialog
-import besmart.elderlycare.util.SimpleOnItemClick
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class EvaluationActivity : BaseActivity(), SimpleOnItemClick<EvaluationResponse> {
+class QuestionActivity : BaseActivity() {
 
-    private val viewModel: EvaluationViewModel by viewModel()
+    companion object {
+        const val EVALUATION = "evaluation"
+    }
+
+    private val evaluation: EvaluationResponse by lazy {
+        intent.getParcelableExtra(EVALUATION) as EvaluationResponse
+    }
+    private val viewModel: QuestionViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_evaluation)
+        setContentView(R.layout.activity_question)
 
         initInstance()
         observerViewModel()
@@ -50,20 +53,12 @@ class EvaluationActivity : BaseActivity(), SimpleOnItemClick<EvaluationResponse>
 
         viewModel.evaluationLiveData.observe(this, Observer {
             recyclerView.apply {
-                layoutManager = LinearLayoutManager(this@EvaluationActivity, RecyclerView.VERTICAL,  false)
+                layoutManager = LinearLayoutManager(this@QuestionActivity, RecyclerView.VERTICAL,  false)
                 setHasFixedSize(true)
-                adapter = EvaluationAdapter(it,this@EvaluationActivity)
+                adapter = QuestionAdapter(it)
             }
         })
 
-        viewModel.getEvaluation()
-    }
-
-    override fun onItemClick(item: EvaluationResponse) {
-        Intent().apply {
-            setClass(this@EvaluationActivity, QuestionActivity::class.java)
-            putExtra(QuestionActivity.EVALUATION, item)
-            startActivity(this)
-        }
+        viewModel.getQuestion(evaluation.id!!)
     }
 }

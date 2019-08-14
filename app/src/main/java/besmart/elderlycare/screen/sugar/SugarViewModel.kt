@@ -36,9 +36,9 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
             repository.getSugarLastIndex(cardID!!).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
-                    if (response.isSuccessful) {
+                    if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                         val lastIndex = response.body()?.get(0)
-                        fbs.set(lastIndex?.fbs.toString())
+                        fbs.set(lastIndex?.fbs?.toString() ?: "0.0")
                         _historyLiveData.value = lastIndex
                     } else {
                         response.errorBody()?.let {
@@ -59,8 +59,7 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
             repository.getSugarHistory(cardID!!, year, month).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
-                    if (response.isSuccessful) {
-
+                    if (response.isSuccessful && response.body()!!.isNotEmpty()) {
                         _chartLiveData.value = response.body()
                         history = response.body()!!
                     } else {

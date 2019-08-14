@@ -6,7 +6,7 @@ import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.repository.BodyMassRepository
-import besmart.elderlycare.repository.EvaluationRepository
+import besmart.elderlycare.repository.BloodPresureRepository
 import besmart.elderlycare.repository.SugarRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
@@ -14,7 +14,7 @@ import besmart.elderlycare.util.HandingNetworkError
 
 class HistoryDetailViewModel(
     private val repoBody: BodyMassRepository,
-    private val repoEvaluation: EvaluationRepository,
+    private val repoBloodPresure: BloodPresureRepository,
     private val repoBlood: SugarRepository
 ) : BaseViewModel() {
 
@@ -64,7 +64,7 @@ class HistoryDetailViewModel(
             }
             2 -> {
                 addDisposable(
-                    repoEvaluation.getHistoryByDataID(history.dataID.toString()).subscribe(
+                    repoBloodPresure.getHistoryByDataID(history.dataID.toString()).subscribe(
                         { response ->
                             _loadingLiveEvent.sendAction(false)
                             if (response.isSuccessful) {

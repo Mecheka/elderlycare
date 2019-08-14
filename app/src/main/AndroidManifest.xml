@@ -31,7 +31,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".screen.evaluation.EvaluationActivity"></activity>
+        <activity android:name=".screen.question.QuestionActivity"></activity>
+        <activity android:name=".screen.evaluation.EvaluationActivity" />
         <activity android:name=".screen.filedetail.FileDetailActivity" />
 
         <meta-data

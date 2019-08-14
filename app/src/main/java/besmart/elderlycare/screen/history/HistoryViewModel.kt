@@ -36,6 +36,7 @@ class HistoryViewModel(private val repository: HistoryRepository) : BaseViewMode
                     }
                 }
             }, { error ->
+                _loadingLiveEvent.sendAction(false)
                 _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
             })
         )
