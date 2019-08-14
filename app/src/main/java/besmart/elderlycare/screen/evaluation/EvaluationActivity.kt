@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
 import besmart.elderlycare.model.evaluation.EvaluationResponse
+import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.screen.question.QuestionActivity
 import besmart.elderlycare.util.BaseDialog
@@ -17,7 +18,14 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class EvaluationActivity : BaseActivity(), SimpleOnItemClick<EvaluationResponse> {
 
+    companion object{
+        const val PROFILE = "profile"
+    }
+
     private val viewModel: EvaluationViewModel by viewModel()
+    private val profile:ProfileResponce by lazy {
+        intent.getParcelableExtra(PROFILE) as ProfileResponce
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +71,7 @@ class EvaluationActivity : BaseActivity(), SimpleOnItemClick<EvaluationResponse>
         Intent().apply {
             setClass(this@EvaluationActivity, QuestionActivity::class.java)
             putExtra(QuestionActivity.EVALUATION, item)
+            putExtra(QuestionActivity.PROFILE, profile)
             startActivity(this)
         }
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.evaluation.QuestItem
 import besmart.elderlycare.model.evaluation.QuestType
 import besmart.elderlycare.model.evaluation.Question
+import besmart.elderlycare.model.evaluation.QuestionRequest
 import besmart.elderlycare.repository.EvaluationRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
@@ -34,6 +35,31 @@ class QuestionViewModel(private val repository: EvaluationRepository) : BaseView
                         val result =
                             response.body()?.questions?.map { mapQuestionToAdapterItem(it) }
                         _evaluationLiveData.value = result
+                    } else {
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
+        )
+    }
+
+    fun addAnswer(
+        answer: QuestionAdapter.Answer,
+        cardID: String?,
+        evaluationID: Int?
+    ) {
+        _loadingLiveEvent.sendAction(false)
+        val body = QuestionRequest(cardID!!, evaluationID!!, answer.result, answer.answer)
+        addDisposable(
+            repository.addAnswer(body).subscribe(
+                { response ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (response.isSuccessful) {
+
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

@@ -1,11 +1,13 @@
 package besmart.elderlycare.repository
 
 import besmart.elderlycare.model.evaluation.EvaluationResponse
+import besmart.elderlycare.model.evaluation.QuestionRequest
 import besmart.elderlycare.model.evaluation.QuestionResponse
 import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 class EvaluationRepository(private val service: CommonWithAuth) {
@@ -18,6 +20,12 @@ class EvaluationRepository(private val service: CommonWithAuth) {
 
     fun getQuestion(evaluationID: String): Single<Response<QuestionResponse>> {
         return service.getEvaluationService().getQuestion(evaluationID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun addAnswer(body:QuestionRequest):Single<Response<ResponseBody>>{
+        return service.getEvaluationService().addAnswer(body)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

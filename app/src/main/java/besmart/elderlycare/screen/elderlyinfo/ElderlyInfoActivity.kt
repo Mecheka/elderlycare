@@ -83,7 +83,11 @@ class ElderlyInfoActivity : AppCompatActivity() {
             startActivity(Intent(this, VaccineActivity::class.java))
         }
         binding.cardEvaluation.setOnClickListener {
-            startActivity(Intent(this, EvaluationActivity::class.java))
+            Intent().apply {
+                setClass(this@ElderlyInfoActivity,EvaluationActivity::class.java)
+                putExtra(EvaluationActivity.PROFILE, profile)
+                startActivity(this)
+            }
         }
     }
 

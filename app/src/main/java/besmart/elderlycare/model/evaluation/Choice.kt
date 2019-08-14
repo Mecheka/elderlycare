@@ -11,5 +11,7 @@ data class Choice(
     @SerializedName("questionID")
     val questionID: Int?,
     @SerializedName("text")
-    val text: String?
+    val text: String?,
+    @SerializedName("score")
+    val score:Int?
 )
