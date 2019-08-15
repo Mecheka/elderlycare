@@ -9,12 +9,25 @@ import besmart.elderlycare.databinding.ItemQuestionHeaderBinding
 import besmart.elderlycare.databinding.ItemQuestionHeaderChoinBinding
 import besmart.elderlycare.model.evaluation.QuestItem
 import besmart.elderlycare.model.evaluation.QuestType
+import besmart.elderlycare.model.evaluation.UserEvaluarion
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-class QuestionAdapter(private val list: List<QuestItem>, private val listener: QuestionClick) :
+class QuestionAdapter(
+    private val list: List<QuestItem>,
+    userEvaluation: UserEvaluarion?,
+    private val listener: QuestionClick
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val answer = mutableMapOf<String, Int>()
+    private var answer = mutableMapOf<String, Int>()
+
+    init {
+        userEvaluation?.json?.let {
+            val type = object : TypeToken<Map<String, Int>>() {}.type
+            answer = Gson().fromJson(it, type)
+        }
+    }
 
     fun getAnswer() {
         var result = 0
@@ -22,6 +35,7 @@ class QuestionAdapter(private val list: List<QuestItem>, private val listener: Q
 
         if (answer.isEmpty()){
             listener.onError()
+            return
         }
 
         answer.forEach {
@@ -66,10 +80,17 @@ class QuestionAdapter(private val list: List<QuestItem>, private val listener: Q
             QuestType.HEADERWITHCHOINCE -> {
                 holder as HeaderChoinQuestion
                 holder.bind(list[position])
+                if (answer[list[position].question.questionNo] != null) {
+                    holder.setRadioButton(answer[list[position].question.questionNo])
+                }
             }
             else -> {
                 holder as ChoinQuestion
                 holder.bind(list[position])
+                if (answer[list[position].question.questionNo] != null) {
+                    val id = answer[list[position].question.questionNo]
+                    holder.setRadioButton(id)
+                }
             }
         }
     }
@@ -99,8 +120,12 @@ class QuestionAdapter(private val list: List<QuestItem>, private val listener: Q
                 binding.rgChoin.addView(button)
             }
             binding.rgChoin.setOnCheckedChangeListener { group, checkedId ->
-                answer[questItem.question.questionNo!!] = checkedId
+                answer[questItem.question.questionNo!!] = checkedId + 1
             }
+        }
+
+        fun setRadioButton(id: Int?) {
+            binding.rgChoin.check(id!! - 1)
         }
     }
 
@@ -120,12 +145,25 @@ class QuestionAdapter(private val list: List<QuestItem>, private val listener: Q
                 binding.rgChoin.addView(button)
             }
             binding.rgChoin.setOnCheckedChangeListener { group, checkedId ->
-                answer[questItem.question.questionNo!!] = checkedId
+                answer[questItem.question.questionNo!!] = checkedId + 1
             }
+        }
+
+        fun setRadioButton(id: Int?) {
+            binding.rgChoin.check(id!! - 1)
         }
     }
 
-    data class Answer(val answer: String, val result: Int)
+    data class Answer(val answer: String, val result: Int) {
+        fun getResult(): String {
+            return when (result) {
+                in 0..4 -> "ภาวะพึ่งพาโดยสมบูรณ์"
+                in 5..8 -> "ภาวะพึ่งพารุนแรง"
+                in 9..11 -> "ภาวะพึ่งพาปานกลาง"
+                else -> "ไม่เป็นการพึ่งพา"
+            }
+        }
+    }
 
     interface QuestionClick{
         fun onError()

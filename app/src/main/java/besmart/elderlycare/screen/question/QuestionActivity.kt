@@ -66,7 +66,7 @@ class QuestionActivity : BaseActivity(), QuestionAdapter.QuestionClick {
         })
 
         viewModel.evaluationLiveData.observe(this, Observer {
-            questionAdapter = QuestionAdapter(it, this)
+            questionAdapter = QuestionAdapter(it.item!!, it.userEvaluarion, this)
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(this@QuestionActivity, RecyclerView.VERTICAL,  false)
                 setHasFixedSize(true)
@@ -74,7 +74,11 @@ class QuestionActivity : BaseActivity(), QuestionAdapter.QuestionClick {
             }
         })
 
-        viewModel.getQuestion(evaluation.id!!)
+        viewModel.scroreLiveEvent.observe(this, Observer {
+            showScoreDialog(it.result, it.getResult())
+        })
+
+        viewModel.getQuestion(evaluation.id!!, profile.cardID, evaluation.id)
     }
 
     override fun onError() {
@@ -82,7 +86,8 @@ class QuestionActivity : BaseActivity(), QuestionAdapter.QuestionClick {
     }
 
     override fun onSuccess(answer: QuestionAdapter.Answer) {
-//        viewModel.addAnswer(answer, profile.cardID, evaluation.id)
+//        showScoreDialog(answer.result, answer.getResult())
+        viewModel.addAnswer(answer, profile.cardID, evaluation.id)
     }
 
     @SuppressLint("InflateParams", "SetTextI18n")

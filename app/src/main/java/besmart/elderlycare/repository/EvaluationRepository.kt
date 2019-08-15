@@ -3,6 +3,7 @@ package besmart.elderlycare.repository
 import besmart.elderlycare.model.evaluation.EvaluationResponse
 import besmart.elderlycare.model.evaluation.QuestionRequest
 import besmart.elderlycare.model.evaluation.QuestionResponse
+import besmart.elderlycare.model.evaluation.UserEvaluarion
 import besmart.elderlycare.service.common.CommonWithAuth
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +25,13 @@ class EvaluationRepository(private val service: CommonWithAuth) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun addAnswer(body:QuestionRequest):Single<Response<ResponseBody>>{
+    fun getUserEvaluation(cardID:String, evaluationID: String):Single<Response<UserEvaluarion>>{
+        return service.getEvaluationService().getUserEvaluation(cardID, evaluationID)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun addAnswer(body: QuestionRequest):Single<Response<ResponseBody>>{
         return service.getEvaluationService().addAnswer(body)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
