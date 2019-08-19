@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
-        app:title="@string/elderly_profile"
+        app:title="@string/orsomor_elderly_profile"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"

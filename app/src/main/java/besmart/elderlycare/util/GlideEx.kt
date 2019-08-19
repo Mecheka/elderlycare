@@ -16,8 +16,7 @@ fun ImageView.loadImageUrlCircle(
         .load(url)
         .apply(RequestOptions.circleCropTransform())
         .error(errro)
-        .diskCacheStrategy(DiskCacheStrategy.NONE)
-        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
 }
 
@@ -25,8 +24,7 @@ fun ImageView.loadImageResourceCircle(res: Int){
     Glide.with(this)
         .load(res)
         .apply(RequestOptions.circleCropTransform())
-        .diskCacheStrategy(DiskCacheStrategy.NONE)
-        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .into(this)
 }
 

@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:title="@string/menu_elderly"
+        app:title="@string/menu_orsomor_elderly"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +28,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:rowCount="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onElderlyProfileClick"
+                app:cardCornerRadius="16dp"
+                app:contentPadding="8dp">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        app:srcCompat="@drawable/baseline_directions_walk_24px" />
+                </FrameLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textMenuElderly"
+                style="@style/RoboTextStyle.small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -62,42 +99,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menu_calendar" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onElderlyProfileClick"
-                app:cardCornerRadius="16dp"
-                app:contentPadding="8dp">
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/baseline_directions_walk_24px" />
-                </FrameLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/RoboTextStyle.small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/elderly_profile" />
 
         </LinearLayout>
 

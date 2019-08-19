@@ -8,11 +8,15 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import besmart.elderlycare.R
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.screen.elderlyadd.AddElderlyActivity
+import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.elderlyadd.AddElderlyActivity
 import besmart.elderlycare.screen.elderlyinfo.ElderlyInfoActivity
+import besmart.elderlycare.screen.villagehealthvoluntor.VillageHealthVolunteerActivity
 import besmart.elderlycare.util.BaseDialog
+import besmart.elderlycare.util.Constance
 import besmart.elderlycare.util.SimpleOnItemClick
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_calendar.toolbar
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -21,10 +25,12 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
 
     companion object{
         const val ADD_ELDERLY = 101
+        const val DELETE_ELDERLY = 102
     }
 
     private val viewModelMy: MyElderlyProfileViewModel by viewModel()
     private lateinit var elderlyProfileAdapter: MyElderlyProfileAdapter
+    private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +41,8 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_ELDERLY){
-            if (resultCode == Activity.RESULT_OK){
-                viewModelMy.getMyElderly()
-            }
+        if (resultCode == Activity.RESULT_OK) {
+            viewModelMy.getMyElderly()
         }
     }
 
@@ -80,10 +84,21 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
     }
 
     override fun onItemClick(item: ProfileResponce) {
-        Intent().apply {
-            this.setClass(this@MyElderlyProfileActivity, ElderlyInfoActivity::class.java)
-            this.putExtra(ElderlyInfoActivity.PROFILE, item)
-            startActivity(this)
+        if (selectType == SelectType.ORSOMO) {
+            Intent().apply {
+                this.setClass(this@MyElderlyProfileActivity, ElderlyInfoActivity::class.java)
+                this.putExtra(ElderlyInfoActivity.PROFILE, item)
+                startActivityForResult(this, DELETE_ELDERLY)
+            }
+        } else {
+            Intent().apply {
+                this.setClass(
+                    this@MyElderlyProfileActivity,
+                    VillageHealthVolunteerActivity::class.java
+                )
+                this.putExtra(VillageHealthVolunteerActivity.PROFILE, item)
+                startActivityForResult(this, DELETE_ELDERLY)
+            }
         }
     }
 }

@@ -5,12 +5,19 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import besmart.elderlycare.R
+import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.calendar.CalendarActivity
-import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileActivity
 import besmart.elderlycare.screen.gps.GpsActivity
+import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileActivity
+import besmart.elderlycare.util.Constance
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.activity_my_elderly.*
 
 class ElderlyActivity : AppCompatActivity() {
+
+    private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +27,7 @@ class ElderlyActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        textMenuElderly.text = getString(getElderlyTitleMenuBySelectType())
     }
 
     fun onCalendarClick(view: View) {
@@ -40,6 +48,13 @@ class ElderlyActivity : AppCompatActivity() {
         Intent().apply {
             this.setClass(this@ElderlyActivity, GpsActivity::class.java)
             startActivity(this)
+        }
+    }
+
+    private fun getElderlyTitleMenuBySelectType(): Int {
+        return when (selectType) {
+            SelectType.ORSOMO -> R.string.orsomor_elderly_profile
+            else -> R.string.public_elderly_profile
         }
     }
 }

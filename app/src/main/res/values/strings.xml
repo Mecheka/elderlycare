@@ -19,10 +19,13 @@
     <!-- Staff -->
     <string name="orsomo">อสม.</string>
     <string name="health">สาธารณะสุข</string>
+    <string name="public_health">รพ.สต</string>
     <string name="person">ประชาชนทั่วไป</string>
 
     <!-- Menu -->
-    <string name="menu_elderly">ผู้สูงอายุของฉัน</string>
+    <string name="menu_orsomor_elderly">ผู้สูงอายุของฉัน</string>
+    <string name="menu_public_elderly">อสม.ของฉัน</string>
+    <string name="menu_person_elderly">ข้อมูลสุขภาพ</string>
     <string name="menu_evaluation">แบบประเมิน</string>
     <string name="menu_file">ไฟล์เอกสาร</string>
     <string name="menu_knowlege">ความรู้สุขภาพ</string>
@@ -47,7 +50,10 @@
     <!-- dailog button -->
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
-    <string name="elderly_profile">ข้อมูลผู้สูงอายุ</string>
+
+    <!-- elderly profile -->
+    <string name="orsomor_elderly_profile">ข้อมูลผู้สูงอายุ</string>
+    <string name="public_elderly_profile">ข้อมูลอสม.</string>
     <string name="add_my_elderly">เพิ่มผู้สูงอายุของฉัน</string>
     <string name="menu_gps">GPS</string>
 
@@ -75,5 +81,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="remove_elderly">ลบผู้สูงอายุออกจากการดูแลของฉัน</string>
+    <string name="remove_orsomor">ลบรายชื่อนี้ออกจากอสม.ของฉัน</string>
 
 </resources>

@@ -4,10 +4,7 @@ import besmart.elderlycare.model.profile.ProfileResponce
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ElderlyService {
 
@@ -17,4 +14,7 @@ interface ElderlyService {
     @FormUrlEncoded
     @POST("/api/v1.0/myElderlies")
     fun createMyElderly(@Field("peopleCardID") peopleCardID: String): Single<Response<ResponseBody>>
+
+    @DELETE("/api/v1.0/myElderlies/remove/{cardID}")
+    fun removeElderly(@Path("cardID") cardId:String): Single<Response<ResponseBody>>
 }

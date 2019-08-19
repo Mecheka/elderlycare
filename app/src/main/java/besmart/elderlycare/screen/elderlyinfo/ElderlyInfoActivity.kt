@@ -1,28 +1,34 @@
 package besmart.elderlycare.screen.elderlyinfo
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityElderlyInfoBinding
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.screen.SelectType
+import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.blood.BloodPressureActivity
 import besmart.elderlycare.screen.bodymass.BodyMassActivity
 import besmart.elderlycare.screen.editprofile.EditProfileActivity
-import besmart.elderlycare.screen.blood.BloodPressureActivity
 import besmart.elderlycare.screen.evaluation.EvaluationActivity
 import besmart.elderlycare.screen.history.HistoryActivity
 import besmart.elderlycare.screen.sugar.SugarActivity
 import besmart.elderlycare.screen.vaccine.VaccineActivity
+import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.Constance
 import besmart.elderlycare.util.loadImageResourceCircle
 import besmart.elderlycare.util.loadImageUrlCircle
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class ElderlyInfoActivity : AppCompatActivity() {
+class ElderlyInfoActivity : BaseActivity() {
 
     companion object {
         const val PROFILE = "profile"
@@ -30,6 +36,8 @@ class ElderlyInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityElderlyInfoBinding
     private lateinit var profile: ProfileResponce
+    private val viewModel: ElderlyinfoViewModel by viewModel()
+    private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +45,7 @@ class ElderlyInfoActivity : AppCompatActivity() {
         profile = intent.getParcelableExtra(PROFILE)
         binding.model = profile
         initInstance()
+        observerViewModel()
     }
 
     private fun initInstance() {
@@ -91,9 +100,33 @@ class ElderlyInfoActivity : AppCompatActivity() {
         }
     }
 
+    private fun observerViewModel() {
+        viewModel.errorLiveData.observe(this, Observer {
+            BaseDialog.warningDialog(this, it)
+        })
+
+        viewModel.loadingLiveData.observe(this, Observer {
+            if (it) {
+                showLoadingDialog(this)
+            } else {
+                dismissDialog()
+            }
+        })
+
+        viewModel.successLiveData.observe(this, Observer {
+            setResult(Activity.RESULT_OK)
+            finish()
+        })
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.profile_menu, menu)
+        if (selectType == SelectType.ORSOMO) {
+            inflater.inflate(R.menu.elderly_menu, menu)
+        } else {
+            inflater.inflate(R.menu.profile_menu, menu)
+        }
         return true
     }
 
@@ -105,6 +138,10 @@ class ElderlyInfoActivity : AppCompatActivity() {
                     this.putExtra(EditProfileActivity.USER, profile)
                     startActivity(this)
                 }
+                true
+            }
+            R.id.delete_elderly -> {
+                viewModel.removeElderly(profile)
                 true
             }
             else -> {

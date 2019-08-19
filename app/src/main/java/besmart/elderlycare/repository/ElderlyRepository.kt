@@ -21,4 +21,10 @@ class ElderlyRepository constructor(private val service: CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun removeElderly(cardId: String): Single<Response<ResponseBody>> {
+        return service.getElderlyService().removeElderly(cardId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }
