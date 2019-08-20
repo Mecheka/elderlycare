@@ -28,6 +28,7 @@ import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.screen.sugar.SugarViewModel
 import besmart.elderlycare.screen.sugaradd.SugarAddViewModel
 import besmart.elderlycare.screen.sugarhistory.SugarHistoryViewModel
+import besmart.elderlycare.screen.villagehealthvoluntor.VillageHealthVolunteerViewModel
 import besmart.elderlycare.service.client.NetworkClientDevman
 import besmart.elderlycare.service.client.NetworkClientWithAuth
 import besmart.elderlycare.service.client.NetworkClientWithOutAuth
@@ -75,6 +76,7 @@ val viewModelModule = module {
     viewModel { ChatViewModel(get()) }
     viewModel { EvaluationViewModel(get()) }
     viewModel { QuestionViewModel(get()) }
+    viewModel { VillageHealthVolunteerViewModel(repository = get(), elderlyRepo = get()) }
 }
 
 val repositoryModule = module {
@@ -91,4 +93,5 @@ val repositoryModule = module {
     single { AlertRepository(get()) }
     single { GPSRepository(get()) }
     single { EvaluationRepository(get()) }
+    single { VillageHealthVolunteerRepository(get()) }
 }

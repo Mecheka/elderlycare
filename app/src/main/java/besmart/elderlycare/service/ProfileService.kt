@@ -21,7 +21,7 @@ interface ProfileService {
     @GET("/api/v1.0/profiles/cardID/{cardId}")
     fun getProfileByCardId(@Path("cardId") cardId: String): Single<Response<ProfileResponce>>
 
-    @GET("/api/v1.0/profiles/cardID/{cardId}/typeID/{typeId}")
+    @GET("/api/v1.0/users/cardID/{cardId}/typeID/{typeId}")
     fun getProfileByCardIdAndTypeId(@Path("cardId") cardId: String,
                                     @Path("typeId") typeId:String): Single<Response<UserResponse>>
 

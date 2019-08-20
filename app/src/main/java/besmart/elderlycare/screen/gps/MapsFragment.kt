@@ -123,7 +123,7 @@ class MapsFragment : Fragment() {
 
     private fun hasGPSDevice(context: Context): Boolean {
         val mgr = context
-            .getSystemService(Context.LOCATION_SERVICE) as LocationManager ?: return false
+            .getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val providers = mgr.allProviders ?: return false
         return providers.contains(LocationManager.GPS_PROVIDER)
     }

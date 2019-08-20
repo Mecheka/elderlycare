@@ -1,4 +1,3 @@
 package besmart.elderlycare.util
 
-interface ItemAdapter {
-}
+interface ItemAdapter

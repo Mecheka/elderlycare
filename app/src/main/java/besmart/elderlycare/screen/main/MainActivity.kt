@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import besmart.elderlycare.R
 import besmart.elderlycare.model.MenuItem
+import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.calendar.CalendarActivity
 import besmart.elderlycare.screen.chat.ChatActivity
 import besmart.elderlycare.screen.elderly.ElderlyActivity
+import besmart.elderlycare.screen.elderlyinfo.ElderlyInfoActivity
 import besmart.elderlycare.screen.flie.FileActivity
 import besmart.elderlycare.screen.knowledge.KnowledgeActivity
 import besmart.elderlycare.screen.news.NewsActivity
@@ -34,6 +36,20 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
         setSupportActionBar(toolbar)
         supportActionBar?.title = getTitleByType()
 
+        val personList = listOf(
+            MenuItem(getString(R.string.menu_profile), R.drawable.icon_profile),
+            MenuItem(getString(getElderlTitleMenuBySelectType()), R.drawable.baseline_supervisor_account_24px),
+            MenuItem(getString(R.string.menu_calendar), R.drawable.baseline_calendar_today_24px),
+            MenuItem(
+                getString(R.string.menu_notification),
+                R.drawable.baseline_notifications_active_24px
+            ),
+
+            MenuItem(getString(R.string.menu_knowlege), R.drawable.baseline_extension_24px),
+            MenuItem(getString(R.string.menu_news), R.drawable.baseline_subtitles_24px),
+            MenuItem(getString(R.string.menu_chat), R.drawable.baseline_forum_24px)
+        )
+
         val employeeList = listOf(
             MenuItem(getString(R.string.menu_profile), R.drawable.icon_profile),
             MenuItem(getString(getElderlTitleMenuBySelectType()), R.drawable.baseline_supervisor_account_24px),
@@ -46,7 +62,11 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
             MenuItem(getString(R.string.menu_news), R.drawable.baseline_subtitles_24px),
             MenuItem(getString(R.string.menu_chat), R.drawable.baseline_forum_24px)
         )
-        menuAdapter = MainMenuAdapter(employeeList, this)
+        menuAdapter = if (selectType == SelectType.PERSON) {
+            MainMenuAdapter(personList, this)
+        } else {
+            MainMenuAdapter(employeeList, this)
+        }
         recyclerView.apply {
             this.layoutManager = GridLayoutManager(this@MainActivity, 3)
             this.adapter = menuAdapter
@@ -86,9 +106,17 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
                 }
             }
             R.drawable.baseline_supervisor_account_24px -> {
-                Intent().apply {
-                    this.setClass(this@MainActivity, ElderlyActivity::class.java)
-                    startActivity(this)
+                if (selectType == SelectType.PERSON) {
+                    Intent().apply {
+                        this.setClass(this@MainActivity, ElderlyInfoActivity::class.java)
+                        this.putExtra(ElderlyInfoActivity.PROFILE, Hawk.get(Constance.USER, ProfileResponce()))
+                        startActivity(this)
+                    }
+                } else {
+                    Intent().apply {
+                        this.setClass(this@MainActivity, ElderlyActivity::class.java)
+                        startActivity(this)
+                    }
                 }
             }
             R.drawable.baseline_library_books_24px -> {
@@ -119,7 +147,7 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
         return when (selectType) {
             SelectType.ORSOMO -> getString(R.string.orsomo)
             SelectType.HEALTH -> getString(R.string.public_health)
-            else -> getString(R.string.person)
+            else -> getString(R.string.person_two)
         }
     }
 

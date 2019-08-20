@@ -28,7 +28,7 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
 
     var history= listOf<SugarResponse>()
     val fbs = ObservableField<String>()
-
+    val result = ObservableField<String>()
 
     fun getSugarLastIndex(cardID: String?) {
         _loadingLiveEvent.sendAction(true)
@@ -36,10 +36,16 @@ class SugarViewModel(private val repository: SugarRepository) :BaseViewModel(){
             repository.getSugarLastIndex(cardID!!).subscribe(
                 { response ->
                     _loadingLiveEvent.sendAction(false)
-                    if (response.isSuccessful && response.body()!!.isNotEmpty()) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.isNotEmpty()) {
                         val lastIndex = response.body()?.get(0)
                         fbs.set(lastIndex?.fbs?.toString() ?: "0.0")
-                        _historyLiveData.value = lastIndex
+                            result.set(lastIndex?.getResult())
+                            _historyLiveData.value = lastIndex
+                        } else {
+                            fbs.set("-")
+                            result.set("-")
+                        }
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

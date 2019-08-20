@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 
 fun ImageView.loadImageUrlCircle(
     url: String,
-    errro: Drawable = R.drawable.baseline_person_24px.toDrawable()
+    errro: Int = R.drawable.baseline_person_24px
 ) {
     Glide.with(this)
         .load(url)

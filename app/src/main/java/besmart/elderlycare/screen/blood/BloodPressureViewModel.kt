@@ -36,12 +36,18 @@ class BloodPressureViewModel(private val repository: BloodPresureRepository) : B
         addDisposable(
             repository.getBloodPresureLastIntex(cardID).subscribe(
                 { response ->
-                    if (response.isSuccessful && response.body()!!.isNotEmpty()) {
-                        val lastIndex = response.body()?.get(0)
-                        sys.set(lastIndex?.sys?.toString() ?: "0.0")
-                        dia.set(lastIndex?.dia?.toString() ?: "0.0")
-                        result.set(lastIndex?.getResult() ?: "ความดันปกติ")
-                        _historyLiveData.value = lastIndex
+                    if (response.isSuccessful) {
+                        if (response.body()!!.isNotEmpty()) {
+                            val lastIndex = response.body()?.get(0)
+                            sys.set(lastIndex?.sys?.toString() ?: "0.0")
+                            dia.set(lastIndex?.dia?.toString() ?: "0.0")
+                            result.set(lastIndex?.getResult() ?: "ความดันปกติ")
+                            _historyLiveData.value = lastIndex
+                        } else {
+                            sys.set("-")
+                            dia.set("-")
+                            result.set("-")
+                        }
                     } else {
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))

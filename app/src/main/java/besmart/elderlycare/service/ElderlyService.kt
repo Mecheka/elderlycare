@@ -11,6 +11,9 @@ interface ElderlyService {
     @GET("/api/v1.0/users/myElderlies/")
     fun getMyElderly(): Single<Response<List<ProfileResponce>>>
 
+    @GET("/api/v1.0/users/staffID/{staffId}/myElderlies")
+    fun getMyElderlyByStaffId(@Path("staffId") staffId: String): Single<Response<List<ProfileResponce>>>
+
     @FormUrlEncoded
     @POST("/api/v1.0/myElderlies")
     fun createMyElderly(@Field("peopleCardID") peopleCardID: String): Single<Response<ResponseBody>>

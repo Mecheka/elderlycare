@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
+import besmart.elderlycare.util.Constance
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_add_elderly.*
 import kotlinx.android.synthetic.main.activity_calendar.toolbar
 import kotlinx.android.synthetic.main.activity_main.recyclerView
@@ -19,6 +22,7 @@ class AddElderlyActivity : BaseActivity(), OnSelectItemListenner {
 
     private val viewModel: AddElderlyViewModel by viewModel()
     private lateinit var elderlyAdapter: AddElderlyAdapter
+    private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,9 @@ class AddElderlyActivity : BaseActivity(), OnSelectItemListenner {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        toolbar.title = getStringBySelectType()
+        btnAddElderly.text = getStringBySelectType()
 
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
@@ -79,5 +86,13 @@ class AddElderlyActivity : BaseActivity(), OnSelectItemListenner {
 
     override fun onError() {
         BaseDialog.warningDialog(this, "Please select")
+    }
+
+    private fun getStringBySelectType(): String {
+        return if (selectType == SelectType.HEALTH) {
+            getString(R.string.add_orsomor)
+        } else {
+            getString(R.string.add_my_elderly)
+        }
     }
 }

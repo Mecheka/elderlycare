@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
@@ -22,7 +23,6 @@ import besmart.elderlycare.screen.sugar.SugarActivity
 import besmart.elderlycare.screen.vaccine.VaccineActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.Constance
-import besmart.elderlycare.util.loadImageResourceCircle
 import besmart.elderlycare.util.loadImageUrlCircle
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,16 +49,21 @@ class ElderlyInfoActivity : BaseActivity() {
     }
 
     private fun initInstance() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        profile.imagePath?.let {
-            binding.imageProfile.loadImageUrlCircle(Constance.BASE_URL + "/" + it)
-        }?:run{
-            binding.imageProfile.loadImageResourceCircle(R.drawable.baseline_person_24px)
+
+        if (selectType == SelectType.PERSON){
+            binding.evaluationLayout.visibility = View.INVISIBLE
+            binding.cardEvaluation.isClickable = false
+        }else{
+            binding.evaluationLayout.visibility = View.VISIBLE
+            binding.cardEvaluation.isClickable = true
         }
+
+        binding.imageProfile.loadImageUrlCircle(Constance.BASE_URL + "/" + profile.imagePath)
 
         binding.cardHistory.setOnClickListener {
             Intent().apply {
