@@ -51,6 +51,8 @@
     <!-- dailog button -->
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_no_change">ไม่เปลี่ยน</string>
+    <string name="dialog_change">เปลี่ยนแปลง</string>
 
     <!-- elderly profile -->
     <string name="orsomor_elderly_profile">ข้อมูลผู้สูงอายุ</string>

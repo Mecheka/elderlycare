@@ -21,6 +21,8 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
     val genderId = ObservableField<String>()
     val address = ObservableField<String>()
     val phone = ObservableField<String>()
+    val latitude = ObservableField<String>()
+    val longitude = ObservableField<String>()
 
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
@@ -47,8 +49,8 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
                 firstName.get()!!,
                 genderId.get()!!.toInt(),
                 lastName.get()!!,
-                0.0,
-                0.0,
+                latitude.get()!!.toDouble(),
+                longitude.get()!!.toDouble(),
                 phone.get()!!
             )
             addDisposable(

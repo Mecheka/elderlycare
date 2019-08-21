@@ -62,6 +62,7 @@ class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             viewModel.getBloodPressureHistory(profile.cardID!!, currentYear, currentMonth)
+            viewModel.getBloodPressureLastIndex(profile.cardID!!)
         }
     }
 
@@ -241,7 +242,6 @@ class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
             xAxis.valueFormatter = IndexAxisValueFormatter(getAreaCount(list))
         }
     }
-
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun setDateTimeText(createAt: String?): String {

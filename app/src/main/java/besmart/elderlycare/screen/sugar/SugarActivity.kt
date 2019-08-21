@@ -62,6 +62,7 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             viewModel.getSugarHistory(profile.cardID, currentYear, currentMonth)
+            viewModel.getSugarLastIndex(profile.cardID!!)
         }
     }
 

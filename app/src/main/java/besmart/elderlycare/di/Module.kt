@@ -53,7 +53,7 @@ val viewModelModule = module {
     viewModel { LoginViewModel(loginRepo = get(), profileRepo = get()) }
     viewModel { MyElderlyProfileViewModel(repository = get())}
     viewModel { AddElderlyViewModel(profileRepo = get(), elderlyRepo = get()) }
-    viewModel { ElderlyinfoViewModel(get()) }
+    viewModel { ElderlyinfoViewModel(get(),get()) }
     viewModel { FileViewModel(repository = get()) }
     viewModel { KnowlegeViewModel(repository = get()) }
     viewModel { NewsViewModel(repository = get()) }

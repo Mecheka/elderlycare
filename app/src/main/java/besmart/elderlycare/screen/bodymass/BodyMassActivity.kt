@@ -65,6 +65,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             viewModel.getBodymassHistory(profile.cardID, currentYear, currentMonth)
+            viewModel.getBodymassLastIndex(profile.cardID!!)
         }
     }
 

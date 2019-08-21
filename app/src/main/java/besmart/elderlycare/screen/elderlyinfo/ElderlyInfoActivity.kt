@@ -48,6 +48,13 @@ class ElderlyInfoActivity : BaseActivity() {
         observerViewModel()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            viewModel.getProfileByCardId(profile)
+        }
+    }
+
     private fun initInstance() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -123,6 +130,15 @@ class ElderlyInfoActivity : BaseActivity() {
             finish()
         })
 
+        viewModel.profileLiveEvent.observe(this, Observer {
+            if (selectType == SelectType.PERSON){
+                Hawk.put(Constance.USER, it)
+            }
+            profile = it
+            binding.model = it
+        })
+
+        viewModel.getProfileByCardId(profile)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -141,7 +157,7 @@ class ElderlyInfoActivity : BaseActivity() {
                 Intent().apply {
                     this.setClass(this@ElderlyInfoActivity, EditProfileActivity::class.java)
                     this.putExtra(EditProfileActivity.USER, profile)
-                    startActivity(this)
+                    startActivityForResult(this, 101)
                 }
                 true
             }
