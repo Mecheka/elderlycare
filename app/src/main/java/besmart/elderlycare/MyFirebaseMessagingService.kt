@@ -16,13 +16,13 @@ import android.os.Build
 @SuppressLint("Registered")
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(remote: RemoteMessage?) {
+    override fun onMessageReceived(remote: RemoteMessage) {
         super.onMessageReceived(remote)
         val notificationBuilder = NotificationCompat.Builder(this, "channel_id")
-            .setContentTitle(remote?.notification?.title)
-            .setContentText(remote?.notification?.body)
+            .setContentTitle(remote.notification?.title)
+            .setContentText(remote.notification?.body)
             .setAutoCancel(true)
-            .setContentInfo(remote?.notification?.title)
+            .setContentInfo(remote.notification?.title)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setSmallIcon(R.mipmap.ic_launcher)
