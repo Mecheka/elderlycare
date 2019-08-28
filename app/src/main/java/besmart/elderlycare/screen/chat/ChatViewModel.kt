@@ -25,7 +25,7 @@ class ChatViewModel(private val repository: ProfileRepository) : BaseViewModel()
     fun getAllUser() {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getAllProfile().subscribe({ responce ->
+            repository.getAllProfileWithVillageHealthVolunteer().subscribe({ responce ->
                 _loadingLiveEvent.sendAction(false)
                 if (responce.isSuccessful) {
                     _chatLiveData.value = responce.body()

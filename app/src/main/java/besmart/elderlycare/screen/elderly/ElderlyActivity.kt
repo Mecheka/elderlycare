@@ -27,6 +27,7 @@ class ElderlyActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        toolbar.title = getString(getElderlyTitleMenuBySelectType())
         textMenuElderly.text = getString(getElderlyTitleMenuBySelectType())
     }
 

@@ -36,7 +36,7 @@ class VillageHealthVolunteerViewModel(private val repository: VillageHealthVolun
             repository.getProfileByCardIdAndTypeId(profile.cardID!!, typeId).subscribe(
                 { response ->
                     if (response.isSuccessful) {
-                        getElderlyByStaffId(response.body()?.typeID.toString(), profile)
+                        getElderlyByStaffId(response.body()?.id.toString(), profile)
                     } else {
                         _loadingLiveEvent.sendAction(false)
                         response.errorBody()?.let {

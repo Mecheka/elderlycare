@@ -25,7 +25,7 @@ class ChatListUserViewModel(private val repository: ProfileRepository) : BaseVie
     fun getAllUser() {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getAllProfile().subscribe({ responce ->
+            repository.getAllProfileWithVillageHealthVolunteer().subscribe({ responce ->
                 _loadingLiveEvent.sendAction(false)
                 if (responce.isSuccessful) {
                     val chatList = mutableListOf<ChatItem>()

@@ -12,11 +12,14 @@ import retrofit2.http.*
 interface ProfileService {
     // Not filter
     //    @GET("/api/v1.0/profiles/")
-    //    fun getAllProfile(): Single<Response<List<ProfileResponce>>>
+    //    fun getAllProfileWithVillageHealthVolunteer(): Single<Response<List<ProfileResponce>>>
 
     // Filter by type
     @GET("/api/v1.0/users/villageHealthVolunteer/add")
-    fun getAllProfile(): Single<Response<List<ProfileResponce>>>
+    fun getAllProfileWithVillageHealthVolunteer(): Single<Response<List<ProfileResponce>>>
+
+    @GET("/api/v1.0/myElderlies/add")
+    fun getAllProfileWithOrsomor(): Single<Response<List<ProfileResponce>>>
 
     @GET("/api/v1.0/profiles/cardID/{cardId}")
     fun getProfileByCardId(@Path("cardId") cardId: String): Single<Response<ProfileResponce>>

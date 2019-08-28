@@ -52,6 +52,7 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        toolbar.title = getString(getElderlyTitleMenuBySelectType())
         recyclerView.layoutManager = GridLayoutManager(this, 3)
     }
 
@@ -99,6 +100,13 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
                 this.putExtra(VillageHealthVolunteerActivity.PROFILE, item)
                 startActivityForResult(this, DELETE_ELDERLY)
             }
+        }
+    }
+
+    private fun getElderlyTitleMenuBySelectType(): Int {
+        return when (selectType) {
+            SelectType.ORSOMO -> R.string.list_elderly
+            else -> R.string.list_orsomor
         }
     }
 }

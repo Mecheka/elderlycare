@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.repository.ElderlyRepository
 import besmart.elderlycare.repository.ProfileRepository
+import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
@@ -29,30 +30,50 @@ class AddElderlyViewModel constructor(
     val successLiveData: LiveData<Boolean>
         get() = _successLiveEvent
 
-    fun getAllProfile() {
+    fun getAllProfile(selectType: String) {
         _loadingLiveEvent.sendAction(true)
-        addDisposable(
-            profileRepo.getAllProfile().subscribe({ responce ->
-                _loadingLiveEvent.sendAction(false)
-                if (responce.isSuccessful) {
-                    val profile =
-                        responce.body()?.sortedBy { profile -> profile.cardID }?.toMutableList()
-                    _profileLiveData.value = profile
-                } else {
-                    responce.errorBody()?.let {
-                        _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+        if (selectType == SelectType.HEALTH) {
+            addDisposable(
+                profileRepo.getAllProfileWithVillageHealthVolunteer().subscribe({ responce ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (responce.isSuccessful) {
+                        val profile =
+                            responce.body()?.sortedBy { profile -> profile.cardID }?.toMutableList()
+                        _profileLiveData.value = profile
+                    } else {
+                        responce.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
                     }
-                }
-            }, { error ->
-                _loadingLiveEvent.sendAction(false)
-                _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
-            })
-        )
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
+            )
+        }else{
+            addDisposable(
+                profileRepo.getAllProfileWithOrsomor().subscribe({ responce ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (responce.isSuccessful) {
+                        val profile =
+                            responce.body()?.sortedBy { profile -> profile.cardID }?.toMutableList()
+                        _profileLiveData.value = profile
+                    } else {
+                        responce.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
+            )
+        }
     }
 
     fun getAllProfileWithRefresh() {
         addDisposable(
-            profileRepo.getAllProfile().subscribe({ responce ->
+            profileRepo.getAllProfileWithVillageHealthVolunteer().subscribe({ responce ->
                 if (responce.isSuccessful) {
                     val profile =
                         responce.body()?.sortedBy { profile -> profile.cardID }?.toMutableList()

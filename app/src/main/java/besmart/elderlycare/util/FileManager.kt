@@ -83,7 +83,7 @@ class FileManager {
         val projection = arrayOf(column)
 
         try {
-            cursor = context.contentResolver.query(uri, projection,
+            cursor = context.contentResolver.query(uri!!, projection,
                     selection, selectionArgs, null)
             if (cursor != null && cursor.moveToFirst()) {
                 val index = cursor.getColumnIndexOrThrow(column)

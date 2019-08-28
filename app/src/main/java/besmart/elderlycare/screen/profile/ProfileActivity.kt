@@ -1,11 +1,10 @@
 package besmart.elderlycare.screen.profile
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -64,12 +63,15 @@ class ProfileActivity : BaseActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initInstance() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        val packageInfo = packageManager.getPackageInfo(packageName, 0)
+        binding.textVersion.text = "Version ${packageInfo.versionName}"
         binding.imageProfile.setOnClickListener {
             Dexter.withActivity(this)
                 .withPermissions(

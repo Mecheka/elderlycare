@@ -12,8 +12,14 @@ import retrofit2.Response
 
 class ProfileRepository constructor(private val service: CommonWithAuth) {
 
-    fun getAllProfile(): Single<Response<List<ProfileResponce>>> {
-        return service.getProfileService().getAllProfile()
+    fun getAllProfileWithVillageHealthVolunteer(): Single<Response<List<ProfileResponce>>> {
+        return service.getProfileService().getAllProfileWithVillageHealthVolunteer()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getAllProfileWithOrsomor(): Single<Response<List<ProfileResponce>>> {
+        return service.getProfileService().getAllProfileWithOrsomor()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

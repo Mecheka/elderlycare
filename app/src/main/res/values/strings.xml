@@ -60,6 +60,9 @@
     <string name="add_my_elderly">เพิ่มผู้สูงอายุของฉัน</string>
     <string name="menu_gps">GPS</string>
 
+    <string name="list_elderly">รายชื่อผู้สูงอายุ</string>
+    <string name="list_orsomor">รายชื่ออสม.</string>
+
     <string name="space">\u0020</string>
     <string name="detail">รายละเอียด</string>
     <string name="elderdly_history">ประวัติการดูแล</string>
