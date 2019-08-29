@@ -5,10 +5,7 @@ import besmart.elderlycare.model.bodymass.BodyMassResponce
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface BodyMassService {
 
@@ -27,4 +24,7 @@ interface BodyMassService {
 
     @GET("/api/v1.0/bodyMassIndexs/{date}")
     fun getHistoryByDate(@Path("date") date: String): Single<Response<List<BodyMassResponce>>>
+
+    @DELETE("/api/v1.0/bodyMassIndexs/{bodyMassIndexID}")
+    fun removeBloodPressureById(@Path("bodyMassIndexID") bloodPressureId: String): Single<Response<ResponseBody>>
 }

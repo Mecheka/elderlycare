@@ -34,4 +34,10 @@ class BodyMassRepository(private val service: CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun removeBodyMass(bloodPressureId: String): Single<Response<ResponseBody>> {
+        return service.getBodyMassService().removeBloodPressureById(bloodPressureId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

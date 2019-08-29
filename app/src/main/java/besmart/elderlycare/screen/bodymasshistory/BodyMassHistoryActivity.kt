@@ -1,13 +1,20 @@
 package besmart.elderlycare.screen.bodymasshistory
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
+import besmart.elderlycare.util.SwipeController
+import besmart.elderlycare.util.SwipeControllerActions
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -19,6 +26,9 @@ class BodyMassHistoryActivity : BaseActivity() {
 
     private val viewModel: BodyMassHistoryViewModel by viewModel()
     private lateinit var profile: ProfileResponce
+    private var deletePostion: Int? = null
+    private var isRemoveItem = false
+    private lateinit var bodyAdapter: BodyMassHistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +42,30 @@ class BodyMassHistoryActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
-            finish()
+            onBackPressed()
         }
+
+        val swipeController = SwipeController(object : SwipeControllerActions {
+            override fun onLeftClicked(position: Int) {
+                super.onLeftClicked(position)
+            }
+
+            override fun onRightClicked(position: Int) {
+                super.onRightClicked(position)
+                Log.i("Right Click", "click $position")
+                deletePostion = position
+                val item = bodyAdapter.getItemByPosition(position)
+                viewModel.removeBodyMassHistory(item)
+            }
+        })
+        val itemTouchHelper = ItemTouchHelper(swipeController)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+                swipeController.onDraw(c)
+            }
+        })
     }
 
     private fun observerViewModel() {
@@ -50,14 +82,31 @@ class BodyMassHistoryActivity : BaseActivity() {
         })
 
         viewModel.bodyMassLiveData.observe(this, Observer {
+            bodyAdapter = BodyMassHistoryAdapter(it.toMutableList())
             recyclerView.apply {
                 this.layoutManager =
                     LinearLayoutManager(this@BodyMassHistoryActivity, RecyclerView.VERTICAL, false)
                 this.hasFixedSize()
-                this.adapter = BodyMassHistoryAdapter(it)
+                this.adapter = bodyAdapter
+            }
+        })
+
+        viewModel.removeSuccessLiveEvent.observe(this, Observer {isSuccess->
+            if (isSuccess){
+                deletePostion?.let {
+                    isRemoveItem = true
+                    bodyAdapter.removeItem(it)
+                }
             }
         })
 
         viewModel.getBodyMassHistory(profile.cardID!!)
+    }
+
+    override fun onBackPressed() {
+        if (isRemoveItem){
+            setResult(Activity.RESULT_OK)
+        }
+        super.onBackPressed()
     }
 }

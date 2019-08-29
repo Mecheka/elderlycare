@@ -21,6 +21,10 @@ class BodyMassHistoryViewModel(private val repository: BodyMassRepository) : Bas
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
+    private val _removeSuccessLiveEvent = ActionLiveData<Boolean>()
+    val removeSuccessLiveEvent: LiveData<Boolean>
+        get() = _removeSuccessLiveEvent
+
     fun getBodyMassHistory(cardID: String) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
@@ -38,6 +42,27 @@ class BodyMassHistoryViewModel(private val repository: BodyMassRepository) : Bas
                     _loadingLiveEvent.sendAction(false)
                     _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
                 })
+        )
+    }
+
+    fun removeBodyMassHistory(item: BodyMassResponce) {
+        _loadingLiveEvent.sendAction(true)
+        addDisposable(
+            repository.removeBodyMass(item.id.toString()).subscribe(
+                { response ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (response.isSuccessful) {
+                        _removeSuccessLiveEvent.value = true
+                    } else {
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
+
         )
     }
 }

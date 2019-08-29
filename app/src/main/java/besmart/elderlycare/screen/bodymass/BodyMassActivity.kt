@@ -47,6 +47,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
     private lateinit var lineDataSet: LineDataSet
     private val calendar = Calendar.getInstance(Locale("TH"))
     private val ADD_BODY_MASS_CODE = 101
+    private val REMOVE_BODU_MASS_CODE = 102
     private var currentYear: String = ""
     private var currentMonth: String = ""
 
@@ -96,7 +97,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
             Intent().apply {
                 this.setClass(this@BodyMassActivity, BodyMassHistoryActivity::class.java)
                 this.putExtra(BodyMassHistoryActivity.PROFILE, profile)
-                startActivity(this)
+                startActivityForResult(this, REMOVE_BODU_MASS_CODE)
             }
         }
     }

@@ -58,7 +58,7 @@ class HistoryDetailActivity : BaseActivity() {
         })
 
         viewModel.bodymassLiveEvent.observe(this, Observer {
-            recyclerView.adapter = BodyMassHistoryAdapter(it)
+            recyclerView.adapter = BodyMassHistoryAdapter(it.toMutableList())
         })
         viewModel.evaluationLiveEvent.observe(this, Observer {
             recyclerView.adapter = BloodPressureHistoryAdapter(it)

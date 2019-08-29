@@ -8,10 +8,19 @@ import besmart.elderlycare.databinding.ItemBodyMassHistoryBinding
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.util.convertDate
 
-class BodyMassHistoryAdapter(private val list: List<BodyMassResponce>) :
+class BodyMassHistoryAdapter(private val list: MutableList<BodyMassResponce>) :
     RecyclerView.Adapter<BodyMassHistoryAdapter.BodyMassHistoryHolder>() {
 
     private lateinit var binding: ItemBodyMassHistoryBinding
+
+    fun getItemByPosition(position: Int): BodyMassResponce {
+        return list[position]
+    }
+
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BodyMassHistoryHolder {
         binding =
