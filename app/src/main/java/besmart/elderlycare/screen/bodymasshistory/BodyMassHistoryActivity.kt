@@ -1,7 +1,6 @@
 package besmart.elderlycare.screen.bodymasshistory
 
 import android.app.Activity
-import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +17,7 @@ import besmart.elderlycare.util.SwipeControllerActions
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BodyMassHistoryActivity : BaseActivity() {
 
     companion object {
@@ -26,7 +26,7 @@ class BodyMassHistoryActivity : BaseActivity() {
 
     private val viewModel: BodyMassHistoryViewModel by viewModel()
     private lateinit var profile: ProfileResponce
-    private var deletePostion: Int? = null
+    private var deletePosition: Int? = null
     private var isRemoveItem = false
     private lateinit var bodyAdapter: BodyMassHistoryAdapter
 
@@ -46,14 +46,11 @@ class BodyMassHistoryActivity : BaseActivity() {
         }
 
         val swipeController = SwipeController(object : SwipeControllerActions {
-            override fun onLeftClicked(position: Int) {
-                super.onLeftClicked(position)
-            }
 
             override fun onRightClicked(position: Int) {
                 super.onRightClicked(position)
                 Log.i("Right Click", "click $position")
-                deletePostion = position
+                deletePosition = position
                 val item = bodyAdapter.getItemByPosition(position)
                 viewModel.removeBodyMassHistory(item)
             }
@@ -93,7 +90,7 @@ class BodyMassHistoryActivity : BaseActivity() {
 
         viewModel.removeSuccessLiveEvent.observe(this, Observer {isSuccess->
             if (isSuccess){
-                deletePostion?.let {
+                deletePosition?.let {
                     isRemoveItem = true
                     bodyAdapter.removeItem(it)
                 }

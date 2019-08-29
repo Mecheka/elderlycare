@@ -5,12 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemBloodPressureHistoryBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
+import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.util.convertDate
 
-class BloodPressureHistoryAdapter(private val list: List<BloodPressuresResponse>) :
+class BloodPressureHistoryAdapter(private val list: MutableList<BloodPressuresResponse>) :
     RecyclerView.Adapter<BloodPressureHistoryAdapter.EvaluationHistoryHolder>() {
 
     private lateinit var binding: ItemBloodPressureHistoryBinding
+
+    fun getItemByPosition(position: Int): BloodPressuresResponse {
+        return list[position]
+    }
+
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EvaluationHistoryHolder {
         binding =

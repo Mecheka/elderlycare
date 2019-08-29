@@ -26,5 +26,5 @@ interface BodyMassService {
     fun getHistoryByDate(@Path("date") date: String): Single<Response<List<BodyMassResponce>>>
 
     @DELETE("/api/v1.0/bodyMassIndexs/{bodyMassIndexID}")
-    fun removeBloodPressureById(@Path("bodyMassIndexID") bloodPressureId: String): Single<Response<ResponseBody>>
+    fun removeBodyMassById(@Path("bodyMassIndexID") bloodPressureId: String): Single<Response<ResponseBody>>
 }

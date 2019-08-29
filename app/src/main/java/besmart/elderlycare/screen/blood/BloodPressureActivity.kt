@@ -43,7 +43,8 @@ class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
     private lateinit var binding: ActivityBloodPressureBinding
     private lateinit var profile: ProfileResponce
     private val viewModel: BloodPressureViewModel by viewModel()
-    private val ADD_EVALUATION = 202
+    private val ADD_BLOODPRESSURE = 202
+    private val REMOVE_BLOODPRESSURE = 203
     private var currentYear: String = ""
     private var currentMonth: String = ""
 
@@ -86,7 +87,7 @@ class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
             Intent().apply {
                 this.setClass(this@BloodPressureActivity, AddBloodPressureActivity::class.java)
                 this.putExtra(AddBloodPressureActivity.PROFILE, profile)
-                startActivityForResult(this, ADD_EVALUATION)
+                startActivityForResult(this, ADD_BLOODPRESSURE)
             }
         }
 
@@ -94,7 +95,7 @@ class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
             Intent().apply {
                 this.setClass(this@BloodPressureActivity, BloodPressureHistoryActivity::class.java)
                 this.putExtra(BloodPressureHistoryActivity.PROFILE, profile)
-                startActivity(this)
+                startActivityForResult(this, REMOVE_BLOODPRESSURE)
             }
         }
     }

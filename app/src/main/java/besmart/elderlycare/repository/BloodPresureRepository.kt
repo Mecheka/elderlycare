@@ -38,4 +38,10 @@ class BloodPresureRepository(private val service: CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun removeBloodPressure(bloodPressureId:String): Single<Response<ResponseBody>>{
+        return service.getBloodPresureService().removeBloodPressure(bloodPressureId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

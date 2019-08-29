@@ -21,6 +21,10 @@ class BloodPressureHistoryViewModel(private val repository: BloodPresureReposito
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
+    private val _removeSuccessLiveEvent = ActionLiveData<Boolean>()
+    val removeSuccessLiveEvent: LiveData<Boolean>
+        get() = _removeSuccessLiveEvent
+
     fun getEvaluationHistory(cardID: String) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
@@ -37,6 +41,27 @@ class BloodPressureHistoryViewModel(private val repository: BloodPresureReposito
                     _loadingLiveEvent.sendAction(false)
                     _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
                 })
+        )
+    }
+
+    fun removeBloodPressureHistory(item: BloodPressuresResponse) {
+        _loadingLiveEvent.sendAction(true)
+        addDisposable(
+            repository.removeBloodPressure(item.id.toString()).subscribe(
+                { response ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (response.isSuccessful) {
+                        _removeSuccessLiveEvent.value = true
+                    } else {
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
+
         )
     }
 }

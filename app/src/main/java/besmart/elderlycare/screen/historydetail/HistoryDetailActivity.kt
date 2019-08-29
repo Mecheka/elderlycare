@@ -61,7 +61,7 @@ class HistoryDetailActivity : BaseActivity() {
             recyclerView.adapter = BodyMassHistoryAdapter(it.toMutableList())
         })
         viewModel.evaluationLiveEvent.observe(this, Observer {
-            recyclerView.adapter = BloodPressureHistoryAdapter(it)
+            recyclerView.adapter = BloodPressureHistoryAdapter(it.toMutableList())
         })
         viewModel.sugarLiveEvent.observe(this, Observer {
             recyclerView.adapter = SugarHistoryAdapter(it)
