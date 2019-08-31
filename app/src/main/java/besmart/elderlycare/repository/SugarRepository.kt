@@ -34,4 +34,10 @@ class SugarRepository(private val service:CommonWithAuth) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun removeSugarBloodHistory(sugarBloodId: String): Single<Response<ResponseBody>> {
+        return service.getSugarService().removeSugarBloodHistory(sugarBloodId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

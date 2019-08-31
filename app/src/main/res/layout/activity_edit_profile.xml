@@ -185,6 +185,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
                         android:text="@={viewModel.latitude}" />
 
                     <TextView
@@ -192,6 +195,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
                         android:text="@={viewModel.longitude}" />
 
                     <TextView
@@ -201,7 +207,8 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:maxLines="1"
-                        android:text="อัปเดทตำแหน่ง"
+                        android:gravity="center"
+                        android:text="@string/update_my_location"
                         android:textColor="@android:color/holo_blue_light"
                         app:autoSizeTextType="uniform" />
                 </LinearLayout>

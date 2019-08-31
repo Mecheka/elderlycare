@@ -33,6 +33,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class BloodPressureActivity : BaseActivity(), OnChartValueSelectedListener,
     DatePickerDialog.OnDateSetListener {
 

@@ -1,21 +1,23 @@
 package besmart.elderlycare.screen.historydetail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import besmart.elderlycare.model.blood.BloodPressuresResponse
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.model.sugar.SugarResponse
-import besmart.elderlycare.repository.BodyMassRepository
 import besmart.elderlycare.repository.BloodPresureRepository
+import besmart.elderlycare.repository.BodyMassRepository
 import besmart.elderlycare.repository.SugarRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
+import retrofit2.Response
 
 class HistoryDetailViewModel(
     private val repoBody: BodyMassRepository,
     private val repoBloodPresure: BloodPresureRepository,
-    private val repoBlood: SugarRepository
+    private val repoSugar: SugarRepository
 ) : BaseViewModel() {
 
     private val _errorLiveEvent = ActionLiveData<String>()
@@ -30,13 +32,17 @@ class HistoryDetailViewModel(
     val bodymassLiveEvent: LiveData<List<BodyMassResponce>>
         get() = _bodymassLiveEvent
 
-    private val _evaluationLiveEvent = ActionLiveData<List<BloodPressuresResponse>>()
-    val evaluationLiveEvent: LiveData<List<BloodPressuresResponse>>
-        get() = _evaluationLiveEvent
+    private val _bloodPressureLiveEvent = ActionLiveData<List<BloodPressuresResponse>>()
+    val bloodPressure: LiveData<List<BloodPressuresResponse>>
+        get() = _bloodPressureLiveEvent
 
     private val _sugarLiveEvent = ActionLiveData<List<SugarResponse>>()
     val sugarLiveEvent: LiveData<List<SugarResponse>>
         get() = _sugarLiveEvent
+
+    private val _removeSuccessLiveEvent = MutableLiveData<Boolean>()
+    val removeSuccessLiveEvent: LiveData<Boolean>
+        get() = _removeSuccessLiveEvent
 
     fun getHistoryDetail(history: HistoryResponce) {
         _loadingLiveEvent.sendAction(true)
@@ -45,20 +51,9 @@ class HistoryDetailViewModel(
                 addDisposable(
                     repoBody.getHistoryByDate(history.dataID.toString()).subscribe(
                         { response ->
-                            _loadingLiveEvent.sendAction(false)
-                            if (response.isSuccessful) {
-                                _bodymassLiveEvent.value = response.body()
-                            } else {
-                                val errorResponse = response.errorBody()
-                                _errorLiveEvent.sendAction(
-                                    HandingNetworkError.getErrorMessage(
-                                        errorResponse!!
-                                    )
-                                )
-                            }
+                            handleResponse(response, _bodymassLiveEvent)
                         }, { error ->
-                            _loadingLiveEvent.sendAction(false)
-                            _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                            handleError(error)
                         })
                 )
             }
@@ -66,45 +61,94 @@ class HistoryDetailViewModel(
                 addDisposable(
                     repoBloodPresure.getHistoryByDataID(history.dataID.toString()).subscribe(
                         { response ->
-                            _loadingLiveEvent.sendAction(false)
-                            if (response.isSuccessful) {
-                                _evaluationLiveEvent.value = response.body()
-                            } else {
-                                val errorResponse = response.errorBody()
-                                _errorLiveEvent.sendAction(
-                                    HandingNetworkError.getErrorMessage(
-                                        errorResponse!!
-                                    )
-                                )
-                            }
+                            handleResponse(response, _bloodPressureLiveEvent)
                         }, { error ->
-                            _loadingLiveEvent.sendAction(false)
-                            _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                            handleError(error)
                         })
                 )
             }
             else -> {
                 addDisposable(
-                    repoBlood.getHistoryByDataID(history.dataID.toString()).subscribe(
+                    repoSugar.getHistoryByDataID(history.dataID.toString()).subscribe(
                         { response ->
-                            _loadingLiveEvent.sendAction(false)
-                            if (response.isSuccessful) {
-                                _sugarLiveEvent.value = response.body()
-                            } else {
-                                val errorResponse = response.errorBody()
-                                _errorLiveEvent.sendAction(
-                                    HandingNetworkError.getErrorMessage(
-                                        errorResponse!!
-                                    )
-                                )
-                            }
+                            handleResponse(response, _sugarLiveEvent)
                         }, { error ->
-                            _loadingLiveEvent.sendAction(false)
-                            _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                            handleError(error)
                         })
                 )
             }
         }
     }
 
+    fun removeHistoryByItemType(item: Any?, typeID: Int?) {
+        _loadingLiveEvent.sendAction(true)
+        when (typeID) {
+            // Body Mass
+            1 -> {
+                val bodymass = item as BodyMassResponce
+                addDisposable(
+                    repoBody.removeBodyMass(bodymass.id.toString()).subscribe({ response ->
+                        handleRemove(response)
+                    }, { error ->
+                        handleError(error)
+                    })
+                )
+            }
+            // Blood pressure
+            2 -> {
+                val bloodPressure = item as BloodPressuresResponse
+                addDisposable(
+                    repoBloodPresure.removeBloodPressure(bloodPressure.id.toString()).subscribe({ response ->
+                        handleRemove(response)
+                    }, { error ->
+                        handleError(error)
+                    })
+                )
+            }
+            else -> {
+                // Sugar
+                val sugar = item as SugarResponse
+                addDisposable(
+                    repoSugar.removeSugarBloodHistory(sugar.id.toString()).subscribe({ response ->
+                        handleRemove(response)
+                    }, { error ->
+                        handleError(error)
+                    })
+                )
+            }
+        }
+    }
+
+    private fun <T> handleResponse(response: Response<T>, yourLiveData: MutableLiveData<T>) {
+        _loadingLiveEvent.sendAction(false)
+        if (response.isSuccessful) {
+            yourLiveData.value = response.body()
+        } else {
+            val errorResponse = response.errorBody()
+            _errorLiveEvent.sendAction(
+                HandingNetworkError.getErrorMessage(
+                    errorResponse!!
+                )
+            )
+        }
+    }
+
+    private fun <T> handleRemove(response: Response<T>) {
+        _loadingLiveEvent.sendAction(false)
+        if (response.isSuccessful) {
+            _removeSuccessLiveEvent.value = true
+        } else {
+            val errorResponse = response.errorBody()
+            _errorLiveEvent.sendAction(
+                HandingNetworkError.getErrorMessage(
+                    errorResponse!!
+                )
+            )
+        }
+    }
+
+    private fun handleError(error: Throwable) {
+        _loadingLiveEvent.sendAction(false)
+        _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+    }
 }

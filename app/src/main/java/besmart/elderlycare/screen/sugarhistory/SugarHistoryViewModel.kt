@@ -22,6 +22,10 @@ class SugarHistoryViewModel(private val repository: SugarRepository) : BaseViewM
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent
 
+    private val _removeSuccessLiveEvent = MutableLiveData<Boolean>()
+    val removeSuccessLiveEvent: LiveData<Boolean>
+        get() = _removeSuccessLiveEvent
+
     fun getSugarHistory(cardID:String) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
@@ -38,6 +42,27 @@ class SugarHistoryViewModel(private val repository: SugarRepository) : BaseViewM
                     _loadingLiveEvent.sendAction(false)
                     _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
                 })
+        )
+    }
+
+    fun removeBodyMassHistory(item: SugarResponse) {
+        _loadingLiveEvent.sendAction(true)
+        addDisposable(
+            repository.removeSugarBloodHistory(item.id.toString()).subscribe(
+                { response ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (response.isSuccessful) {
+                        _removeSuccessLiveEvent.value = true
+                    } else {
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
+
         )
     }
 }

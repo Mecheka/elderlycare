@@ -5,10 +5,7 @@ import besmart.elderlycare.model.sugar.SugarResponse
 import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface SugarService {
 
@@ -27,4 +24,7 @@ interface SugarService {
 
     @GET("/api/v1.0/bloodSugars/{dataID}")
     fun getHistoryByDataID(@Path("dataID") dataID: String): Single<Response<List<SugarResponse>>>
+
+    @DELETE("/api/v1.0/bloodSugars/{bloodSugarID}")
+    fun removeSugarBloodHistory(@Path("bloodSugarID") bloodSugarID:String) :Single<Response<ResponseBody>>
 }

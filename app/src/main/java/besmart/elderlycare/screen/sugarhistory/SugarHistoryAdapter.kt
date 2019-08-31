@@ -4,13 +4,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemSugarHistoryBinding
+import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.util.convertDate
 
-class SugarHistoryAdapter(private val list: List<SugarResponse>) :
+class SugarHistoryAdapter(private val list: MutableList<SugarResponse>) :
     RecyclerView.Adapter<SugarHistoryAdapter.SugarHistoryHolder>() {
 
     private lateinit var binding: ItemSugarHistoryBinding
+
+    fun getItemByPosition(position: Int): SugarResponse {
+        return list[position]
+    }
+
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SugarHistoryHolder {
         binding =

@@ -45,6 +45,7 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
     private lateinit var profile: ProfileResponce
     private lateinit var lineDataSet: LineDataSet
     private val ADD_SUGAR = 303
+    private val REMOVE_SUGAR = 304
     private var currentMonth: String = ""
     private var currentYear: String = ""
 
@@ -93,7 +94,7 @@ class SugarActivity : BaseActivity(), OnChartValueSelectedListener,
             Intent().apply {
                 this.setClass(this@SugarActivity, SugarHistoryActivity::class.java)
                 this.putExtra(SugarHistoryActivity.PROFILE, profile)
-                startActivityForResult(this, ADD_SUGAR)
+                startActivityForResult(this, REMOVE_SUGAR)
             }
         }
     }
