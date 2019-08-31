@@ -1,5 +1,6 @@
 package besmart.elderlycare.screen.editprofile
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -20,10 +21,12 @@ import besmart.elderlycare.util.BaseDialog
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.location.LocationSettingsStatusCodes
+import com.google.android.gms.location.*
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.layernet.thaidatetimepicker.date.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -44,6 +47,7 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var locationManager: LocationManager
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLocationRequest: LocationRequest? = null
+    private var mFusedLocationClient: FusedLocationProviderClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +69,7 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
             finish()
         }
         initDataViewModel()
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding.editDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val dp = DatePickerDialog.newInstance(
@@ -104,13 +109,14 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
                         } else {
                             Log.e("keshav", "Gps already enabled")
                             Toast.makeText(this@EditProfileActivity, "Gps already enabled", Toast.LENGTH_SHORT).show()
+//                            locationManager.requestLocationUpdates(
+//                                LocationManager.NETWORK_PROVIDER,
+//                                0L,
+//                                0f,
+//                                locationListener
+//                            )
                         }
-                        locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            0L,
-                            0f,
-                            locationListener
-                        )
+                        getLastLocation()
                     } catch (e: SecurityException) {
                         e.printStackTrace()
                     }
@@ -223,6 +229,32 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
                 }
             }
         }
+    }
+
+    private fun getLastLocation() {
+        Dexter.withActivity(this)
+            .withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
+                @SuppressLint("MissingPermission")
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    mFusedLocationClient?.lastLocation?.addOnCompleteListener(this@EditProfileActivity) { task ->
+                        if (task.isSuccessful && task.result != null){
+                            viewModel.latitude.set(task.result?.latitude.toString())
+                            viewModel.longitude.set(task.result?.longitude.toString())
+                        }
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest>,
+                    token: PermissionToken
+                ) {
+
+                }
+            }).check()
     }
 
     private val locationListener: LocationListener = object : LocationListener {
