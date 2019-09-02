@@ -20,7 +20,6 @@ class ChatActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        viewPager.beginFakeDrag()
         viewPager.adapter = ChatPagerAdapter(supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
     }

@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:tabMode="fixed"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <besmart.elderlycare.witget.SwipeLockableViewPager
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
