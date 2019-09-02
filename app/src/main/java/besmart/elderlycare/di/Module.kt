@@ -10,7 +10,7 @@ import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryViewModel
 import besmart.elderlycare.screen.chat.ChatListUserViewModel
 import besmart.elderlycare.screen.chat.ChatViewModel
 import besmart.elderlycare.screen.editprofile.EditProfileViewModel
-import besmart.elderlycare.screen.elderlyadd.AddElderlyViewModel
+import besmart.elderlycare.screen.elderlyadd.AddMyElderlyViewModel
 import besmart.elderlycare.screen.elderlyinfo.ElderlyinfoViewModel
 import besmart.elderlycare.screen.evaluation.EvaluationViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
@@ -52,7 +52,7 @@ val viewModelModule = module {
     viewModel { RegisterViewModel(repository = get()) }
     viewModel { LoginViewModel(loginRepo = get(), profileRepo = get()) }
     viewModel { MyElderlyProfileViewModel(repository = get())}
-    viewModel { AddElderlyViewModel(profileRepo = get(), elderlyRepo = get()) }
+    viewModel { AddMyElderlyViewModel(profileRepo = get(), elderlyRepo = get()) }
     viewModel { ElderlyinfoViewModel(get(),get()) }
     viewModel { FileViewModel(repository = get()) }
     viewModel { KnowlegeViewModel(repository = get()) }

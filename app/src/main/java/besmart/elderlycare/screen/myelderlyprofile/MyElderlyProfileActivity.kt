@@ -10,7 +10,7 @@ import besmart.elderlycare.R
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.base.BaseActivity
-import besmart.elderlycare.screen.elderlyadd.AddElderlyActivity
+import besmart.elderlycare.screen.elderlyadd.AddMyElderlyActivity
 import besmart.elderlycare.screen.elderlyinfo.ElderlyInfoActivity
 import besmart.elderlycare.screen.villagehealthvoluntor.VillageHealthVolunteerActivity
 import besmart.elderlycare.util.BaseDialog
@@ -28,7 +28,7 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
         const val DELETE_ELDERLY = 102
     }
 
-    private val viewModelMy: MyElderlyProfileViewModel by viewModel()
+    private val viewModel: MyElderlyProfileViewModel by viewModel()
     private lateinit var elderlyProfileAdapter: MyElderlyProfileAdapter
     private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
 
@@ -41,8 +41,8 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            viewModelMy.getMyElderly()
+        if (resultCode == Activity.RESULT_OK){
+            viewModel.getMyElderly()
         }
     }
 
@@ -57,11 +57,11 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
     }
 
     private fun observerViewModel() {
-        viewModelMy.errorLiveData.observe(this, Observer {
+        viewModel.errorLiveData.observe(this, Observer {
             BaseDialog.warningDialog(this, it)
         })
 
-        viewModelMy.loadingLiveData.observe(this, Observer {
+        viewModel.loadingLiveData.observe(this, Observer {
             if (it) {
                 showLoadingDialog(this)
             } else {
@@ -69,17 +69,17 @@ class MyElderlyProfileActivity : BaseActivity(), SimpleOnItemClick<ProfileRespon
             }
         })
 
-        viewModelMy.elderlyLiveData.observe(this, Observer {
+        viewModel.elderlyLiveData.observe(this, Observer {
             elderlyProfileAdapter = MyElderlyProfileAdapter(it, this)
             recyclerView.adapter = elderlyProfileAdapter
         })
 
-        viewModelMy.getMyElderly()
+        viewModel.getMyElderly()
     }
 
     fun onAddClick(view: View) {
         Intent().apply {
-            this.setClass(this@MyElderlyProfileActivity, AddElderlyActivity::class.java)
+            this.setClass(this@MyElderlyProfileActivity, AddMyElderlyActivity::class.java)
             startActivityForResult(this, ADD_ELDERLY)
         }
     }

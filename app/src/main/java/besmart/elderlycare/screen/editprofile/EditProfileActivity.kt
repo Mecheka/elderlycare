@@ -33,25 +33,31 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     companion object{
         const val USER = "user"
+        const val IS_EDIT = "isedit"
     }
 
     private lateinit var binding: ActivityEditProfileBinding
     private val viewModel: EditProfileViewModel by viewModel()
-    private val profile: ProfileResponce by lazy {
-        intent.getParcelableExtra(USER) as ProfileResponce
-    }
+    private var profile: ProfileResponce? = null
     private lateinit var locationManager: LocationManager
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLocationRequest: LocationRequest? = null
     private var mFusedLocationClient: FusedLocationProviderClient? = null
+    // is edit == true
+    // is create == false
+    private val isEdit: Boolean by lazy {
+        intent.getBooleanExtra(IS_EDIT, true)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile)
+        profile = intent.getParcelableExtra(USER)
         binding.viewModel = viewModel
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         mLocationRequest = LocationRequest.create()
@@ -63,6 +69,9 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
     }
 
     private fun initInstance() {
+        if (!isEdit) {
+            binding.editCardId.isEnabled = true
+        }
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
@@ -109,12 +118,6 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
                         } else {
                             Log.e("keshav", "Gps already enabled")
                             Toast.makeText(this@EditProfileActivity, "Gps already enabled", Toast.LENGTH_SHORT).show()
-//                            locationManager.requestLocationUpdates(
-//                                LocationManager.NETWORK_PROVIDER,
-//                                0L,
-//                                0f,
-//                                locationListener
-//                            )
                         }
                         getLastLocation()
                     } catch (e: SecurityException) {
@@ -126,7 +129,13 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
         }
 
         binding.btnSave.setOnClickListener {
-            viewModel.onSaveClick(profile.id.toString())
+            if (isEdit) {
+                profile?.id?.let {
+                    viewModel.editProfile(it.toString())
+                }
+            } else {
+                viewModel.createProfile()
+            }
         }
     }
 
@@ -151,25 +160,27 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     @SuppressLint("SimpleDateFormat")
     private fun initDataViewModel() {
-        val inputFormat = SimpleDateFormat("dd/MM/yyyy")
-        val date = inputFormat.parse(profile.birthday)
-        val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale("TH"))
+        profile?.let {
+            val inputFormat = SimpleDateFormat("dd/MM/yyyy")
+            val date = inputFormat.parse(it.birthday)
+            val outputFormat = SimpleDateFormat("dd MMM yyyy", Locale("TH"))
 
-        viewModel.cardId.set(profile.cardID)
-        viewModel.firstName.set(profile.firstName)
-        viewModel.lastName.set(profile.lastName)
-        viewModel.birthday.set(outputFormat.format(date))
-        if (profile.genderID == 1) {
-            viewModel.genderId.set("1")
-            binding.editGender.setText("ชาย")
-        } else {
-            viewModel.genderId.set("2")
-            binding.editGender.setText("หญิง")
+            viewModel.cardId.set(it.cardID)
+            viewModel.firstName.set(it.firstName)
+            viewModel.lastName.set(it.lastName)
+            viewModel.birthday.set(outputFormat.format(date))
+            if (it.genderID == 1) {
+                viewModel.genderId.set("1")
+                binding.editGender.setText("ชาย")
+            } else {
+                viewModel.genderId.set("2")
+                binding.editGender.setText("หญิง")
+            }
+            viewModel.address.set(it.address)
+            viewModel.phone.set(it.phone)
+            viewModel.latitude.set(it.latitude.toString())
+            viewModel.longitude.set(it.longitude.toString())
         }
-        viewModel.address.set(profile.address)
-        viewModel.phone.set(profile.phone)
-        viewModel.latitude.set(profile.latitude.toString())
-        viewModel.longitude.set(profile.longitude.toString())
     }
 
     private fun hasGPSDevice(context: Context): Boolean {

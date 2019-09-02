@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_card_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"

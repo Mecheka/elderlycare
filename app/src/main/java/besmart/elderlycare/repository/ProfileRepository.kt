@@ -1,5 +1,6 @@
 package besmart.elderlycare.repository
 
+import besmart.elderlycare.model.editprofile.CreateProfileRequest
 import besmart.elderlycare.model.editprofile.EditProfileRequest
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.service.common.CommonWithAuth
@@ -44,6 +45,12 @@ class ProfileRepository constructor(private val service: CommonWithAuth) {
 
     fun uploadImageProfile(body: RequestBody, profileID: String): Single<Response<ResponseBody>> {
         return service.getProfileService().uploadImageProfile(profileID, body)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun createProfile(body: CreateProfileRequest): Single<Response<ResponseBody>> {
+        return service.getProfileService().createProfile(body)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

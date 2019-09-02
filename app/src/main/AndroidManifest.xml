@@ -3,23 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="besmart.elderlycare">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
-
     <application
         android:name=".ElderlycarApplication"
         android:allowBackup="true"
@@ -31,16 +14,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".screen.villagehealthvoluntor.VillageHealthVolunteerActivity"></activity>
+        <activity android:name=".screen.addelderly.AddElderlyActivity"></activity>
+        <activity android:name=".screen.villagehealthvoluntor.VillageHealthVolunteerActivity" />
         <activity android:name=".screen.question.QuestionActivity" />
         <activity android:name=".screen.evaluation.EvaluationActivity" />
         <activity android:name=".screen.filedetail.FileDetailActivity" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity android:name=".screen.historydetail.HistoryDetailActivity" />
+
         <activity android:name=".screen.sugarhistory.SugarHistoryActivity" />
         <activity android:name=".screen.sugaradd.SugarAddActivity" />
         <activity android:name=".screen.bloodhistory.BloodPressureHistoryActivity" />
@@ -57,7 +38,7 @@
         <activity android:name=".screen.editprofile.EditProfileActivity" />
         <activity android:name=".screen.newsdetail.NewsDetailActivity" />
         <activity android:name=".screen.web.WebViewActivity" />
-        <activity android:name=".screen.elderlyadd.AddElderlyActivity" />
+        <activity android:name=".screen.elderlyadd.AddMyElderlyActivity" />
         <activity android:name=".screen.profile.ProfileActivity" />
         <activity android:name=".screen.chat.ChatActivity" />
         <activity android:name=".screen.notification.NotificationActivity" />
@@ -80,6 +61,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.main.MainActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <service
             android:name=".MyFirebaseMessagingService"
@@ -89,5 +73,22 @@
             </intent-filter>
         </service>
     </application>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

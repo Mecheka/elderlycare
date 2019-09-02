@@ -1,5 +1,6 @@
 package besmart.elderlycare.service
 
+import besmart.elderlycare.model.editprofile.CreateProfileRequest
 import besmart.elderlycare.model.editprofile.EditProfileRequest
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.model.user.UserResponse
@@ -10,11 +11,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ProfileService {
-    // Not filter
-    //    @GET("/api/v1.0/profiles/")
-    //    fun getAllProfileWithVillageHealthVolunteer(): Single<Response<List<ProfileResponce>>>
 
-    // Filter by type
     @GET("/api/v1.0/users/villageHealthVolunteer/add")
     fun getAllProfileWithVillageHealthVolunteer(): Single<Response<List<ProfileResponce>>>
 
@@ -42,4 +39,7 @@ interface ProfileService {
         @Path("profileID") profileID: String,
         @Body body: RequestBody
     ): Single<Response<ResponseBody>>
+
+    @POST("/api/v1.0/profiles")
+    fun createProfile(@Body body: CreateProfileRequest): Single<Response<ResponseBody>>
 }

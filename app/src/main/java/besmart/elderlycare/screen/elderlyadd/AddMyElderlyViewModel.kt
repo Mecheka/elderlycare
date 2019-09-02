@@ -10,7 +10,7 @@ import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class AddElderlyViewModel constructor(
+class AddMyElderlyViewModel constructor(
     private val profileRepo: ProfileRepository,
     private val elderlyRepo: ElderlyRepository
 ) : BaseViewModel() {

@@ -28,6 +28,7 @@ import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ElderlyInfoActivity : BaseActivity() {
 
     companion object {
@@ -38,6 +39,7 @@ class ElderlyInfoActivity : BaseActivity() {
     private lateinit var profile: ProfileResponce
     private val viewModel: ElderlyinfoViewModel by viewModel()
     private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
+    private var isEditSuccess = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class ElderlyInfoActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
             viewModel.getProfileByCardId(profile)
+            isEditSuccess = true
         }
     }
 
@@ -59,7 +62,7 @@ class ElderlyInfoActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setNavigationOnClickListener {
-            finish()
+            onBackPressed()
         }
 
         if (selectType == SelectType.PERSON){
@@ -171,4 +174,10 @@ class ElderlyInfoActivity : BaseActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        if (isEditSuccess){
+            setResult(Activity.RESULT_OK)
+        }
+        super.onBackPressed()
+    }
 }

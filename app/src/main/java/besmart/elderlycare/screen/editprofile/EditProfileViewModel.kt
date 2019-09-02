@@ -3,6 +3,7 @@ package besmart.elderlycare.screen.editprofile
 import android.annotation.SuppressLint
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
+import besmart.elderlycare.model.editprofile.CreateProfileRequest
 import besmart.elderlycare.model.editprofile.EditProfileRequest
 import besmart.elderlycare.repository.ProfileRepository
 import besmart.elderlycare.util.ActionLiveData
@@ -12,6 +13,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class EditProfileViewModel(private val repository: ProfileRepository) : BaseViewModel() {
 
     var cardId = ObservableField<String>()
@@ -37,7 +39,7 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
         get() = _loadingLiveEvent
 
     @SuppressLint("SimpleDateFormat")
-    fun onSaveClick(cardID: String?) {
+    fun editProfile(cardID: String?) {
         _loadingLiveEvent.sendAction(true)
         if (validateField()) {
             val inputFormat = SimpleDateFormat("dd MMM yyyy", Locale("TH"))
@@ -69,6 +71,42 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
                         _loadingLiveEvent.sendAction(false)
                         _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
                     })
+            )
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun createProfile() {
+        if (validateField()) {
+            _loadingLiveEvent.sendAction(true)
+            val inputFormat = SimpleDateFormat("dd MMM yyyy", Locale("TH"))
+            val outputFormat = SimpleDateFormat("dd/MM/yyyy")
+            val newDate = outputFormat.format(inputFormat.parse(birthday.get()))
+            val body = CreateProfileRequest(
+                cardId.get()!!,
+                address.get()!!,
+                newDate,
+                firstName.get()!!,
+                genderId.get()!!.toInt(),
+                lastName.get()!!,
+                latitude.get()!!.toDouble(),
+                longitude.get()!!.toDouble(),
+                phone.get()!!
+            )
+            addDisposable(
+                repository.createProfile(body).subscribe({ response ->
+                    _loadingLiveEvent.sendAction(false)
+                    if (response.isSuccessful) {
+                        _successLiveEvent.sendAction(true)
+                    } else {
+                        response.errorBody()?.let {
+                            _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                        }
+                    }
+                }, { error ->
+                    _loadingLiveEvent.sendAction(false)
+                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+                })
             )
         }
     }
