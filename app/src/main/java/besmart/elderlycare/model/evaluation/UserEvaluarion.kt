@@ -1,8 +1,10 @@
 package besmart.elderlycare.model.evaluation
 
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class UserEvaluarion(
     @SerializedName("cardID")
     val cardID: String?,
@@ -15,5 +17,7 @@ data class UserEvaluarion(
     @SerializedName("score")
     val score: Int?,
     @SerializedName("updateAt")
-    val updateAt: String?
-)
+    val updateAt: String?,
+    @SerializedName("createAt")
+    val createAt:String
+) : Parcelable

@@ -24,7 +24,7 @@ interface EvaluationService {
     fun getUserEvaluation(
         @Path("cardID") cardID: String,
         @Path("evaluationID") evaluationID: String
-    ): Single<Response<UserEvaluarion>>
+    ): Single<Response<List<UserEvaluarion>>>
 
     @POST("/api/v1.0/evaluations/addUser")
     fun addAnswer(@Body body: QuestionRequest): Single<Response<ResponseBody>>

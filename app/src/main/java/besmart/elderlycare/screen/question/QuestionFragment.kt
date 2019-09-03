@@ -12,12 +12,17 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.R
+import besmart.elderlycare.model.evaluation.Answer
 import besmart.elderlycare.model.evaluation.EvaluationResponse
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.base.BaseFragment
 import besmart.elderlycare.util.BaseDialog
-import kotlinx.android.synthetic.main.activity_main.*
+import besmart.elderlycare.util.Constance
+import com.orhanobut.hawk.Hawk
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 import kotlinx.android.synthetic.main.dialog_score.view.*
+import kotlinx.android.synthetic.main.fragment_question.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -43,6 +48,8 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
     private lateinit var profile: ProfileResponce
     private val viewModel: QuestionViewModel by viewModel()
     private lateinit var questionAdapter: QuestionAdapter
+    private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
+    private var isPerson = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +71,22 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initInstance()
         observerViewModel()
+    }
+
+    private fun initInstance(){
+        if (selectType == SelectType.PERSON){
+            btnSave.visibility = View.GONE
+            isPerson = false
+        }else{
+            btnSave.visibility = View.VISIBLE
+            isPerson = true
+        }
+
+        btnSave.setOnClickListener {
+            questionAdapter.getAnswer()
+        }
     }
 
     private fun observerViewModel(){
@@ -81,7 +103,7 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
         })
 
         viewModel.evaluationLiveData.observe(this, Observer {
-            questionAdapter = QuestionAdapter(it.item!!, it.userEvaluarion, this)
+            questionAdapter = QuestionAdapter(it.item!!, it.userEvaluarion, this, isPerson)
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,  false)
                 setHasFixedSize(true)
@@ -100,7 +122,7 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
         showScoreDialog(0, "ภาวะพึ่งพาโดยสมบูรณ์")
     }
 
-    override fun onSuccess(answer: QuestionAdapter.Answer) {
+    override fun onSuccess(answer: Answer) {
 //        showScoreDialog(answer.result, answer.getResult())
         viewModel.addAnswer(answer, profile.cardID, evaluation.id)
     }

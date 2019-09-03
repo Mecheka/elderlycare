@@ -1,8 +1,6 @@
 package besmart.elderlycare.util
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.core.graphics.drawable.toDrawable
 import besmart.elderlycare.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -31,15 +29,13 @@ fun ImageView.loadImageResourceCircle(res: Int){
 fun ImageView.loadImageUrl(url:String){
     Glide.with(this)
         .load(url)
-        .diskCacheStrategy(DiskCacheStrategy.NONE)
-        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
 }
 
 fun ImageView.loadImageResource(res: Int){
     Glide.with(this)
         .load(res)
-        .diskCacheStrategy(DiskCacheStrategy.NONE)
-        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
 }

@@ -18,8 +18,8 @@ class QuestionViewModel(private val repository: EvaluationRepository) : BaseView
     val evaluationLiveData: LiveData<EvaluationItem>
         get() = _evaluationLiveData
 
-    private val _scroreLiveEvent = ActionLiveData<QuestionAdapter.Answer>()
-    val scroreLiveEvent: LiveData<QuestionAdapter.Answer>
+    private val _scroreLiveEvent = ActionLiveData<Answer>()
+    val scroreLiveEvent: LiveData<Answer>
         get() = _scroreLiveEvent
 
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
@@ -31,12 +31,13 @@ class QuestionViewModel(private val repository: EvaluationRepository) : BaseView
         addDisposable(
             repository.getQuestion(id.toString()).subscribe(
                 { response ->
+                    _loadingLiveEvent.sendAction(false)
                     if (response.isSuccessful) {
                         val result =
                             response.body()?.questions?.map { mapQuestionToAdapterItem(it) }
-                        getUserEvaluation(cardID, evaluationID, result)
+                        _evaluationLiveData.value = EvaluationItem(result)
+//                        getEvaluationHistory(cardID, evaluationID, result)
                     } else {
-                        _loadingLiveEvent.sendAction(false)
                         response.errorBody()?.let {
                             _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
                         }
@@ -48,30 +49,30 @@ class QuestionViewModel(private val repository: EvaluationRepository) : BaseView
         )
     }
 
-    private fun getUserEvaluation(
-        cardID: String?,
-        evaluationID: Int?,
-        result: List<QuestItem>?
-    ) {
-        addDisposable(
-            repository.getUserEvaluation(cardID!!, evaluationID.toString()).subscribe(
-                { response ->
-                    _loadingLiveEvent.sendAction(false)
-                    if (response.isSuccessful) {
-                        _evaluationLiveData.value = EvaluationItem(result, response.body())
-                    } else {
-                        _evaluationLiveData.value = EvaluationItem(result)
-                    }
-                },
-                { error ->
-                    _loadingLiveEvent.sendAction(false)
-                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
-                })
-        )
-    }
+//    private fun getEvaluationHistory(
+//        cardID: String?,
+//        evaluationID: Int?,
+//        result: List<QuestItem>?
+//    ) {
+//        addDisposable(
+//            repository.getEvaluationHistory(cardID!!, evaluationID.toString()).subscribe(
+//                { response ->
+//                    _loadingLiveEvent.sendAction(false)
+//                    if (response.isSuccessful) {
+//                        _evaluationLiveData.value = EvaluationItem(result, response.body())
+//                    } else {
+//                        _evaluationLiveData.value = EvaluationItem(result)
+//                    }
+//                },
+//                { error ->
+//                    _loadingLiveEvent.sendAction(false)
+//                    _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+//                })
+//        )
+//    }
 
     fun addAnswer(
-        answer: QuestionAdapter.Answer,
+        answer: Answer,
         cardID: String?,
         evaluationID: Int?
     ) {

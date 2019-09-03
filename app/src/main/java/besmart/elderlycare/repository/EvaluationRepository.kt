@@ -25,7 +25,10 @@ class EvaluationRepository(private val service: CommonWithAuth) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getUserEvaluation(cardID:String, evaluationID: String):Single<Response<UserEvaluarion>>{
+    fun getEvaluationHistory(
+        cardID: String,
+        evaluationID: String
+    ): Single<Response<List<UserEvaluarion>>> {
         return service.getEvaluationService().getUserEvaluation(cardID, evaluationID)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

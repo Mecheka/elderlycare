@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemQuestionChoinBinding
 import besmart.elderlycare.databinding.ItemQuestionHeaderBinding
 import besmart.elderlycare.databinding.ItemQuestionHeaderChoinBinding
+import besmart.elderlycare.model.evaluation.Answer
 import besmart.elderlycare.model.evaluation.QuestItem
 import besmart.elderlycare.model.evaluation.QuestType
 import besmart.elderlycare.model.evaluation.UserEvaluarion
@@ -16,7 +17,8 @@ import com.google.gson.reflect.TypeToken
 class QuestionAdapter(
     private val list: List<QuestItem>,
     userEvaluation: UserEvaluarion?,
-    private val listener: QuestionClick
+    private val listener: QuestionClick?=null,
+    private val isPerson: Boolean = false
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -34,14 +36,14 @@ class QuestionAdapter(
         val gson = Gson()
 
         if (answer.isEmpty()){
-            listener.onError()
+            listener?.onError()
             return
         }
 
         answer.forEach {
             result += it.value
         }
-        listener.onSuccess(Answer(gson.toJson(answer), result))
+        listener?.onSuccess(Answer(gson.toJson(answer), result))
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -79,14 +81,14 @@ class QuestionAdapter(
             }
             QuestType.HEADERWITHCHOINCE -> {
                 holder as HeaderChoinQuestion
-                holder.bind(list[position])
+                holder.bind(list[position], isPerson)
                 if (answer[list[position].question.questionNo] != null) {
                     holder.setRadioButton(answer[list[position].question.questionNo])
                 }
             }
             else -> {
                 holder as ChoinQuestion
-                holder.bind(list[position])
+                holder.bind(list[position], isPerson)
                 if (answer[list[position].question.questionNo] != null) {
                     val id = answer[list[position].question.questionNo]
                     holder.setRadioButton(id)
@@ -107,7 +109,7 @@ class QuestionAdapter(
     inner class HeaderChoinQuestion(private val binding: ItemQuestionHeaderChoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(questItem: QuestItem) {
+        fun bind(questItem: QuestItem, person: Boolean) {
             binding.model = questItem
             binding.executePendingBindings()
             if (binding.rgChoin.childCount > 0) {
@@ -115,6 +117,7 @@ class QuestionAdapter(
             }
             questItem.question.choices?.forEachIndexed { index, choice ->
                 val button = RadioButton(binding.rgChoin.context)
+                button.isEnabled = isPerson
                 button.id = index
                 button.text = choice.text
                 binding.rgChoin.addView(button)
@@ -132,7 +135,7 @@ class QuestionAdapter(
     inner class ChoinQuestion(private val binding: ItemQuestionChoinBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(questItem: QuestItem) {
+        fun bind(questItem: QuestItem, person: Boolean) {
             binding.model = questItem
             binding.executePendingBindings()
             if (binding.rgChoin.childCount > 0) {
@@ -140,6 +143,7 @@ class QuestionAdapter(
             }
             questItem.question.choices?.forEachIndexed { index, choice ->
                 val button = RadioButton(binding.rgChoin.context)
+                button.isEnabled = isPerson
                 button.id = index
                 button.text = choice.text
                 binding.rgChoin.addView(button)
@@ -151,17 +155,6 @@ class QuestionAdapter(
 
         fun setRadioButton(id: Int?) {
             binding.rgChoin.check(id!! - 1)
-        }
-    }
-
-    data class Answer(val answer: String, val result: Int) {
-        fun getResult(): String {
-            return when (result) {
-                in 0..4 -> "ภาวะพึ่งพาโดยสมบูรณ์"
-                in 5..8 -> "ภาวะพึ่งพารุนแรง"
-                in 9..11 -> "ภาวะพึ่งพาปานกลาง"
-                else -> "ไม่เป็นการพึ่งพา"
-            }
         }
     }
 

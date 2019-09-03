@@ -24,6 +24,8 @@ import besmart.elderlycare.screen.news.NewsViewModel
 import besmart.elderlycare.screen.notification.NotificationViewModel
 import besmart.elderlycare.screen.profile.ProfileViewModel
 import besmart.elderlycare.screen.question.QuestionViewModel
+import besmart.elderlycare.screen.question.history.QuestHistorySingleViewModel
+import besmart.elderlycare.screen.question.history.QuestionHistoryViewModel
 import besmart.elderlycare.screen.register.RegisterViewModel
 import besmart.elderlycare.screen.sugar.SugarViewModel
 import besmart.elderlycare.screen.sugaradd.SugarAddViewModel
@@ -76,6 +78,8 @@ val viewModelModule = module {
     viewModel { ChatViewModel(get()) }
     viewModel { EvaluationViewModel(get()) }
     viewModel { QuestionViewModel(get()) }
+    viewModel { QuestionHistoryViewModel(get()) }
+    viewModel { QuestHistorySingleViewModel(get()) }
     viewModel { VillageHealthVolunteerViewModel(repository = get(), elderlyRepo = get()) }
 }
 

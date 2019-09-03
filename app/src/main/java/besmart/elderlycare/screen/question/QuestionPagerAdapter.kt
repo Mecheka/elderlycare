@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import besmart.elderlycare.model.evaluation.EvaluationResponse
 import besmart.elderlycare.model.profile.ProfileResponce
+import besmart.elderlycare.screen.question.history.QuestionHistoryFragment
 
 class QuestionPagerAdapter(
     fm: FragmentManager,
@@ -16,7 +17,7 @@ class QuestionPagerAdapter(
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> QuestionFragment.newInstance(evaluation, profile)
-            else -> QuestionHistoryFragment.newInstance()
+            else -> QuestionHistoryFragment.newInstance(evaluation, profile)
         }
     }
 
@@ -24,6 +25,6 @@ class QuestionPagerAdapter(
 
     override fun getPageTitle(position: Int): CharSequence? = when (position) {
         0 -> "แบบประเมิน"
-        else -> "ประวัตการประเมิน"
+        else -> "ประวัติการประเมิน"
     }
 }
