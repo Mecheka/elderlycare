@@ -17,12 +17,14 @@ import besmart.elderlycare.model.evaluation.EvaluationResponse
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.screen.base.BaseFragment
+import besmart.elderlycare.screen.question.history.QuestionHistoryViewModel
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.Constance
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.recyclerView
 import kotlinx.android.synthetic.main.dialog_score.view.*
 import kotlinx.android.synthetic.main.fragment_question.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -47,6 +49,7 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
     private lateinit var evaluation: EvaluationResponse
     private lateinit var profile: ProfileResponce
     private val viewModel: QuestionViewModel by viewModel()
+    private val history: QuestionHistoryViewModel by sharedViewModel()
     private lateinit var questionAdapter: QuestionAdapter
     private val selectType = Hawk.get<String>(Constance.LOGIN_TYPE)
     private var isPerson = false
@@ -113,6 +116,7 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
 
         viewModel.scroreLiveEvent.observe(this, Observer {
             showScoreDialog(it.result, it.getResult())
+            history.getEvaluetionHistory(evaluation.id!!, profile.cardID!!)
         })
 
         viewModel.getQuestion(evaluation.id!!, profile.cardID, evaluation.id)
@@ -140,6 +144,7 @@ class QuestionFragment : BaseFragment(), QuestionAdapter.QuestionClick {
         alertDialog.show()
 
         view.btnOK.setOnClickListener {
+            questionAdapter.clearAnswer()
             alertDialog.dismiss()
         }
     }

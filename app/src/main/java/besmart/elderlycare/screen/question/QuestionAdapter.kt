@@ -46,6 +46,11 @@ class QuestionAdapter(
         listener?.onSuccess(Answer(gson.toJson(answer), result))
     }
 
+    fun clearAnswer(){
+        answer.clear()
+        notifyDataSetChanged()
+    }
+
     override fun getItemViewType(position: Int): Int {
         return list[position].type
     }

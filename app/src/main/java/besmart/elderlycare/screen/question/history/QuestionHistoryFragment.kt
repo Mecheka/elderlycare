@@ -18,6 +18,7 @@ import besmart.elderlycare.screen.base.BaseFragment
 import besmart.elderlycare.screen.question.QuestionFragment
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.fragment_question_history.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -37,7 +38,7 @@ class QuestionHistoryFragment : BaseFragment() {
             }
     }
 
-    private val viewModel: QuestionHistoryViewModel by viewModel()
+    private val viewModel: QuestionHistoryViewModel by sharedViewModel()
     private lateinit var evaluation: EvaluationResponse
     private lateinit var profile: ProfileResponce
     private lateinit var questionHistoryAdapter: QuestionHistoryAdapter
