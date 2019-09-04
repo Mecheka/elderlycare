@@ -53,7 +53,7 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
                 lastName.get()!!,
                 latitude.get()?.toDouble() ?: 0.toDouble(),
                 longitude.get()?.toDouble() ?: 0.toDouble(),
-                phone.get()!!
+                phone.get() ?: ""
             )
             addDisposable(
                 repository.editProfile(cardID!!, body).subscribe(
@@ -91,7 +91,7 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
                 lastName.get()!!,
                 latitude.get()?.toDouble() ?: 0.toDouble(),
                 longitude.get()?.toDouble() ?: 0.toDouble(),
-                phone.get()!!
+                phone.get() ?: ""
             )
             addDisposable(
                 repository.createProfile(body).subscribe({ response ->

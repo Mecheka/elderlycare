@@ -53,7 +53,7 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
                     birthday = birthday.get()!!,
                     genderID = genderId.get()!!.toInt() + 1,
                     address = address.get()!!,
-                    phone = phone.get()!!,
+                    phone = phone.get() ?: "",
                     username = getUserNameByType()
                 )
             }else{
@@ -68,7 +68,7 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
                     birthday = birthday.get()!!,
                     genderID = genderId.get()!!.toInt() + 1,
                     address = address.get()!!,
-                    phone = phone.get()!!,
+                    phone = phone.get() ?: "",
                     username = getUserNameByType()
                 )
             }
