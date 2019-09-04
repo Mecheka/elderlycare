@@ -29,8 +29,8 @@ class NetworkClientWithAuth(private val mContext: Context) {
         httpClient.cache(cache)
         httpClient.addInterceptor(connectIntercepter)
         httpClient.addInterceptor(logging)
-        httpClient.connectTimeout(30, TimeUnit.SECONDS)
-        httpClient.readTimeout(30, TimeUnit.SECONDS)
+        httpClient.connectTimeout(5, TimeUnit.SECONDS)
+        httpClient.readTimeout(5, TimeUnit.SECONDS)
 
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
