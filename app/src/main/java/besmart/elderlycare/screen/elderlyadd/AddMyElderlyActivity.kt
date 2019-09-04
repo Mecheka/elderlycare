@@ -48,7 +48,7 @@ class AddMyElderlyActivity : BaseActivity(), OnSelectItemListenner {
 
     private fun initInstance() {
         refresh.setOnRefreshListener {
-            viewModel.getAllProfileWithRefresh()
+            viewModel.getAllProfile(selectType)
         }
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

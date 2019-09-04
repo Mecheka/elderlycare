@@ -55,7 +55,7 @@ class ElderlyActivity : AppCompatActivity() {
     private fun getElderlyTitleMenuBySelectType(): Int {
         return when (selectType) {
             SelectType.ORSOMO -> R.string.orsomor_elderly_profile
-            else -> R.string.public_orsomor_detail
+            else -> R.string.public_elderly_profile
         }
     }
 }

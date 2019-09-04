@@ -65,14 +65,6 @@ class ElderlyInfoActivity : BaseActivity() {
             onBackPressed()
         }
 
-//        if (selectType == SelectType.PERSON){
-//            binding.evaluationLayout.visibility = View.INVISIBLE
-//            binding.cardEvaluation.isClickable = false
-//        }else{
-//            binding.evaluationLayout.visibility = View.VISIBLE
-//            binding.cardEvaluation.isClickable = true
-//        }
-
         binding.imageProfile.loadImageUrlCircle(Constance.BASE_URL + "/" + profile.imagePath)
 
         binding.cardHistory.setOnClickListener {

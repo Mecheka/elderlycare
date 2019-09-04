@@ -155,11 +155,6 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
             _errorLiveEvent.sendAction("Please enter your phone number invalidate format")
             return false
         }
-        if (phone.get()?.length!! < 9) {
-            _loadingLiveEvent.sendAction(false)
-            _errorLiveEvent.sendAction("Please enter your phone number 10")
-            return false
-        }
 
         return true
     }

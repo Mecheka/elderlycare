@@ -71,24 +71,6 @@ class AddMyElderlyViewModel constructor(
         }
     }
 
-    fun getAllProfileWithRefresh() {
-        addDisposable(
-            profileRepo.getAllProfileWithVillageHealthVolunteer().subscribe({ responce ->
-                if (responce.isSuccessful) {
-                    val profile =
-                        responce.body()?.sortedBy { profile -> profile.cardID }?.toMutableList()
-                    _profileLiveData.value = profile
-                } else {
-                    responce.errorBody()?.let {
-                        _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
-                    }
-                }
-            }, { error ->
-                _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
-            })
-        )
-    }
-
     fun addElderlty(profile: ProfileResponce) {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
