@@ -146,15 +146,6 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
             _errorLiveEvent.sendAction("Please enter your address")
             return false
         }
-        if (phone.get().isNullOrEmpty()) {
-            _errorLiveEvent.sendAction("Please enter your phone number")
-            return false
-        }
-        if (numberFormat.matcher(phone.get()).matches()) {
-            _loadingLiveEvent.sendAction(false)
-            _errorLiveEvent.sendAction("Please enter your phone number invalidate format")
-            return false
-        }
 
         return true
     }

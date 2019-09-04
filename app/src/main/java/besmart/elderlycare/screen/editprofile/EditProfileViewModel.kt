@@ -51,8 +51,8 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
                 firstName.get()!!,
                 genderId.get()!!.toInt(),
                 lastName.get()!!,
-                latitude.get()!!.toDouble(),
-                longitude.get()!!.toDouble(),
+                latitude.get()?.toDouble() ?: 0.toDouble(),
+                longitude.get()?.toDouble() ?: 0.toDouble(),
                 phone.get()!!
             )
             addDisposable(
@@ -89,8 +89,8 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
                 firstName.get()!!,
                 genderId.get()!!.toInt(),
                 lastName.get()!!,
-                latitude.get()!!.toDouble(),
-                longitude.get()!!.toDouble(),
+                latitude.get()?.toDouble() ?: 0.toDouble(),
+                longitude.get()?.toDouble() ?: 0.toDouble(),
                 phone.get()!!
             )
             addDisposable(
@@ -147,15 +147,6 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
         if (address.get().isNullOrEmpty()) {
             _loadingLiveEvent.sendAction(false)
             _errorLiveEvent.sendAction("Please enter your address")
-            return false
-        }
-        if (phone.get().isNullOrEmpty()) {
-            _errorLiveEvent.sendAction("Please enter your phone number")
-            return false
-        }
-        if (numberFormat.matcher(phone.get()).matches()) {
-            _loadingLiveEvent.sendAction(false)
-            _errorLiveEvent.sendAction("Please enter your phone number invalidate format")
             return false
         }
 
