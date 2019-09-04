@@ -78,6 +78,7 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
             finish()
         }
         initDataViewModel()
+        binding.toolbar.title = getTitlrByIsEdit()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         binding.editDate.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -286,5 +287,13 @@ class EditProfileActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
         calendar.set(newYear, monthOfYear, dayOfMonth)
         val date = outputFormat.format(calendar.time)
         viewModel.birthday.set(date)
+    }
+
+    private fun getTitlrByIsEdit(): String {
+        return if(isEdit){
+            getString(R.string.menu_edit_profile)
+        }else{
+            "เพิ่มข้อมูลผู้สูงอายุ"
+        }
     }
 }
