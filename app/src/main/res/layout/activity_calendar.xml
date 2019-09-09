@@ -31,7 +31,7 @@
         app:mcv_firstDayOfWeek="sunday"
         app:mcv_selectionMode="single"
         app:mcv_showOtherDates="all"
-        app:mcv_tileHeight="32dp">
+        app:mcv_tileHeight="@dimen/calendar_tile_height">
 
     </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 

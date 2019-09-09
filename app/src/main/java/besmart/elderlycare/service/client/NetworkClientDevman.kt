@@ -26,19 +26,18 @@ class NetworkClientDevman(private val mContext: Context) {
         logging.level = HttpLoggingInterceptor.Level.BODY
 
         val httpClient = OkHttpClient.Builder()
-        httpClient.cache(cache)
-        httpClient.addInterceptor(connectIntercepter)
-        httpClient.addInterceptor(logging)
-        httpClient.connectTimeout(5, TimeUnit.SECONDS)
-        httpClient.readTimeout(5, TimeUnit.SECONDS)
+            .cache(cache)
+            .addInterceptor(connectIntercepter)
+            .addInterceptor(logging)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build()
 
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(Constance.DEVMAN_URL)
-            .client(httpClient.build())
+            .client(httpClient)
             .build()
     }
-
-
 }

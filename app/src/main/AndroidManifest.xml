@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="besmart.elderlycare">
 
+
+
     <application
         android:name=".ElderlycarApplication"
         android:allowBackup="true"
