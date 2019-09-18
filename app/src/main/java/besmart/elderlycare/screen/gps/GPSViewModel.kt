@@ -8,7 +8,7 @@ import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 
-class GPSListUserViewModel(private val repository: GPSRepository) : BaseViewModel() {
+class GPSViewModel(private val repository: GPSRepository) : BaseViewModel() {
     private val _errorLiveEvent = ActionLiveData<String>()
     val errorLiveData: LiveData<String>
         get() = _errorLiveEvent

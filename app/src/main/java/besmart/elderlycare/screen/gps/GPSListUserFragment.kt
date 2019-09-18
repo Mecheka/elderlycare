@@ -12,11 +12,11 @@ import besmart.elderlycare.R
 import besmart.elderlycare.screen.base.BaseFragment
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.activity_flie.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class GPSListUserFragment : BaseFragment() {
 
-    private val viewModel: GPSListUserViewModel by viewModel()
+    private val viewModel: GPSViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

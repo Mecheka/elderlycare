@@ -14,7 +14,7 @@ import besmart.elderlycare.screen.elderlyadd.AddMyElderlyViewModel
 import besmart.elderlycare.screen.elderlyinfo.ElderlyinfoViewModel
 import besmart.elderlycare.screen.evaluation.EvaluationViewModel
 import besmart.elderlycare.screen.flie.FileViewModel
-import besmart.elderlycare.screen.gps.GPSListUserViewModel
+import besmart.elderlycare.screen.gps.GPSViewModel
 import besmart.elderlycare.screen.history.HistoryViewModel
 import besmart.elderlycare.screen.historydetail.HistoryDetailViewModel
 import besmart.elderlycare.screen.knowledge.KnowlegeViewModel
@@ -73,7 +73,7 @@ val viewModelModule = module {
     viewModel { SugarAddViewModel(repository = get()) }
     viewModel { SugarHistoryViewModel(repository = get()) }
     viewModel { NotificationViewModel(get()) }
-    viewModel { GPSListUserViewModel(get()) }
+    viewModel { GPSViewModel(get()) }
     viewModel { ChatListUserViewModel(get()) }
     viewModel { ChatViewModel(get()) }
     viewModel { EvaluationViewModel(get()) }

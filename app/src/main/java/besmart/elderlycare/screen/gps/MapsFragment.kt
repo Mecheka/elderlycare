@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import besmart.elderlycare.R
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.*
@@ -19,11 +20,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class MapsFragment : Fragment() {
 
@@ -33,6 +36,7 @@ class MapsFragment : Fragment() {
     private var mLocationRequest: LocationRequest? = null
     private val mLocationCallBack: LocationCallback? = null
     private val REQEUST_LOCATION = 701
+    private val viewmodel: GPSViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +48,7 @@ class MapsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        observerViewModel()
         try {
             mFusedLoction = LocationServices.getFusedLocationProviderClient(context!!)
             mLocationRequest = LocationRequest.create()
@@ -82,6 +86,20 @@ class MapsFragment : Fragment() {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun observerViewModel(){
+
+        viewmodel.profileLiveData.observe(this, Observer {list->
+            Log.d("Shared viewmod data", "ok")
+            list.forEach {profile->
+                if (profile.latitude != null && profile.longitude != null){
+                    mMap?.addMarker(MarkerOptions()
+                        .position(LatLng(profile.latitude, profile.longitude))
+                        .title(profile.firstName))
+                }
+            }
+        })
     }
 
     /**
