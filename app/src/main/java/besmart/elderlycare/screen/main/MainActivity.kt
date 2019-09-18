@@ -20,6 +20,7 @@ import besmart.elderlycare.screen.notification.NotificationActivity
 import besmart.elderlycare.screen.profile.ProfileActivity
 import besmart.elderlycare.screen.splach.SplachScreenActivity
 import besmart.elderlycare.util.Constance
+import com.crashlytics.android.Crashlytics
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_select_user_type.toolbar
@@ -39,15 +40,13 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
         val personList = listOf(
             MenuItem(getString(R.string.menu_profile), R.drawable.icon_profile),
             MenuItem(getString(getElderlTitleMenuBySelectType()), R.drawable.baseline_supervisor_account_24px),
-            MenuItem(getString(R.string.menu_calendar), R.drawable.baseline_calendar_today_24px),
             MenuItem(
                 getString(R.string.menu_notification),
                 R.drawable.baseline_notifications_active_24px
             ),
 
             MenuItem(getString(R.string.menu_knowlege), R.drawable.baseline_extension_24px),
-            MenuItem(getString(R.string.menu_news), R.drawable.baseline_subtitles_24px),
-            MenuItem(getString(R.string.menu_chat), R.drawable.baseline_forum_24px)
+            MenuItem(getString(R.string.menu_news), R.drawable.baseline_subtitles_24px)
         )
 
         val employeeList = listOf(
@@ -59,8 +58,7 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
             ),
             MenuItem(getString(R.string.menu_file), R.drawable.baseline_library_books_24px),
             MenuItem(getString(R.string.menu_knowlege), R.drawable.baseline_extension_24px),
-            MenuItem(getString(R.string.menu_news), R.drawable.baseline_subtitles_24px),
-            MenuItem(getString(R.string.menu_chat), R.drawable.baseline_forum_24px)
+            MenuItem(getString(R.string.menu_news), R.drawable.baseline_subtitles_24px)
         )
         menuAdapter = if (selectType == SelectType.PERSON) {
             MainMenuAdapter(personList, this)
@@ -135,6 +133,7 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
     }
 
     fun onLogoutClick(view: View) {
+        Crashlytics.getInstance().crash()
         Hawk.deleteAll()
         Intent().apply {
             this.setClass(this@MainActivity, SplachScreenActivity::class.java)

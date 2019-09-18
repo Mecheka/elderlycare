@@ -227,42 +227,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_vaccine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:contentPadding="8dp">
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/baseline_healing" />
-                </FrameLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/RoboTextStyle.small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_vaccine" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/evaluationLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -95,9 +95,6 @@ class ElderlyInfoActivity : BaseActivity() {
                 startActivity(this)
             }
         }
-        binding.cardVaccine.setOnClickListener {
-            startActivity(Intent(this, VaccineActivity::class.java))
-        }
         binding.cardEvaluation.setOnClickListener {
             Intent().apply {
                 setClass(this@ElderlyInfoActivity,EvaluationActivity::class.java)
