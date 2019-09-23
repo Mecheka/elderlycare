@@ -80,3 +80,6 @@
 }
 
 -dontnote rx.internal.util.PlatformDependent
+
+#PDF Viewer
+-keep class com.shockwave.**

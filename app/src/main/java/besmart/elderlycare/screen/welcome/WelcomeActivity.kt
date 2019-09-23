@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import besmart.elderlycare.R
 import besmart.elderlycare.screen.selectusertype.SelectUserTypeActivity
+import besmart.elderlycare.screen.usermanual.UserManualActivity
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -26,6 +27,13 @@ class WelcomeActivity : AppCompatActivity() {
         Intent().apply {
             this.setClass(this@WelcomeActivity, SelectUserTypeActivity::class.java)
             this.putExtra(SelectUserTypeActivity.SELECT, SelectUserTypeActivity.LOGIN)
+            startActivity(this)
+        }
+    }
+
+    fun onUserManualClick(view: View){
+        Intent().apply {
+            setClass(this@WelcomeActivity, UserManualActivity::class.java)
             startActivity(this)
         }
     }
