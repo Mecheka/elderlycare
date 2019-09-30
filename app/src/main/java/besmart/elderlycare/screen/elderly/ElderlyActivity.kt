@@ -6,12 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import besmart.elderlycare.R
 import besmart.elderlycare.screen.SelectType
-import besmart.elderlycare.screen.calendar.CalendarActivity
 import besmart.elderlycare.screen.gps.GpsActivity
 import besmart.elderlycare.screen.myelderlyprofile.MyElderlyProfileActivity
 import besmart.elderlycare.util.Constance
 import com.orhanobut.hawk.Hawk
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_my_elderly.*
 
@@ -29,13 +27,6 @@ class ElderlyActivity : AppCompatActivity() {
         }
         toolbar.title = getString(getElderlyTitleMenuBySelectType())
         textMenuElderly.text = getString(getElderlyTitleMenuBySelectType())
-    }
-
-    fun onCalendarClick(view: View) {
-        Intent().apply {
-            this.setClass(this@ElderlyActivity, CalendarActivity::class.java)
-            startActivity(this)
-        }
     }
 
     fun onElderlyProfileClick(view: View) {

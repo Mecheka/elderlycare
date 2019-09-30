@@ -11,10 +11,15 @@ import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.screen.filedetail.FileDetailActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.SimpleOnItemClick
+import com.krishna.fileloader.FileLoader
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class FileActivity : BaseActivity(), SimpleOnItemClick<FileData> {
+
+    companion object{
+        const val FILE_DIR = "PDFFile"
+    }
 
     private val viewModel: FileViewModel by viewModel()
     private lateinit var fileAdapter: FileAdapter
@@ -64,5 +69,12 @@ class FileActivity : BaseActivity(), SimpleOnItemClick<FileData> {
             this.putExtra(FileDetailActivity.FILE_DATA, item)
             startActivity(this)
         }
+    }
+
+    override fun onDestroy() {
+        FileLoader.deleteWith(this)
+            .fromDirectory(FILE_DIR, FileLoader.DIR_CACHE)
+            .deleteAllFiles()
+        super.onDestroy()
     }
 }

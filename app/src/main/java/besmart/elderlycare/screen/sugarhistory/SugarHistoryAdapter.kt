@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemSugarHistoryBinding
-import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.sugar.SugarResponse
 import besmart.elderlycare.util.convertDate
 

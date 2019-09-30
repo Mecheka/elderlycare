@@ -25,12 +25,12 @@ class FileViewModel constructor(private val repository: DevmanRepository) : Base
     fun getAllFile() {
         _loadingLiveEvent.sendAction(true)
         addDisposable(
-            repository.getAllFile().subscribe({ responce ->
+            repository.getAllFile().subscribe({ response ->
                 _loadingLiveEvent.sendAction(false)
-                if (responce.isSuccessful) {
-                    _fileLiveData.value = responce.body()
+                if (response.isSuccessful) {
+                    _fileLiveData.value = response.body()
                 } else {
-                    responce.errorBody()?.let {
+                    response.errorBody()?.let {
                         _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
                     }
                 }

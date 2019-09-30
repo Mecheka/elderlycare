@@ -19,7 +19,6 @@ import besmart.elderlycare.screen.question.QuestionFragment
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.fragment_question_history.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.

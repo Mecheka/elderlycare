@@ -19,10 +19,6 @@ class QuestHistorySingleViewModel(private val repository: EvaluationRepository) 
     val evaluationLiveData: LiveData<QuestionViewModel.EvaluationItem>
         get() = _evaluationLiveData
 
-    private val _scroreLiveEvent = ActionLiveData<Answer>()
-    val scroreLiveEvent: LiveData<Answer>
-        get() = _scroreLiveEvent
-
     private val _loadingLiveEvent = ActionLiveData<Boolean>()
     val loadingLiveData: LiveData<Boolean>
         get() = _loadingLiveEvent

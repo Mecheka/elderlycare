@@ -9,7 +9,7 @@ import besmart.elderlycare.R
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
 
-    protected lateinit var dialog: AlertDialog
+    private lateinit var dialog: AlertDialog
 
     fun showLoadingDialog(context: Context) {
         dialog = AlertDialog.Builder(context)

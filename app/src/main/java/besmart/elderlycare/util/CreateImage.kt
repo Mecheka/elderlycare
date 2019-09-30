@@ -18,6 +18,8 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 class CreateImage(
     private val activity: Activity,
@@ -100,12 +102,12 @@ class CreateImage(
             val max =
                 if (b!!.width > 1300 || b!!.height > 1300) 1300 else if (b!!.width > b!!.height) b!!.width else if (b!!.height > b!!.width) b!!.height else b!!.height
             val fos = FileOutputStream(fileTemp!!)
-            val ratio = Math.min(
+            val ratio = min(
                 max.toFloat() / b!!.width,
                 max.toFloat() / b!!.height
             )
-            width = Math.round(ratio * b!!.width)
-            height = Math.round(ratio * b!!.height)
+            width = (ratio * b!!.width).roundToInt()
+            height = (ratio * b!!.height).roundToInt()
             b = Bitmap.createScaledBitmap(b!!, width, height, false)
             b!!.compress(Bitmap.CompressFormat.JPEG, 90, fos)
 

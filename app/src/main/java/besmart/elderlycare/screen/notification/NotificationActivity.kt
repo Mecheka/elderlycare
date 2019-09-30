@@ -9,7 +9,6 @@ import besmart.elderlycare.R
 import besmart.elderlycare.screen.base.BaseActivity
 import besmart.elderlycare.util.BaseDialog
 import kotlinx.android.synthetic.main.activity_flie.*
-import kotlinx.android.synthetic.main.activity_select_user_type.*
 import kotlinx.android.synthetic.main.activity_select_user_type.toolbar
 import org.koin.android.viewmodel.ext.android.viewModel
 

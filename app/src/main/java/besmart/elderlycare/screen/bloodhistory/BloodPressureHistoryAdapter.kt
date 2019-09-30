@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemBloodPressureHistoryBinding
 import besmart.elderlycare.model.blood.BloodPressuresResponse
-import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.util.convertDate
 
 class BloodPressureHistoryAdapter(private val list: MutableList<BloodPressuresResponse>) :

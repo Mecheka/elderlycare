@@ -99,7 +99,7 @@ dependencies {
     // Material Calendar
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     // ktx
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha04'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha05'
     // Circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     // Glide
@@ -125,4 +125,6 @@ dependencies {
     implementation 'com.mlsdev.rximagepicker:library:2.2.1'
     // PDF Viewer
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    // FileLoader
+    implementation 'com.github.kk121:File-Loader:1.2'
 }

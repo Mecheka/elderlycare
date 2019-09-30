@@ -1,5 +1,6 @@
 package besmart.elderlycare.witget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -9,6 +10,7 @@ class SwipeLockableViewPager(context: Context, attrs: AttributeSet?) : ViewPager
 
     private var swipeEnabled = false
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return when (swipeEnabled) {
             true -> super.onTouchEvent(event)
@@ -23,7 +25,4 @@ class SwipeLockableViewPager(context: Context, attrs: AttributeSet?) : ViewPager
         }
     }
 
-    fun setSwipePagingEnabled(swipeEnabled: Boolean) {
-        this.swipeEnabled = swipeEnabled
-    }
 }

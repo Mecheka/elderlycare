@@ -39,8 +39,6 @@ class ProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityProfileBinding
     private val compositeDisposable = CompositeDisposable()
     private val EDIT_PROFILE_CODE = 301
-    private val GALLERY_CODE = 302
-    private val CAMERA_CODE = 303
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

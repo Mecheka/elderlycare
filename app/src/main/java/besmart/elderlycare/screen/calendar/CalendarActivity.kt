@@ -1,7 +1,6 @@
 package besmart.elderlycare.screen.calendar
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,8 +54,8 @@ class CalendarActivity : AppCompatActivity(), OnDateSelectedListener {
 
     private fun randomSchedule(): MutableList<List<Schedule>> {
         val randomListSize = Random.nextInt(1, 10)
-        return MutableList<List<Schedule>>(32){
-            List<Schedule>(randomListSize){
+        return MutableList(32){
+            List(randomListSize){
                 Schedule.randomValue()
             }
         }

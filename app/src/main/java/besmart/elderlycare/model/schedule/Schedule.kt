@@ -18,7 +18,7 @@ data class Schedule(
                 listOf("มีนัดกับผู้สูงอายุ นายก", "มีนัดกับผู้สูงอายุ นางข", "ประชุม").random()
             val day = Random.nextInt(0, 27)
             val hour = Random.nextInt(0, 23)
-            val colorList = listOf<Int>(
+            val colorList = listOf(
                 Color.RED,
                 Color.YELLOW,
                 Color.BLUE,

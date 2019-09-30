@@ -9,10 +9,10 @@ import android.view.MotionEvent
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.min
 
 internal enum class ButtonsState {
     GONE,
-    LEFT_VISIBLE,
     RIGHT_VISIBLE
 }
 
@@ -31,7 +31,7 @@ internal class SwipeController(private val buttonsActions: SwipeControllerAction
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return ItemTouchHelper.Callback.makeMovementFlags(0, LEFT or RIGHT)
+        return makeMovementFlags(0, LEFT or RIGHT)
     }
 
     override fun onMove(
@@ -66,7 +66,7 @@ internal class SwipeController(private val buttonsActions: SwipeControllerAction
         var dX = dX
         if (actionState == ACTION_STATE_SWIPE) {
             if (buttonShowedState != ButtonsState.GONE) {
-                if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) dX = Math.min(dX, -buttonWidth)
+                if (buttonShowedState == ButtonsState.RIGHT_VISIBLE) dX = min(dX, -buttonWidth)
                 super.onChildDraw(
                     c,
                     recyclerView,

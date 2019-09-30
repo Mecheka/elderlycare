@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import besmart.elderlycare.R
@@ -20,7 +19,6 @@ import besmart.elderlycare.screen.editprofile.EditProfileActivity
 import besmart.elderlycare.screen.evaluation.EvaluationActivity
 import besmart.elderlycare.screen.history.HistoryActivity
 import besmart.elderlycare.screen.sugar.SugarActivity
-import besmart.elderlycare.screen.vaccine.VaccineActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.util.Constance
 import besmart.elderlycare.util.loadImageUrlCircle

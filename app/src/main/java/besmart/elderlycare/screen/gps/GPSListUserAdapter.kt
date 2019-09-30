@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import besmart.elderlycare.databinding.ItemListUserBinding
 import besmart.elderlycare.model.profile.ProfileResponce
 import besmart.elderlycare.util.Constance
-import besmart.elderlycare.util.loadImageUrl
 import besmart.elderlycare.util.loadImageUrlCircle
 
 class GPSListUserAdapter(private val list: List<ProfileResponce>) :

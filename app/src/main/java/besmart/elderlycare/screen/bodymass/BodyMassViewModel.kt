@@ -32,7 +32,6 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
     val height = ObservableField<String>()
     val bmi = ObservableField<String>()
     val weigthResult = ObservableField<String>()
-    private val entryList = mutableListOf<Entry>()
     var history = mutableListOf<BodyMassResponce>()
 
 
@@ -95,9 +94,4 @@ class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewMo
         )
     }
 
-    private fun mapListToEntry(
-        index: Int, bodyMassResponce: BodyMassResponce
-    ): Entry {
-        return Entry(index.toFloat(), bodyMassResponce.bMI?.toFloat()!!)
-    }
 }
