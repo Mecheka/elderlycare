@@ -46,11 +46,11 @@ android {
     productFlavors {
         development {
             dimension "api"
-            buildConfigField 'String', 'BASE_URL', '\"http://157.230.43.94:80\"'
+            buildConfigField 'String', 'BASE_URL', '\"http://178.128.30.228:80\"'
         }
         production {
             dimension "api"
-            buildConfigField 'String', 'BASE_URL', '\"http://178.128.30.228:80\"'
+            buildConfigField 'String', 'BASE_URL', '\"http://157.230.43.94:80\"'
         }
     }
 
