@@ -7,7 +7,7 @@
     <!-- form register -->
     <string name="passportId">เลขบัตรประชาชน</string>
     <string name="orsomoId">รหัสประจำตัว อสม.</string>
-    <string name="healthId">รหัสประจำตัวเจ้าหน้าที่สาธารณะสุข</string>
+    <string name="healthId">รหัสประจำตัวเจ้าหน้าที่สาธารณสุข</string>
     <string name="password">รหัสผ่าน</string>
     <string name="name">ชื่อ</string>
     <string name="lastName">นามสกุล</string>
@@ -18,7 +18,7 @@
 
     <!-- Staff -->
     <string name="orsomo">อสม.</string>
-    <string name="health">สาธารณะสุข</string>
+    <string name="health">สาธารณสุข</string>
     <string name="public_health">รพ.สต</string>
     <string name="person">ประชาชนทั่วไป</string>
     <string name="person_two">ประชาชน</string>
@@ -90,7 +90,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_manual">คู่มือใช้งาน</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="gender">
         <item>ชาย</item>
         <item>หญิง</item>
