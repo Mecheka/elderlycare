@@ -8,7 +8,6 @@ import besmart.elderlycare.repository.BodyMassRepository
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
-import com.github.mikephil.charting.data.Entry
 
 class BodyMassViewModel(private val repository: BodyMassRepository) : BaseViewModel() {
 

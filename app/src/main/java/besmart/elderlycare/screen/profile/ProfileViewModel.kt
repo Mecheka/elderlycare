@@ -21,7 +21,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : BaseViewMode
     val gender = ObservableField<String>()
     val birthday = ObservableField<String>()
     val address = ObservableField<String>()
-    val imagePath = ObservableField<String>()
+    private val imagePath = ObservableField<String>()
 
     lateinit var profile: ProfileResponce
 

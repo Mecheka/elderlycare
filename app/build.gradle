@@ -68,7 +68,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
+    implementation 'com.google.android.material:material:1.1.0-beta01'
     // Cardview
     implementation 'androidx.cardview:cardview:1.0.0'
     // ViewModel
@@ -88,7 +88,7 @@ dependencies {
     implementation 'org.koin:koin-android-scope:2.0.0-rc-2'
     implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
 
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta04'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta05'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     // Thai date piker
     implementation 'com.layer-net:thai-datetimepicker:1.0.3'
@@ -99,12 +99,12 @@ dependencies {
     // Material Calendar
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     // ktx
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha05'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-beta01'
     // Circle image view
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     // Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     // Month and Year Dialog
