@@ -30,13 +30,14 @@ class AddBodyMassActivity : BaseActivity(), DatePickerDialog.OnDateSetListener,
     }
 
     private val viewModel: AddBodyMassViewModel by viewModel()
-    private lateinit var profile: ProfileResponce
+    private val profile: ProfileResponce by lazy {
+        intent.getParcelableExtra(PROFILE) as ProfileResponce
+    }
     private lateinit var dateLocale: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_body_mass)
-        profile = intent.getParcelableExtra(PROFILE)
         initInstance()
         observeViewModel()
     }

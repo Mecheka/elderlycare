@@ -1,5 +1,6 @@
 package besmart.elderlycare.util
 
+import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
@@ -18,6 +19,7 @@ class FileManager {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     fun getPath(context: Context, uri: Uri): String? {
 
         // check here to KITKAT or new version

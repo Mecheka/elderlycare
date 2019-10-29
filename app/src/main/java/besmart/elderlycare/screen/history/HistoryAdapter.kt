@@ -8,7 +8,7 @@ import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ItemElderlyHistoryBinding
 import besmart.elderlycare.model.history.HistoryResponce
 import besmart.elderlycare.util.SimpleOnItemClick
-import besmart.elderlycare.util.getStringByItem
+import besmart.elderlycare.util.setStringRes
 import besmart.elderlycare.util.loadImageResource
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,13 +57,13 @@ class HistoryAdapter(
         private fun setTextByType(history: HistoryResponce) {
             when (history.typeID) {
                 1 -> {
-                    binding.textTitle.getStringByItem(R.string.menu_body_mass)
+                    binding.textTitle.setStringRes(R.string.menu_body_mass)
                 }
                 2 -> {
-                    binding.textTitle.getStringByItem(R.string.menu_pressure)
+                    binding.textTitle.setStringRes(R.string.menu_pressure)
                 }
                 3 -> {
-                    binding.textTitle.getStringByItem(R.string.menu_sugar)
+                    binding.textTitle.setStringRes(R.string.menu_sugar)
                 }
             }
         }

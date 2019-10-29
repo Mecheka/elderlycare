@@ -20,7 +20,6 @@ import besmart.elderlycare.screen.notification.NotificationActivity
 import besmart.elderlycare.screen.profile.ProfileActivity
 import besmart.elderlycare.screen.splach.SplachScreenActivity
 import besmart.elderlycare.util.Constance
-import com.crashlytics.android.Crashlytics
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_select_user_type.toolbar
@@ -133,7 +132,6 @@ class MainActivity : AppCompatActivity(), MainMenuAdapter.OnMenuItemClick {
     }
 
     fun onLogoutClick(view: View) {
-        Crashlytics.getInstance().crash()
         Hawk.deleteAll()
         Intent().apply {
             this.setClass(this@MainActivity, SplachScreenActivity::class.java)

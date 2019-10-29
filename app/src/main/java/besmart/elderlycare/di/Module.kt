@@ -33,19 +33,15 @@ import besmart.elderlycare.screen.sugarhistory.SugarHistoryViewModel
 import besmart.elderlycare.screen.villagehealthvoluntor.VillageHealthVolunteerViewModel
 import besmart.elderlycare.service.client.NetworkClientDevman
 import besmart.elderlycare.service.client.NetworkClientWithAuth
-import besmart.elderlycare.service.client.NetworkClientWithOutAuth
 import besmart.elderlycare.service.common.CommonDevman
 import besmart.elderlycare.service.common.CommonWithAuth
-import besmart.elderlycare.service.common.CommonWithOutAuth
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val networkModule = module {
     single { NetworkClientWithAuth(androidContext()) }
-    single { NetworkClientWithOutAuth(androidContext()) }
     single { NetworkClientDevman(androidContext()) }
-    single { CommonWithOutAuth(get()) }
     single { CommonWithAuth(get()) }
     single { CommonDevman(get()) }
 }

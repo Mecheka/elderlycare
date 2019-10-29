@@ -13,8 +13,8 @@ import besmart.elderlycare.R
 import besmart.elderlycare.databinding.ActivityBodyMassBinding
 import besmart.elderlycare.model.bodymass.BodyMassResponce
 import besmart.elderlycare.model.profile.ProfileResponce
-import besmart.elderlycare.screen.bodymassadd.AddBodyMassActivity
 import besmart.elderlycare.screen.base.BaseActivity
+import besmart.elderlycare.screen.bodymassadd.AddBodyMassActivity
 import besmart.elderlycare.screen.bodymasshistory.BodyMassHistoryActivity
 import besmart.elderlycare.util.BaseDialog
 import besmart.elderlycare.witget.MonthYearPickerDialog
@@ -43,7 +43,7 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
 
     private val viewModel: BodyMassViewModel by viewModel()
     private lateinit var binding: ActivityBodyMassBinding
-    private lateinit var profile: ProfileResponce
+    private var profile: ProfileResponce? = null
     private lateinit var lineDataSet: LineDataSet
     private val calendar = Calendar.getInstance(Locale("TH"))
     private val ADD_BODY_MASS_CODE = 101
@@ -65,8 +65,8 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            viewModel.getBodymassHistory(profile.cardID, currentYear, currentMonth)
-            viewModel.getBodymassLastIndex(profile.cardID!!)
+            viewModel.getBodymassHistory(profile?.cardID, currentYear, currentMonth)
+            viewModel.getBodymassLastIndex(profile?.cardID!!)
         }
     }
 
@@ -126,13 +126,13 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
             binding.textResult.setTextColor(getResultColorByBMI(it.bMI!!))
         })
 
-        viewModel.getBodymassLastIndex(profile.cardID)
+        viewModel.getBodymassLastIndex(profile?.cardID)
 
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
         currentYear = year.toString()
         currentMonth = month.toString()
-        viewModel.getBodymassHistory(profile.cardID, year.toString(), month.toString())
+        viewModel.getBodymassHistory(profile?.cardID, year.toString(), month.toString())
     }
 
     private fun setData(list: List<BodyMassResponce>) {
@@ -278,6 +278,6 @@ class BodyMassActivity : BaseActivity(), OnChartValueSelectedListener,
         currentMonth = month.toString()
         currentYear = year.toString()
         binding.editDate.setText(output)
-        viewModel.getBodymassHistory(profile.cardID, (year - 543).toString(), month.toString())
+        viewModel.getBodymassHistory(profile?.cardID, (year - 543).toString(), month.toString())
     }
 }

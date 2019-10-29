@@ -95,8 +95,8 @@ class AddMyElderlyActivity : BaseActivity(), OnSelectItemListenner {
         viewModel.getAllProfile(selectType)
     }
 
-    override fun onSelect(profile: ProfileResponce) {
-        viewModel.addElderlty(profile)
+    override fun onSelect(profileResponce: ProfileResponce) {
+        viewModel.addElderlty(profileResponce)
     }
 
     override fun onError() {

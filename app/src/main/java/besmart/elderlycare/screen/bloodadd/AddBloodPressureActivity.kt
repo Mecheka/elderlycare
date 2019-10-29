@@ -31,7 +31,7 @@ class AddBloodPressureActivity : BaseActivity(), DatePickerDialog.OnDateSetListe
 
     private lateinit var binding: ActivityAddBloodPressureBinding
     private val viewModel: AddBloodPressureViewModel by viewModel()
-    private lateinit var profile: ProfileResponce
+    private var profile: ProfileResponce? = null
     private lateinit var dateLocale: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +71,9 @@ class AddBloodPressureActivity : BaseActivity(), DatePickerDialog.OnDateSetListe
         }
 
         binding.btnAddEvaluation.setOnClickListener {
-            viewModel.onAddEvaluation(profile)
+            profile?.let {
+                viewModel.onAddEvaluation(it)
+            }
         }
         binding.editSys.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

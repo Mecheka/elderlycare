@@ -80,7 +80,7 @@ class ProfileActivity : BaseActivity() {
                     override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                         val item = listOf("Gallery", "Camera")
                         MaterialDialog(this@ProfileActivity).show {
-                            listItems(items = item) { _, index, text ->
+                            listItems(items = item) { _, _, text ->
                                 if (text == "Gallery") {
                                     applyImage(Sources.GALLERY)
                                 } else {

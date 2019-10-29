@@ -20,9 +20,9 @@ class MonthYearPickerDialog : DialogFragment() {
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity!!)
+        val builder = AlertDialog.Builder(requireActivity())
         // Get the layout inflater
-        val inflater = activity!!.layoutInflater
+        val inflater = requireActivity().layoutInflater
 
         val cal = Calendar.getInstance()
 
@@ -41,7 +41,7 @@ class MonthYearPickerDialog : DialogFragment() {
 
         builder.setView(dialog)
             // Add action buttons
-            .setPositiveButton("OK") { dialog, id ->
+            .setPositiveButton("OK") { _, _ ->
                 listener!!.onDateSet(
                     null,
                     yearPicker.value,
@@ -49,7 +49,7 @@ class MonthYearPickerDialog : DialogFragment() {
                     0
                 )
             }
-            .setNegativeButton("Cancel") { dialog, id -> this@MonthYearPickerDialog.dialog!!.cancel() }
+            .setNegativeButton("Cancel") { _, _ -> this@MonthYearPickerDialog.dialog?.cancel() }
         return builder.create()
     }
 

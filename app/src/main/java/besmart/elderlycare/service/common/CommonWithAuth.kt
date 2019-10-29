@@ -5,6 +5,9 @@ import besmart.elderlycare.service.client.NetworkClientWithAuth
 
 class CommonWithAuth constructor(private val networkClient: NetworkClientWithAuth) {
 
+    fun getAuthService(): AuthService = networkClient.create().create(
+        AuthService::class.java)
+
     fun getElderlyService(): ElderlyService = networkClient.create().create(
         ElderlyService::class.java)
 

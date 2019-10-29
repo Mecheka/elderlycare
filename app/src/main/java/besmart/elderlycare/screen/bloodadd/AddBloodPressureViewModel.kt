@@ -39,7 +39,9 @@ class AddBloodPressureViewModel(private val repository: BloodPresureRepository) 
             val calendar = Calendar.getInstance()
             val inputDateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale("TH"))
             val outputDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            calendar.time = inputDateFormat.parse(dateInput)
+            inputDateFormat.parse(dateInput)?.let {
+                calendar.time = it
+            }
             calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 543)
             val dateBody = outputDateFormat.format(calendar.time)
             val body = BloodPressuresRequest(

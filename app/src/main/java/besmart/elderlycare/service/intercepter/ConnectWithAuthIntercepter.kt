@@ -16,10 +16,15 @@ class ConnectWithAuthIntercepter(private val context: Context) : Interceptor {
         if (!isOnline()) throw NoInternetException()
         val token = Hawk.get(Constance.TOKEN, LoginResponce())
         val original = chain.request()
-        val request = original.newBuilder()
-            .addHeader("Authorization", "Bearer " + token.string)
-            .method(original.method(), original.body())
-            .build()
+        val request = token?.string?.let {
+            return@let original.newBuilder()
+                .addHeader("Authorization", "Bearer $it")
+                .method(original.method(), original.body())
+                .build()
+        }?:run {
+            return@run original
+        }
+
         return chain.proceed(request)
     }
 

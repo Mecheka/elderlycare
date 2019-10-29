@@ -11,7 +11,6 @@ import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.regex.Pattern
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class EditProfileViewModel(private val repository: ProfileRepository) : BaseViewModel() {
@@ -113,7 +112,7 @@ class EditProfileViewModel(private val repository: ProfileRepository) : BaseView
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun validateField(): Boolean {
-        val numberFormat = Pattern.compile("([^0-9]+)")
+
         if (cardId.get().isNullOrEmpty()) {
             _loadingLiveEvent.sendAction(false)
             _errorLiveEvent.sendAction("Please enter your card id")

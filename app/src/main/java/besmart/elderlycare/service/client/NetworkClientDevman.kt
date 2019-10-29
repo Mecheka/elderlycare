@@ -1,6 +1,7 @@
 package besmart.elderlycare.service.client
 
 import android.content.Context
+import besmart.elderlycare.BuildConfig
 import besmart.elderlycare.service.intercepter.ConnectIntercepter
 import besmart.elderlycare.util.Constance
 import com.google.gson.GsonBuilder
@@ -23,7 +24,8 @@ class NetworkClientDevman(private val mContext: Context) {
         val connectIntercepter =
             ConnectIntercepter(mContext)
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
+        logging.level =
+            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
         val httpClient = OkHttpClient.Builder()
             .cache(cache)

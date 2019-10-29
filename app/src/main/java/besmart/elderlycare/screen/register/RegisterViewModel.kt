@@ -8,8 +8,6 @@ import besmart.elderlycare.screen.SelectType
 import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.HandingNetworkError
-import java.util.regex.Pattern
-
 
 class RegisterViewModel constructor(private val repository: RegisterRepository) : BaseViewModel() {
 
@@ -73,10 +71,11 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
                 )
             }
 
-            addDisposable(repository.register(request).subscribe({ responce ->
+            addDisposable(repository.register(request).subscribe({
                 _loadingLiveEvent.sendAction(false)
                 _successLiveEvent.sendAction(true)
             }, { e ->
+                _loadingLiveEvent.sendAction(false)
                 _errorLiveEvent.sendAction(HandingNetworkError.handingError(e))
             }))
         }
@@ -100,7 +99,6 @@ class RegisterViewModel constructor(private val repository: RegisterRepository) 
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun validateField(): Boolean {
-        val numberFormat = Pattern.compile("([^0-9]+)")
         if (cardId.get().isNullOrEmpty()) {
             _loadingLiveEvent.sendAction(false)
             _errorLiveEvent.sendAction("Please enter your card id")
