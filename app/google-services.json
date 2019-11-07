@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "756600469524",
-    "firebase_url": "https://elderlycare-ad9e1.firebaseio.com",
-    "project_id": "elderlycare-ad9e1",
-    "storage_bucket": "elderlycare-ad9e1.appspot.com"
+    "project_number": "108388722755",
+    "firebase_url": "https://elderlycare-dev.firebaseio.com",
+    "project_id": "elderlycare-dev",
+    "storage_bucket": "elderlycare-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:756600469524:android:f71e956a39343014",
+        "mobilesdk_app_id": "1:108388722755:android:9063ad830c7730e234ccf6",
         "android_client_info": {
           "package_name": "besmart.elderlycare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "756600469524-q193akn09i83co146vfsm1o5m6g8moga.apps.googleusercontent.com",
+          "client_id": "108388722755-pu9q97qe55j7cp33pi89dv1aqo87p40f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFuZrDsalgMsS47FydXdFgxnZylhPfz9A"
+          "current_key": "AIzaSyAHpT_N7EcW4sSLpKlHdvjKHFoY4BZakvU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "756600469524-q193akn09i83co146vfsm1o5m6g8moga.apps.googleusercontent.com",
+              "client_id": "108388722755-pu9q97qe55j7cp33pi89dv1aqo87p40f.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "756600469524-rgirq44e0f73a3m55q32ijqc3ra7ccb3.apps.googleusercontent.com",
+              "client_id": "108388722755-o5f2qofip46t2ft3obll5stgbov5d31o.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "besmart.elderlycare"
+                "bundle_id": "besmart.elderlycare.dev"
               }
             }
           ]

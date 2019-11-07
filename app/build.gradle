@@ -46,7 +46,7 @@ android {
     productFlavors {
         development {
             dimension "api"
-            buildConfigField 'String', 'BASE_URL', '\"http://178.128.30.228:80\"'
+            buildConfigField 'String', 'BASE_URL', '\"http://67.205.191.107\"'
         }
         production {
             dimension "api"

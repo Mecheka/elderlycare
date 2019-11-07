@@ -45,6 +45,7 @@ class LoginViewModel constructor(
     private fun login() {
         val typeId = getTypeId()
         val username = getUserNameByType()
+        val getPassword  = password.get()!!
         val authToken = Credentials.basic(username, password.get()!!)
 
         addDisposable(loginRepo.login(typeId, authToken).subscribe({ responce ->

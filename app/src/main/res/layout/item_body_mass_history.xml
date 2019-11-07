@@ -58,14 +58,18 @@
                         style="@style/RoboTextStyle.title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:textColor="@android:color/white"
-                        tools:text="28.0" />
+                        tools:text="28.00000" />
 
                     <TextView
                         style="@style/RoboTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="กม./ม.^2"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:textColor="@android:color/white" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
