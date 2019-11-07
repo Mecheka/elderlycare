@@ -1,5 +1,6 @@
 package besmart.elderlycare.service
 
+import besmart.elderlycare.model.login.FcmTokenRequest
 import besmart.elderlycare.model.login.LoginResponce
 import besmart.elderlycare.model.register.RegisterRequest
 import io.reactivex.Single
@@ -18,4 +19,9 @@ interface AuthService {
         @Header("Authorization") authToken: String,
         @Field("typeID") typeID: Int
     ): Single<Response<LoginResponce>>
+
+    @POST("/api/v1.0/deviceTokens")
+    fun saveToken(
+        @Body request: FcmTokenRequest
+    ): Single<Response<ResponseBody>>
 }

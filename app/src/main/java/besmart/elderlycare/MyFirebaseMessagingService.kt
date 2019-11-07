@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -14,6 +15,13 @@ import com.google.firebase.messaging.RemoteMessage
 
 @SuppressLint("Registered")
 class MyFirebaseMessagingService : FirebaseMessagingService() {
+
+    override fun onNewToken(token: String) {
+
+        Log.i("Refresh token", token)
+
+
+    }
 
     override fun onMessageReceived(remote: RemoteMessage) {
         super.onMessageReceived(remote)

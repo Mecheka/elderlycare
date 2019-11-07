@@ -9,5 +9,6 @@ class Constance{
         const val DEVMAN_URL = "http://devmanapi.com/2019/doolare/"
         const val USER = "user"
         const val LOGIN_TYPE = "login_type"
+        const val FCM_TOKEN = "fcmToken"
     }
 }

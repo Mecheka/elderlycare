@@ -10,6 +10,7 @@ import besmart.elderlycare.util.ActionLiveData
 import besmart.elderlycare.util.BaseViewModel
 import besmart.elderlycare.util.Constance
 import besmart.elderlycare.util.HandingNetworkError
+import com.google.firebase.iid.FirebaseInstanceId
 import com.orhanobut.hawk.Hawk
 import okhttp3.Credentials
 
@@ -53,6 +54,20 @@ class LoginViewModel constructor(
             if (responce.isSuccessful) {
                 responce.body()?.let {
                     Hawk.put(Constance.TOKEN, it)
+
+                    FirebaseInstanceId.getInstance().instanceId
+                        .addOnCompleteListener { task ->
+
+                            if (!task.isSuccessful) {
+                                _errorLiveEvent.sendAction(task.exception?.message!!)
+                                return@addOnCompleteListener
+                            }
+
+                            task.result?.token?.let { token ->
+                                Hawk.put(Constance.FCM_TOKEN, token)
+                                onSaveFcmToken(it.id!!, token)
+                            }
+                        }
                     getProfile(it)
                 }
             } else {
@@ -70,7 +85,6 @@ class LoginViewModel constructor(
             profileRepo.getProfileByUserId(user.userID.toString()).subscribe({ responce ->
                 _loadingLiveEvent.sendAction(false)
                 if (responce.isSuccessful) {
-                    _successLiveEvent.sendAction(true)
                     responce.body()?.let {
                         Hawk.put(Constance.USER, it)
                     }
@@ -85,6 +99,18 @@ class LoginViewModel constructor(
                 _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
             })
         )
+    }
+
+    private fun onSaveFcmToken(id: Int, token: String) {
+
+        addDisposable(loginRepo.saveFcmToken(id, token).subscribe({ response ->
+            if (response.isSuccessful) {
+                _successLiveEvent.sendAction(true)
+            }
+        }, { error ->
+            _loadingLiveEvent.sendAction(false)
+            _errorLiveEvent.sendAction(HandingNetworkError.handingError(error))
+        }))
     }
 
     private fun getTypeId(): Int {
