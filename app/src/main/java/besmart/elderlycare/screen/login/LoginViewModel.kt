@@ -106,6 +106,11 @@ class LoginViewModel constructor(
         addDisposable(loginRepo.saveFcmToken(id, token).subscribe({ response ->
             if (response.isSuccessful) {
                 _successLiveEvent.sendAction(true)
+            }else {
+                val errorResponse = response.errorBody()
+                errorResponse?.let {
+                    _errorLiveEvent.sendAction(HandingNetworkError.getErrorMessage(it))
+                }
             }
         }, { error ->
             _loadingLiveEvent.sendAction(false)

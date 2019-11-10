@@ -8,5 +8,5 @@ data class FcmTokenRequest(
     @SerializedName("userID")
     val userID: Int,
     @SerializedName("platformID")
-    val platformID: String = "2"
+    val platformID: Int = 2
 )

@@ -18,7 +18,7 @@ class LoginRepository constructor(private val service: CommonWithAuth){
     }
 
     fun saveFcmToken(userId: Int, token: String): Single<Response<ResponseBody>> {
-        val request = FcmTokenRequest(token, userId.toInt())
+        val request = FcmTokenRequest(token, userId)
         return service.getAuthService().saveToken(request)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
