@@ -42,18 +42,6 @@ android {
         experimental = true
     }
 
-    flavorDimensions "api"
-    productFlavors {
-        development {
-            dimension "api"
-            buildConfigField 'String', 'BASE_URL', '\"http://67.205.191.107\"'
-        }
-        production {
-            dimension "api"
-            buildConfigField 'String', 'BASE_URL', '\"http://157.230.43.94:80\"'
-        }
-    }
-
 }
 
 dependencies {
